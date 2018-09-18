@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1"
+    android:clipChildren="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".models.comic.ComicShelfActivity">
+
+    <com.hugh.teatime.view.TitlebarView
+        android:id="@+id/tbv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightBarType="IB_ADD"
+        app:titleName="@string/title_comic_shelf" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_cs_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="40dp"
+        android:clipChildren="false" />
+
+</LinearLayout>

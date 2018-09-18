@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1"
+    android:fitsSystemWindows="true"
+    tools:context="com.hugh.teatime.models.home.LoginActivity">
+
+    <com.hugh.teatime.view.TitlebarView
+        android:id="@+id/tbv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:leftBarType="IB_EXIT"
+        app:rightBarType="IB_RESET_PSW"
+        app:titleName="@string/title_login" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_login_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/et_psw_1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:background="@color/colorGray"
+                android:enabled="true"
+                android:gravity="center"
+                android:hint="@string/login_psw_hint1"
+                android:inputType="numberPassword"
+                android:maxEms="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_psw_2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:background="@color/colorGray"
+                android:enabled="false"
+                android:gravity="center"
+                android:hint="@string/login_psw_hint2"
+                android:inputType="numberPassword"
+                android:maxEms="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_psw_3"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:background="@color/colorGray"
+                android:enabled="false"
+                android:gravity="center"
+                android:hint="@string/login_psw_hint3"
+                android:inputType="numberPassword"
+                android:maxEms="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_psw_4"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:background="@color/colorGray"
+                android:enabled="false"
+                android:gravity="center"
+                android:hint="@string/login_psw_hint4"
+                android:inputType="numberPassword"
+                android:maxEms="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

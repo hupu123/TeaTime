@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_gasoline_height"
+        android:layout_marginBottom="@dimen/item_margin_tb_width"
+        android:layout_marginEnd="@dimen/item_margin_lr_width"
+        android:layout_marginStart="@dimen/item_margin_lr_width"
+        android:layout_marginTop="@dimen/item_margin_tb_width"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:id="@+id/ll_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/item_click_bg1_selector"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/item_margin_lr_width">
+
+            <TextView
+                android:id="@+id/tv_total_price"
+                android:layout_width="@dimen/gasoline_item_height"
+                android:layout_height="@dimen/gasoline_item_height"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textSize="@dimen/txt_size_1"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/item_margin_lr_width"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_fuel_consumption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_mileage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_car_no"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/filter_tag_margin"
+                android:background="@drawable/filter_tag_click_selector"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/txt_size_2"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_model"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/filter_tag_margin"
+                android:background="@drawable/filter_tag_click_selector"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/txt_size_2"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_invoiced"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="@dimen/filter_tag_margin"
+                android:layout_marginTop="@dimen/filter_tag_margin"
+                android:background="@drawable/filter_tag_click_selector"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/gasoline_invoiced"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/txt_size_2"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

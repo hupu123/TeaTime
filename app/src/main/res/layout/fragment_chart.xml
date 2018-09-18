@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_chart_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/content_description"
+        android:scaleType="centerInside"
+        android:src="@mipmap/icon_no_data"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/sv_chart_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorGray_1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/io_total_chart"
+                    android:textColor="@color/colorGray"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <lecho.lib.hellocharts.view.ColumnChartView
+                    android:id="@+id/ccv_total_in_out"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorWhite"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/expend_type_chart"
+                    android:textColor="@color/colorGray"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <lecho.lib.hellocharts.view.PieChartView
+                    android:id="@+id/pcv_out_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorWhite"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/income_type_chart"
+                    android:textColor="@color/colorGray"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <lecho.lib.hellocharts.view.PieChartView
+                    android:id="@+id/pcv_in_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_month_trend_chart"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_click_bg_selector"
+                android:text="@string/month_trend_chart"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btn_year_trend_chart"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_click_bg_selector"
+                android:text="@string/year_trend_chart"
+                android:textColor="@color/colorWhite" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,50 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- item height -->
+    <dimen name="item_height">44dp</dimen>
+    <!-- comic list item height -->
+    <dimen name="item_comic_height">80dp</dimen>
+    <!-- home item height -->
+    <dimen name="item_home_height">80dp</dimen>
+    <!-- comic list item name size -->
+    <dimen name="txt_size_1">16sp</dimen>
+    <!-- comic list item progress size -->
+    <dimen name="txt_size_2">12sp</dimen>
+    <!-- invoiced txt size -->
+    <dimen name="txt_size_3">10sp</dimen>
+    <!-- icon size -->
+    <dimen name="icon_size">20dp</dimen>
+    <!-- check box size -->
+    <dimen name="cb_size">30dp</dimen>
+    <!-- divider height -->
+    <dimen name="divider_height">0.5dp</dimen>
+    <!-- bottom listview dialog height -->
+    <dimen name="high_item_height">200dp</dimen>
+    <!-- gasoline listview item height -->
+    <dimen name="gasoline_item_height">80dp</dimen>
+    <!-- listview item left and right margin width -->
+    <dimen name="item_margin_lr_width">10dp</dimen>
+    <!-- listview item top and bottom margin width -->
+    <dimen name="item_margin_tb_width">5dp</dimen>
+    <!-- page margin -->
+    <dimen name="page_margin">15dp</dimen>
+    <!-- txt key width -->
+    <dimen name="txt_key_width">80dp</dimen>
+    <!-- txt unit width -->
+    <dimen name="txt_unit_width">50dp</dimen>
+    <!-- divider width -->
+    <dimen name="margin_divider_width">1dp</dimen>
+    <!-- input_edit_padding -->
+    <dimen name="edit_padding">10dp</dimen>
+    <!-- illustration_size -->
+    <dimen name="illustration_size">10dp</dimen>
+    <!-- chart_height -->
+    <dimen name="chart_height">200dp</dimen>
+    <!-- item_gasoline_height -->
+    <dimen name="item_gasoline_height">110dp</dimen>
+    <!-- filter tag margin height -->
+    <dimen name="filter_tag_margin">5dp</dimen>
+</resources>

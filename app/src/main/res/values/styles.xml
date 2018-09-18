@@ -1,0 +1,79 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- 首页菜单按钮样式 -->
+    <style name="home_page_btn_style">
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/colorGreen_2</item>
+    </style>
+
+    <!-- 页面标题样式 -->
+    <style name="page_title_style">
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_marginStart">100dp</item>
+        <item name="android:layout_marginEnd">100dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <!-- 返回按钮样式 -->
+    <style name="btn_back_style">
+        <item name="android:drawableStart">@mipmap/icon_back</item>
+        <item name="android:text">返回</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:background">@drawable/btn_click_bg4_selector</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- 密码输入键盘按钮样式 -->
+    <style name="btn_s_keyboard_style">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:background">@drawable/btn_click_bg_selector</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_margin">1dp</item>
+    </style>
+
+    <style name="pb_progress_style">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/my_progressbar_drawable</item>
+        <!-- progress_horizontal -->
+        <item name="android:indeterminateDrawable">
+            @android:drawable/progress_indeterminate_horizontal
+        </item>
+        <item name="android:minHeight">20dip</item>
+        <item name="android:maxHeight">20dip</item>
+    </style>
+
+    <style name="status_bar_translucent_theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- 在Android 4.4之前的版本上运行，直接跟随系统主题 -->
+    </style>
+
+    <!-- 底部弹框样式 -->
+    <style name="bottom_dialog_style" parent="@style/Base.V7.Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!-- 底部弹框动画样式 -->
+    <style name="bottom_dialog_anim_style">
+        <item name="android:windowEnterAnimation">@anim/dialog_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_bottom_out</item>
+    </style>
+
+</resources>

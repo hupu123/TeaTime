@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".models.message.MsgHomeActivity">
+
+    <com.hugh.teatime.view.TitlebarView
+        android:id="@+id/tbv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleName="@string/title_msg_home" />
+
+    <RadioGroup
+        android:id="@+id/rg_top_select_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_msg_list"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="0.5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rb_bg_selected_selector1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/sms_list"
+            android:textColor="@drawable/rb_txt_selected_selector" />
+
+        <RadioButton
+            android:id="@+id/rb_msg_black_list"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="0.5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rb_bg_selected_selector1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/black_list"
+            android:textColor="@drawable/rb_txt_selected_selector" />
+    </RadioGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_msg_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

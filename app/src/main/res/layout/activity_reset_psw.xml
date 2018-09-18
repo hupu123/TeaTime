@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.hugh.teatime.models.home.ResetPswActivity">
+
+    <com.hugh.teatime.view.TitlebarView
+        android:id="@+id/tbv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleName="@string/title_reset_psw" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <EditText
+            android:id="@+id/et_reset_old_psw"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorGray"
+            android:hint="@string/origin_psw_hint"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:padding="10dp"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/et_reset_new_psw"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGray"
+            android:hint="@string/new_psw_hint"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:padding="10dp"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/et_reset_new_psw_again"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGray"
+            android:hint="@string/confirm_psw_hint"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:padding="10dp"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_reset_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_click_bg_selector"
+            android:text="@string/confirm_reset"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/tv_reset_tips"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical|end"
+            android:textColor="@color/colorGreen" />
+    </LinearLayout>
+
+</LinearLayout>

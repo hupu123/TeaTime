@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#353c66</color>
+    <color name="colorPrimaryDark">#060d38</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent_1">#fd9dbe</color>
+    <color name="colorAccent_2">#df759a</color>
+    <color name="colorGreen">#bb195b35</color>
+    <color name="colorGreen_1">#5a8f71</color>
+    <color name="colorGreen_2">#9113a33c</color>
+    <color name="colorGreen_3">#8db98d</color>
+    <color name="colorGreen_4">#818db98d</color>
+    <color name="colorWhite">#fff</color>
+    <color name="colorGray">#c6c6c6</color>
+    <color name="colorGray_1">#ddd</color>
+    <color name="colorGray_2">#717171</color>
+    <color name="colorPurple">#de61db</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorTBG">#3e000000</color>
+    <color name="colorBtnTBG">#3eb1b1b1</color>
+    <color name="readed_bg">#f5c0b9</color>
+    <color name="reading_bg">#cde9c5</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="colorChart_1">#33b5e5</color>
+    <color name="colorChart_2">#aa66cc</color>
+    <color name="colorChart_3">#99cc00</color>
+    <color name="colorChart_4">#ffbb33</color>
+    <color name="colorChart_5">#ff4444</color>
+
+    <color name="colorChart_t1">#8b33b5e5</color>
+    <color name="colorChart_t2">#8baa66cc</color>
+    <color name="colorChart_t3">#8b99cc00</color>
+    <color name="colorChart_t4">#8bffbb33</color>
+    <color name="colorChart_t5">#8bff4444</color>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1"
+    android:fitsSystemWindows="true"
+    tools:context=".models.bill.BillMonthTrendActivity">
+
+    <LinearLayout
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_bmt_back"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/btn_click_bg_selector"
+            android:text="@string/bill_back"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorGreen"
+            android:gravity="center"
+            android:text="@string/bill_trend_month"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_bmt_month_picker"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/btn_click_bg_selector"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:background="@color/colorWhite"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tv_bmt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGray"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <lecho.lib.hellocharts.view.LineChartView
+            android:id="@+id/lcv_bmt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlack"
+    android:fitsSystemWindows="true"
+    tools:context=".models.image.ImageDetailActivity">
+
+    <com.hugh.teatime.view.FileImageView
+        android:id="@+id/fiv_image_detail_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/content_description"
+        android:scaleType="centerInside" />
+
+    <LinearLayout
+        android:id="@+id/ll_img_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBtnTBG"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_img_rotate"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_click_bg2_selector"
+            android:text="@string/image_rotate"
+            android:textColor="@color/colorWhite" />
+
+        <Button
+            android:id="@+id/btn_img_biger"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_click_bg2_selector"
+            android:text="@string/image_biger"
+            android:textColor="@color/colorWhite" />
+
+        <Button
+            android:id="@+id/btn_img_smaller"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_click_bg2_selector"
+            android:text="@string/image_smaller"
+            android:textColor="@color/colorWhite" />
+
+    </LinearLayout>
+
+</RelativeLayout>

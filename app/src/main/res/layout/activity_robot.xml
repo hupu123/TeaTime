@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".models.robot.RobotActivity">
+
+    <com.hugh.teatime.view.TitlebarView
+        android:id="@+id/tbv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightBarType="IB_CLEAN"
+        app:titleName="@string/robot_name" />
+
+    <ListView
+        android:id="@+id/lv_chat_record"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorGray_1"
+        android:divider="@null"
+        android:stackFromBottom="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ib_input_type_switch"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_click_bg_selector"
+            android:contentDescription="@string/content_description"
+            android:src="@mipmap/icon_sound" />
+
+        <LinearLayout
+            android:id="@+id/ll_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <EditText
+                android:id="@+id/et_text_input"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorGray"
+                android:hint="@string/send_msg"
+                android:inputType="text"
+                android:padding="5dp"
+                android:singleLine="true" />
+
+            <ImageButton
+                android:id="@+id/ib_text_send"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_click_bg_selector"
+                android:contentDescription="@string/content_description"
+                android:src="@mipmap/icon_send" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_voice_input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:background="@drawable/btn_click_bg_selector"
+            android:text="@string/press_to_speak"
+            android:textColor="@color/colorWhite"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,275 @@
+<resources>
+    <!-- app -->
+    <string name="app_name">TeaTime</string>
+    <string name="content_description">image</string>
+    <string name="user_name">me</string>
+
+    <!-- global -->
+    <string name="delete">删除</string>
+    <string name="modify">修改</string>
+    <string name="back">返回</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="reset_progress">重置进度</string>
+    <string name="selecte_all">全选</string>
+    <string name="save">保存</string>
+    <string name="add">新建</string>
+    <string name="clean">清除</string>
+
+    <!-- toast string -->
+    <string name="toast_amount_not_null">金额不能为空</string>
+    <string name="toast_double_click_to_exit">再按一次返回键退出应用</string>
+    <string name="toast_no_more_data">没有更多记录</string>
+    <string name="toast_input_content">请输入内容</string>
+    <string name="toast_same_persion">是同一个人</string>
+    <string name="toast_different_persion">不是同一个人</string>
+    <string name="toast_filtrated_book">已过滤不支持文件格式的书籍和已添加的书籍</string>
+    <string name="toast_not_support_book">书籍为不支持的文件格式或已添加</string>
+    <string name="toast_set_new_psw_success">新密码设置成功</string>
+    <string name="toast_comic_no_more_data">已经没有了</string>
+    <string name="toast_comic_on_the_top">当前漫画已到顶，自动切换到上一本</string>
+    <string name="toast_comic_on_the_bottom">当前漫画已到底，自动切换到下一本</string>
+    <string name="toast_input_prefix">请输入【名称前缀】</string>
+    <string name="toast_select_folder">请选择【目标文件】</string>
+    <string name="toast_gasoline_amount_null">总金额不能为空</string>
+    <string name="toast_gasoline_mileage_null">总里程不能为空</string>
+    <string name="toast_gasoline_carno_null">车牌号不能为空</string>
+    <string name="toast_gasoline_save_success">保存成功</string>
+
+    <!-- dialog string -->
+    <string name="dialog_is_delete_bill">是否删除该账单？</string>
+    <string name="dialog_is_switch_book">要切换书籍吗？</string>
+    <string name="dialog_is_delete_book">是否删除《%1$s》？</string>
+    <string name="dialog_is_listen_background">是否在后台继续听书？</string>
+    <string name="dialog_is_import_path">确认导入【%1$s】？</string>
+    <string name="dialog_is_delete_record">确认删除该记录？</string>
+
+    <!-- *********************************** Activity ************************************** -->
+
+    <!-- activity_login2.xml -->
+    <string name="title_login2">登录</string>
+    <string name="psw_input_hint">请输入密码</string>
+    <string name="num_pad_1">1</string>
+    <string name="num_pad_2">2</string>
+    <string name="num_pad_3">3</string>
+    <string name="num_pad_4">4</string>
+    <string name="num_pad_5">5</string>
+    <string name="num_pad_6">6</string>
+    <string name="num_pad_7">7</string>
+    <string name="num_pad_8">8</string>
+    <string name="num_pad_9">9</string>
+    <string name="num_pad_0">0</string>
+    <string name="num_pad_delete">删除</string>
+    <string name="input_psw_to_login">输入密码进入%1$s</string>
+
+    <!-- activity_bill_detail.xml -->
+    <string name="title_bill_detail">账单详情</string>
+    <string name="bill_amount">金额:</string>
+    <string name="bill_type">类型:</string>
+    <string name="bill_date">日期:</string>
+    <string name="bill_comment">备注:</string>
+    <string name="bill_income_amount">+%1$f ¥</string>
+    <string name="bill_expend_amount">-%1$f ¥</string>
+    <string name="bill_date_value">%1$d-%2$d-%3$d</string>
+
+    <!-- activity_bill_home.xml -->
+    <string name="title_bill_home">账单列表</string>
+    <string name="month_name">%1$d月</string>
+    <string name="bill_list">账单列表</string>
+    <string name="bill_chart">统计图表</string>
+
+    <!-- activity_bill_month_trend.xml activity_bill_year_trend.xml -->
+    <string name="bill_back">返        回</string>
+    <string name="bill_trend_month">月        度        趋        势</string>
+    <string name="bill_trend_year">年        度        趋        势</string>
+    <string name="bill_month_chart_name">%1$d月收支走势图</string>
+    <string name="day_name">%1$d号</string>
+    <string name="bill_unit">金额(元)</string>
+    <string name="bill_year_chart_name">%1$d年度收支走势图</string>
+
+    <!-- activity_book_detail.xml -->
+    <string name="book_play">播放</string>
+    <string name="book_pause">暂停</string>
+    <string name="book_progress">进度</string>
+    <string name="book_night_mode">夜间模式</string>
+    <string name="book_day_mode">日间模式</string>
+    <string name="book_setting">设置</string>
+
+    <!-- activity_comic_shelf.xml -->
+    <string name="title_comic_shelf">本地漫画</string>
+    <string name="display_comic_read_progress">阅读进度：%1$d/%2$d</string>
+    <string name="display_unknown_name">未知名称</string>
+    <string name="display_unknown_progress">未知进度</string>
+    <string name="display_no_data">没有数据</string>
+
+    <!-- activity_face_detect.xml -->
+    <string name="title_face_detect">人脸识别</string>
+    <string name="detect_face">验证人脸</string>
+    <string name="btn2">btn_2</string>
+    <string name="btn3">btn_3</string>
+
+    <!-- activity_home.xml -->
+    <string name="model_book">听书</string>
+    <string name="model_face_detect">人脸识别</string>
+    <string name="model_robot">图灵机器人</string>
+    <string name="model_picture">看图</string>
+    <string name="model_bill">记账本</string>
+    <string name="model_sms">短信助手</string>
+    <string name="model_comic">看漫画</string>
+    <string name="model_tools">工具箱</string>
+    <string name="model_gasoline">加油管理</string>
+
+    <!-- activity_image_detail.xml -->
+    <string name="image_rotate">旋转</string>
+    <string name="image_biger">放大</string>
+    <string name="image_smaller">缩小</string>
+
+    <!-- activity_image_folder.xml -->
+    <string name="title_image_folder">本地图片</string>
+
+    <!-- activity_login.xml -->
+    <string name="title_login">登录</string>
+    <string name="login_psw_hint1">输</string>
+    <string name="login_psw_hint2">入</string>
+    <string name="login_psw_hint3">密</string>
+    <string name="login_psw_hint4">码</string>
+    <string name="login_input_init_psw">请输入初始密码</string>
+    <string name="login_input_psw_again">请再次输入密码</string>
+    <string name="login_input_psw_success">密码设置成功！输入密码登录</string>
+    <string name="login_input_psw_different">两次输入不一致，请重新输入！</string>
+    <string name="login_input_psw_wrong">密码错误，还剩%1$d次输入机会!</string>
+    <string name="login_reinput_time">%1$d分%2$d秒后可重新登陆</string>
+
+    <!-- activity_msg_home -->
+    <string name="title_msg_home">短信助手</string>
+    <string name="sms_list">短信列表</string>
+    <string name="black_list">黑名单</string>
+
+    <!-- activity_smsdetail.xml -->
+    <string name="add_to_blacklist">加入到黑名单</string>
+    <string name="remove_from_blacklist">从黑名单移除</string>
+    <string name="unknown_type">未知分类</string>
+
+    <!-- activity_read_book.xml -->
+    <string name="title_book">听书</string>
+
+    <!-- activity_record_bill.xml -->
+    <string name="title_record_bill">记账</string>
+    <string name="bill_record_io_type">收支 *</string>
+    <string name="bill_record_amount">金额 *</string>
+    <string name="bill_record_amount_hint">请输入金额</string>
+    <string name="bill_record_amount_unit">元</string>
+    <string name="bill_record_type">类别 *</string>
+    <string name="bill_record_date">日期 *</string>
+    <string name="bill_record_comment">备注</string>
+    <string name="bill_record_comment_hint">请输入附加信息（可选）</string>
+    <string name="bill_record_no_comment">无备注</string>
+    <string name="bill_record_select_date">选择时间</string>
+
+    <!-- activity_rename_files.xml -->
+    <string name="title_rename_files">文件批量重命名工具</string>
+    <string name="file_prefix">名称前缀</string>
+    <string name="file_prefix_hint">请输入名称前缀</string>
+    <string name="auto_ignore">自动忽略已格式化的文件</string>
+    <string name="file_select_hint">选择需要重命名的文件</string>
+    <string name="file_select">选择</string>
+    <string name="rename_files_done">完成</string>
+    <string name="rename_files_progress">进度：%1$d/%2$d（%3$d%）</string>
+
+    <!-- activity_reset_psw.xml -->
+    <string name="title_reset_psw">密码重置</string>
+    <string name="origin_psw_hint">原密码</string>
+    <string name="new_psw_hint">新密码</string>
+    <string name="confirm_psw_hint">再次输入新密码</string>
+    <string name="confirm_reset">确认修改</string>
+    <string name="tips_origin_psw_can_not_be_null">原始密码不能为空</string>
+    <string name="tips_new_psw_can_not_be_null">新密码不能为空</string>
+    <string name="tips_confirm_psw_can_not_be_null">确认新密码不能为空</string>
+    <string name="tips_input_psw_different">新密码两次输入不匹配</string>
+    <string name="tips_origin_psw_wrong">原始密码不正确</string>
+
+    <!-- activity_robot.xml -->
+    <string name="robot_name">teatime</string>
+    <string name="send_msg">发送消息</string>
+    <string name="press_to_speak">按住说话</string>
+
+    <!-- activity_tool_list.xml -->
+    <string name="title_tools">工具箱</string>
+    <string name="files_name_batch_processing_tool">文件批量重命名工具</string>
+    <string name="refresh_system_image_db_tool">刷新系统图库工具</string>
+
+    <!-- activity_gasoline_home.xml -->
+    <string name="title_gasoline">加油管理</string>
+    <string name="gasoline_total_price">%1$s￥</string>
+    <string name="gasoline_mileage">里程：%1$sKM</string>
+    <string name="gasoline_fuel_consumption">油耗：%1$s￥/KM</string>
+    <string name="gasoline_date">日期：%1$s</string>
+    <string name="gasoline_list_header">yyyy年</string>
+    <string name="gasoline_invoiced">已开票</string>
+
+    <!-- activity_add_gasoline_record.xml -->
+    <string name="title_add_record">添加记录</string>
+    <string name="gasoline_total_amount">金&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;额 *</string>
+    <string name="gasoline_total_mileage">里&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;程 *</string>
+    <string name="gasoline_total_quantity">数&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;量&#160;&#160;</string>
+    <string name="gasoline_type">汽油型号 *</string>
+    <string name="gasoline_pay_type">支付方式 *</string>
+    <string name="gasoline_car_no">车牌号码 *</string>
+    <string name="gasoline_record_date">日&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;期 *</string>
+    <string name="gasoline_record_comment">备&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;注&#160;&#160;</string>
+    <string name="gasoline_is_invoice">是否已开发票</string>
+    <string name="gasoline_amount_unit">元&#160;&#160;&#160;&#160;</string>
+    <string name="gasoline_mileage_unit">公里</string>
+    <string name="gasoline_quantity_unit">升&#160;&#160;&#160;&#160;</string>
+    <string name="gasoline_amount_hint">请输入总金额</string>
+    <string name="gasoline_mileage_hint">请输入总里程</string>
+    <string name="gasoline_quantity_hint">请输入加油数量</string>
+    <string name="gasoline_car_no_hint">请输入车牌号码</string>
+
+    <!-- activity_gasoline_detail.xml -->
+    <string name="title_gasoline_detail">记录详情</string>
+    <string name="gd_total_amount">总金额：%1$s￥</string>
+    <string name="gd_fuel_consumption">油耗：%1$s￥/KM</string>
+    <string name="gd_mileage">总里程：%1$sKM</string>
+    <string name="gd_price">油价：%1$s￥/L</string>
+    <string name="gd_quantity">数量：%1$sL</string>
+    <string name="gd_gasoline_type">汽油型号：%1$s</string>
+    <string name="gd_pay_type">支付方式：%1$s</string>
+    <string name="gd_date">日期：%1$s</string>
+    <string name="gd_car_no">车牌号：%1$s</string>
+    <string name="gd_have_invoiced">是否开票：已开票</string>
+    <string name="gd_havent_invoiced">是否开票：未开票</string>
+    <string name="gd_comment">备注：</string>
+    <string name="gd_open_chart">查看统计图表</string>
+
+    <!-- activity_gasoline_chart.xml -->
+    <string name="title_gasoline_chart">加油记录统计</string>
+    <string name="rb_line_chart">线图</string>
+    <string name="rb_bar_chart">条图</string>
+    <string name="rb_pie_chart">饼图</string>
+
+    <!-- *********************************** Fragment ************************************** -->
+
+    <!-- fragment_bill_list.xml -->
+    <string name="record_bill">记账</string>
+
+    <!-- fragment_chart.xml -->
+    <string name="io_total_chart">收支总额对比</string>
+    <string name="expend_type_chart">支出类型占比</string>
+    <string name="income_type_chart">收入类型占比</string>
+    <string name="month_trend_chart">月度趋势图</string>
+    <string name="year_trend_chart">年度趋势图</string>
+
+    <!-- fragment_gasoline_line.xml -->
+    <string name="line_price_chart_title">%1$d年加油支出统计</string>
+    <string name="line_unit_price_chart_title">%1$d年油价统计</string>
+    <string name="line_fuel_consumption_chart_title">%1$d年油耗统计</string>
+    <string name="line_chart_x_name">日期</string>
+
+    <!-- fragment_gasoline_pie.xml -->
+    <string name="pie_car_chart_title">%1$d年加油支出占比</string>
+    <string name="pie_invoice_chart_title">%1$d年开票占比</string>
+    <string name="have_invoiced">已开票</string>
+    <string name="have_not_invoiced">未开票</string>
+
+</resources>

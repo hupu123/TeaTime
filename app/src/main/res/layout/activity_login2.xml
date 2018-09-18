@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.hugh.teatime.models.home.Login2Activity">
+
+    <com.hugh.teatime.view.TitlebarView
+        android:id="@+id/tbv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:leftBarType="IB_EXIT"
+        app:rightBarType="IB_RESET_PSW"
+        app:titleName="@string/title_login2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
+
+            <TextView
+                android:id="@+id/tv_skb_msg"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:textColor="@color/colorGreen"
+                android:textSize="15sp"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/et_skb_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:background="@color/colorGray"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="@string/psw_input_hint"
+                android:inputType="numberPassword"
+                android:maxLength="4"
+                android:padding="10dp" />
+
+            <GridLayout
+                android:id="@+id/gl_keyboard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:columnCount="3"
+                android:rowCount="4">
+
+                <Button
+                    android:id="@+id/btn_skb_1"
+                    style="@style/btn_s_keyboard_style"
+                    android:text="@string/num_pad_1" />
+
+                <Button
+                    android:id="@+id/btn_skb_2"
+                    style="@style/btn_s_keyboard_style"
+                    android:text="@string/num_pad_2" />
+
+                <Button
+                    android:id="@+id/btn_skb_3"
+                    style="@style/btn_s_keyboard_style"
+                    android:text="@string/num_pad_3" />
+
+                <Button
+                    android:id="@+id/btn_skb_4"
+                    style="@style/btn_s_keyboard_style"
+                    android:text="@string/num_pad_4" />
+
+                <Button
+                    android:id="@+id/btn_skb_5"
+                    style="@style/btn_s_keyboard_style"
+                    android:text="@string/num_pad_5" />
+
+                <Button
+                    android:id="@+id/btn_skb_6"
+                    style="@style/btn_s_keyboard_style"
+                    android:text="@string/num_pad_6" />
+
+                <Button
+                    android:id="@+id/btn_skb_7"
+                    style="@style/btn_s_keyboard_style"
+                    android:text="@string/num_pad_7" />
+
+                <Button
+                    android:id="@+id/btn_skb_8"
+                    style="@style/btn_s_keyboard_style"
+                    android:text="@string/num_pad_8" />
+
+                <Button
+                    android:id="@+id/btn_skb_9"
+                    style="@style/btn_s_keyboard_style"
+                    android:text="@string/num_pad_9" />
+
+                <Button
+                    android:id="@+id/btn_skb_0"
+                    style="@style/btn_s_keyboard_style"
+                    android:layout_columnSpan="2"
+                    android:layout_gravity="fill"
+                    android:text="@string/num_pad_0" />
+
+                <Button
+                    android:id="@+id/btn_skb_backspace"
+                    style="@style/btn_s_keyboard_style"
+                    android:layout_columnSpan="1"
+                    android:text="@string/num_pad_delete" />
+            </GridLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

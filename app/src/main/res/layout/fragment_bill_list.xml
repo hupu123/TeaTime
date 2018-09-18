@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/lv_bill_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:scrollbars="none" />
+
+    <ImageView
+        android:id="@+id/iv_bill_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/content_description"
+        android:scaleType="centerInside"
+        android:src="@mipmap/icon_no_data"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_add_bill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_click_bg_selector"
+        android:drawableStart="@mipmap/icon_add"
+        android:paddingEnd="130dp"
+        android:paddingStart="130dp"
+        android:text="@string/record_bill"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+</LinearLayout>

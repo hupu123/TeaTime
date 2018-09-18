@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TitlebarView">
+        <attr name="titleName" format="string" />
+        <attr name="leftBarType">
+            <enum name="DEFAULT" value="0" />
+            <enum name="IB_EXIT" value="1" />
+            <enum name="HIDDEN" value="2" />
+        </attr>
+        <attr name="rightBarType">
+            <enum name="DEFAULT" value="0" />
+            <enum name="IB_ADD" value="1" />
+            <enum name="BTN_RIGHT" value="2" />
+            <enum name="IB_REFRESH" value="3" />
+            <enum name="IB_CLEAN" value="4" />
+            <enum name="IB_RESET_PSW" value="5" />
+        </attr>
+    </declare-styleable>
+</resources>

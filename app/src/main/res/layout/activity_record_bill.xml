@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".models.bill.RecordBillActivity">
+
+    <com.hugh.teatime.view.TitlebarView
+        android:id="@+id/tbv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleName="@string/title_record_bill" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/page_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/bill_record_io_type"
+                    android:textColor="@color/colorWhite" />
+
+                <Spinner
+                    android:id="@+id/s_rb_io"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/page_margin">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/bill_record_amount"
+                    android:textColor="@color/colorWhite" />
+
+                <EditText
+                    android:id="@+id/et_rb_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorWhite"
+                    android:hint="@string/bill_record_amount_hint"
+                    android:inputType="numberDecimal"
+                    android:maxLength="10"
+                    android:padding="@dimen/edit_padding"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="@dimen/item_height"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/bill_record_amount_unit"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/page_margin">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/bill_record_type"
+                    android:textColor="@color/colorWhite" />
+
+                <Spinner
+                    android:id="@+id/s_rb_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/page_margin">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/bill_record_date"
+                    android:textColor="@color/colorWhite" />
+
+                <Button
+                    android:id="@+id/btn_rb_date_picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/btn_click_bg_selector"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/high_item_height"
+                android:layout_marginTop="@dimen/page_margin">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/bill_record_comment"
+                    android:textColor="@color/colorWhite" />
+
+                <EditText
+                    android:id="@+id/et_rb_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite"
+                    android:gravity="start|top"
+                    android:hint="@string/bill_record_comment_hint"
+                    android:inputType="textMultiLine"
+                    android:padding="@dimen/edit_padding"
+                    android:singleLine="false" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_rb_submit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/page_margin"
+                android:background="@drawable/btn_click_bg_selector"
+                android:text="@string/confirm"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

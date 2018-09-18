@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/page_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tv_price_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <lecho.lib.hellocharts.view.LineChartView
+                    android:id="@+id/lcv_gasoline_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/chart_height" />
+
+                <com.hugh.teatime.view.NoScrollGridView
+                    android:id="@+id/nsgv_price_illustration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/page_margin"
+                android:background="@color/colorWhite"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tv_unit_price_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <lecho.lib.hellocharts.view.LineChartView
+                    android:id="@+id/lcv_gasoline_unit_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/chart_height" />
+
+                <com.hugh.teatime.view.NoScrollGridView
+                    android:id="@+id/nsgv_unit_price_illustration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/page_margin"
+                android:background="@color/colorWhite"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tv_fuel_consumption_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <lecho.lib.hellocharts.view.LineChartView
+                    android:id="@+id/lcv_gasoline_fuel_consumption"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/chart_height" />
+
+                <com.hugh.teatime.view.NoScrollGridView
+                    android:id="@+id/nsgv_fuel_consumption_illustration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="4" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

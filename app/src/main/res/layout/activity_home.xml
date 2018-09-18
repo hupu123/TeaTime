@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.hugh.teatime.models.home.HomeActivity">
+
+    <com.hugh.teatime.view.TitlebarView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:leftBarType="HIDDEN"
+        app:titleName="@string/app_name" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_1"
+                style="@style/home_page_btn_style"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@color/colorChart_1"
+                android:drawableTop="@mipmap/icon_book"
+                android:paddingBottom="60dp"
+                android:paddingTop="60dp"
+                android:text="@string/model_book" />
+
+            <Button
+                android:id="@+id/btn_2"
+                style="@style/home_page_btn_style"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_toEndOf="@id/btn_1"
+                android:background="@color/colorChart_2"
+                android:drawableTop="@mipmap/icon_face"
+                android:paddingBottom="110dp"
+                android:paddingTop="110dp"
+                android:text="@string/model_face_detect" />
+
+            <Button
+                android:id="@+id/btn_3"
+                style="@style/home_page_btn_style"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_below="@id/btn_1"
+                android:background="@color/colorChart_3"
+                android:drawableTop="@mipmap/icon_robot"
+                android:paddingBottom="60dp"
+                android:paddingTop="60dp"
+                android:text="@string/model_robot" />
+
+            <Button
+                android:id="@+id/btn_4"
+                style="@style/home_page_btn_style"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@id/btn_3"
+                android:background="@color/colorChart_4"
+                android:drawableTop="@mipmap/icon_image"
+                android:paddingBottom="60dp"
+                android:paddingTop="60dp"
+                android:text="@string/model_picture" />
+
+            <Button
+                android:id="@+id/btn_5"
+                style="@style/home_page_btn_style"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/btn_2"
+                android:layout_toEndOf="@id/btn_3"
+                android:background="@color/colorChart_5"
+                android:drawableTop="@mipmap/icon_bill"
+                android:paddingBottom="10dp"
+                android:paddingTop="20dp"
+                android:text="@string/model_bill" />
+
+            <Button
+                android:id="@+id/btn_6"
+                style="@style/home_page_btn_style"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_below="@id/btn_4"
+                android:background="@color/colorChart_1"
+                android:drawableTop="@mipmap/icon_sms"
+                android:paddingBottom="10dp"
+                android:paddingTop="20dp"
+                android:text="@string/model_sms" />
+
+            <Button
+                android:id="@+id/btn_7"
+                style="@style/home_page_btn_style"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@id/btn_4"
+                android:layout_toEndOf="@id/btn_6"
+                android:background="@color/colorChart_3"
+                android:drawableTop="@mipmap/icon_comic"
+                android:paddingBottom="60dp"
+                android:paddingTop="60dp"
+                android:text="@string/model_comic" />
+
+            <Button
+                android:id="@+id/btn_8"
+                style="@style/home_page_btn_style"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_below="@id/btn_6"
+                android:layout_toStartOf="@id/btn_7"
+                android:background="@color/colorChart_2"
+                android:drawableTop="@mipmap/icon_tool"
+                android:paddingBottom="10dp"
+                android:paddingTop="20dp"
+                android:text="@string/model_tools" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

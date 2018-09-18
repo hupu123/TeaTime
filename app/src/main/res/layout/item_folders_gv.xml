@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <TableLayout
+        android:id="@+id/tl_thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="2dp">
+
+            <com.hugh.teatime.view.FileImageView
+                android:id="@+id/fiv_gv_f_1"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:contentDescription="@string/content_description"
+                android:paddingEnd="2dp"
+                android:paddingStart="0dp"
+                android:scaleType="centerCrop" />
+
+            <com.hugh.teatime.view.FileImageView
+                android:id="@+id/fiv_gv_f_2"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:contentDescription="@string/content_description"
+                android:paddingEnd="0dp"
+                android:paddingStart="2dp"
+                android:scaleType="centerCrop" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp">
+
+            <com.hugh.teatime.view.FileImageView
+                android:id="@+id/fiv_gv_f_3"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:contentDescription="@string/content_description"
+                android:paddingEnd="2dp"
+                android:paddingStart="0dp"
+                android:scaleType="centerCrop" />
+
+            <com.hugh.teatime.view.FileImageView
+                android:id="@+id/fiv_gv_f_4"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:contentDescription="@string/content_description"
+                android:paddingEnd="0dp"
+                android:paddingStart="2dp"
+                android:scaleType="centerCrop" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tl_thumbnail"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorTBG"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_gv_folder_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+    </LinearLayout>
+</RelativeLayout>

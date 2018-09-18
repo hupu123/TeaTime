@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".models.gasoline.GasolineChartActivity">
+
+    <com.hugh.teatime.view.TitlebarView
+        android:id="@+id/tbv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightBarType="BTN_RIGHT"
+        app:titleName="@string/title_gasoline_chart" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_line_chart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/rb_bg_selected_selector1"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="@string/rb_line_chart"
+            android:textColor="@drawable/rb_txt_selected_selector" />
+
+        <RadioButton
+            android:id="@+id/rb_pie_chart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/rb_bg_selected_selector1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/rb_pie_chart"
+            android:textColor="@drawable/rb_txt_selected_selector" />
+    </RadioGroup>
+
+    <com.hugh.teatime.view.NoScrollViewPager
+        android:id="@+id/nsvp_gasoline_chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
