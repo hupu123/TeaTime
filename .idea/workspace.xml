@@ -15,7 +15,14 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cffc20da-1a1e-41f2-b338-382ada6ef8ce" name="Default" comment="" />
+    <list default="true" id="cffc20da-1a1e-41f2-b338-382ada6ef8ce" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -48,11 +55,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GasolineChartActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GasolineChartActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/hugh/teatime/models/gasoline/GasolineChartActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="53" column="29" lean-forward="true" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
+            <state relative-caret-position="30">
+              <caret line="57" column="21" lean-forward="true" selection-start-line="57" selection-start-column="21" selection-end-line="57" selection-end-column="21" />
               <folding>
                 <element signature="e#1991#1992#0" expanded="true" />
                 <element signature="e#2046#2047#0" expanded="true" />
@@ -61,11 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="colors.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="colors.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="5" column="45" lean-forward="true" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+            <state relative-caret-position="480">
+              <caret line="16" column="45" lean-forward="true" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -126,6 +133,9 @@
     <option name="KEY_STORE_PATH" value="F:\Workplace\hugh.jks" />
     <option name="KEY_ALIAS" value="hugh_key" />
     <option name="REMEMBER_PASSWORDS" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
     <option name="myGradleHomes">
@@ -2203,6 +2213,9 @@
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -2266,37 +2279,6 @@
               <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="teatime" type="462c0819:PsiDirectoryNode" />
-              <item name="db" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TeaTime" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TeaTime" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="teatime" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TeaTime" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TeaTime" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="teatime" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="gasoline" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TeaTime" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TeaTime" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -2321,14 +2303,14 @@
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="E:/ADT/Android/SDK" />
     <property name="device.picker.selection" value="Nexus_5X_API_27_x86" />
-    <property name="settings.editor.selected.configurable" value="instant.run" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="ExportApk.ApkPath" value="F:\Workplace\ASProject\TeaTime\app" />
     <property name="ExportApk.Flavors" value="" />
     <property name="ExportApk.BuildType" value="release" />
     <property name="ExportApk.SignV2" value="true" />
     <property name="SearchEverywhereHistoryKey" value="string&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/res/values/strings.xml&#10;str&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/res/values/strings.xml&#10;MyD&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/java/com/hugh/teatime/db/MyDBOperater.java&#10;di&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/res/values/dimens.xml&#10;IlB&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/java/com/hugh/teatime/models/gasoline/IllustrationBean.java&#10;MyDB&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/java/com/hugh/teatime/db/MyDBOperater.java&#10;GV&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/java/com/hugh/teatime/app/GlobalVar.java&#10;itemga&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/res/layout/item_gasoline_slhlv.xml&#10;GasolineB&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/java/com/hugh/teatime/models/gasoline/GasolineBean.java&#10;Str&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/java/com/hugh/teatime/utils/StringUtil.java&#10;dim&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/res/values/dimens.xml&#10;SP&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/java/com/hugh/teatime/utils/SPUtil.java&#10;Glob&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/java/com/hugh/teatime/app/GlobalVar.java&#10;Home&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/java/com/hugh/teatime/models/home/Home2Activity.java&#10;lOGI&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/java/com/hugh/teatime/models/home/Login2Activity.java&#10;HO&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/java/com/hugh/teatime/models/home/Home2Activity.java&#10;Gl&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/java/com/hugh/teatime/app/GlobalVar.java&#10;Tit&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/java/com/hugh/teatime/view/TitlebarView.java&#10;Title&#9;FILE&#9;file://F:/Workplace/ASProject/TeaTime/app/src/main/java/com/hugh/teatime/view/TitlebarView.java" />
     <property name="android.profiler.active" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/java/com/hugh/teatime" />
+    <property name="last_opened_file_path" value="E:/Program Files/Git/bin/git.exe" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.packageName">
@@ -2539,7 +2521,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32826087" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2548,7 +2530,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.58957654" sideWeight="0.45842218" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5982628" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44936034" sideWeight="0.4961998" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8219327" sideWeight="0.5415778" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -3052,22 +3034,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="5" column="45" lean-forward="true" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/hugh/teatime/models/gasoline/GasolineChartActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="53" column="29" lean-forward="true" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
+        <state relative-caret-position="30">
+          <caret line="57" column="21" lean-forward="true" selection-start-line="57" selection-start-column="21" selection-end-line="57" selection-end-column="21" />
           <folding>
             <element signature="e#1991#1992#0" expanded="true" />
             <element signature="e#2046#2047#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="16" column="45" lean-forward="true" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="45" />
+          <folding />
         </state>
       </provider>
     </entry>
