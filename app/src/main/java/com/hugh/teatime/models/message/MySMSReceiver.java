@@ -1,4 +1,4 @@
-package com.hugh.teatime.receiver;
+package com.hugh.teatime.models.message;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
