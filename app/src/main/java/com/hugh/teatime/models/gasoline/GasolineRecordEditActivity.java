@@ -230,7 +230,7 @@ public class GasolineRecordEditActivity extends BaseActivity {
         } else {
             MyDBOperater.getInstance(this).addGasolineRecord(gasolineBean);
         }
-        ToastUtil.showSuccess(this, R.string.toast_gasoline_save_success, true);
+        ToastUtil.showSuccess(this, R.string.save_success, true);
         finish();
     }
 

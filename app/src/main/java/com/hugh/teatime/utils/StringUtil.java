@@ -74,4 +74,26 @@ public class StringUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
         return sdf.format(new Date(time));
     }
+
+    /**
+     * 格式化时间戳
+     *
+     * @param time 时间戳
+     * @return yyyy-MM-dd HH:mm格式字符串
+     */
+    public static String formatTimestamp1(long time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        return sdf.format(new Date(time));
+    }
+
+    /**
+     * 格式化时间戳
+     *
+     * @param time 时间戳
+     * @return yyyyMMdd格式字符串
+     */
+    public static String formatTimestamp2(long time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.CHINA);
+        return sdf.format(new Date(time));
+    }
 }

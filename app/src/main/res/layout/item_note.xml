@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/edit_padding"
+    android:paddingEnd="@dimen/edit_padding">
+
+    <View
+        android:id="@+id/v_point"
+        android:layout_width="@dimen/point_size_1"
+        android:layout_height="@dimen/point_size_1"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_note_circle_bg" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/v_point"
+        android:gravity="center_vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <View
+            android:layout_width="@dimen/point_size_1"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/colorGray_2" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_note_item_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/edit_padding">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Title title tititle title Title title titlgdjgjd;fgks;ldkf;klfe Title title title "
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/txt_size_2" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="4"
+                android:text="Content Content Content Content Content Content Content Content Content Content Content Content Content"
+                android:textColor="@color/colorGray"
+                android:textSize="@dimen/txt_size_3" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2018-09-29"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/txt_size_3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="位置"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/txt_size_3" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

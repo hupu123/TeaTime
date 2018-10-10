@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.hugh.teatime.utils.LogUtil;
+
 /**
  * 数据库打开帮助类
  * Created by Hugh on 2016/2/18 9:28
@@ -11,7 +13,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MyDBOpenHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "teatime.db";
-    private static final int DB_VERSION = 1;
+    //    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;// 增加事件表
 
     /**
      * 构造函数
@@ -45,11 +48,21 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE comic_file_lists (_comicfileid INTEGER PRIMARY KEY AUTOINCREMENT, _comicid INTEGER, path TEXT, position INTEGER);");
         // 创建加油记录表
         db.execSQL("CREATE TABLE gasoline_records (_grecordid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, totalprice DOUBLE, unitprice DOUBLE, mileage DOUBLE, quantity DOUBLE, comment TEXT, model TEXT, invoice INTEGER, paymethod TEXT, carno TEXT, year INTEGER);");
+        // 创建记事本表
+        db.execSQL("CREATE TABLE events (_eventid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, title TEXT, content TEXT, itemtype INTEGER);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        // 第一版数据库，不需要更新逻辑
+        LogUtil.logHugh("DB onUpgrade oldVersion=" + oldVersion + " newVersion=" + newVersion);
+        switch (oldVersion) {
+            case 1:
+                db.execSQL("DROP TABLE IF EXISTS events");
+                db.execSQL("CREATE TABLE events (_eventid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, title TEXT, content TEXT, itemtype INTEGER);");
+                break;
+            default:
+                break;
+        }
     }
 }

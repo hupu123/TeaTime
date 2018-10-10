@@ -34,7 +34,8 @@
     <string name="toast_gasoline_amount_null">总金额不能为空</string>
     <string name="toast_gasoline_mileage_null">总里程不能为空</string>
     <string name="toast_gasoline_carno_null">车牌号不能为空</string>
-    <string name="toast_gasoline_save_success">保存成功</string>
+    <string name="save_success">保存成功</string>
+    <string name="toast_new_event_title_null">标题不能为空</string>
 
     <!-- dialog string -->
     <string name="dialog_is_delete_bill">是否删除该账单？</string>
@@ -118,6 +119,7 @@
     <string name="model_comic">看漫画</string>
     <string name="model_tools">工具箱</string>
     <string name="model_gasoline">加油管理</string>
+    <string name="model_note">记事本</string>
 
     <!-- activity_image_detail.xml -->
     <string name="image_rotate">旋转</string>
@@ -247,6 +249,18 @@
     <string name="rb_line_chart">线图</string>
     <string name="rb_bar_chart">条图</string>
     <string name="rb_pie_chart">饼图</string>
+
+    <!-- activity_events_line.xml -->
+    <string name="title_events_line">记事本</string>
+
+    <!-- activity_new_event.xml -->
+    <string name="title_new_event">新建事件</string>
+    <string name="ne_time">时&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;间 *</string>
+    <string name="ne_location">地&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;点 *</string>
+    <string name="ne_title">标&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;题 *</string>
+    <string name="ne_content">内&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;容&#160;&#160;&#160;&#160;</string>
+    <string name="ne_hint_title">请输入标题</string>
+    <string name="ne_hint_content">请输入内容（可选）</string>
 
     <!-- *********************************** Fragment ************************************** -->
 

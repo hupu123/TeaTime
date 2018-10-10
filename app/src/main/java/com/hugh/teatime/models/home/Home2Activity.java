@@ -23,6 +23,7 @@ import com.hugh.teatime.models.face.FaceDetectActivity;
 import com.hugh.teatime.models.gasoline.GasolineHomeActivity;
 import com.hugh.teatime.models.image.ImageFolderActivity;
 import com.hugh.teatime.models.message.MsgHomeActivity;
+import com.hugh.teatime.models.note.EventLineActivity;
 import com.hugh.teatime.models.robot.RobotActivity;
 import com.hugh.teatime.models.tool.ToolListActivity;
 import com.hugh.teatime.utils.LogUtil;
@@ -138,6 +139,8 @@ public class Home2Activity extends BaseActivity {
         models.add(new ModelBean(6, R.mipmap.icon_comic, getResources().getString(R.string.model_comic), "", new Intent(this, ComicShelfActivity.class)));
         models.add(new ModelBean(7, R.mipmap.icon_tool, getResources().getString(R.string.model_tools), "", new Intent(this, ToolListActivity.class)));
         models.add(new ModelBean(8, R.mipmap.icon_gasoline, getResources().getString(R.string.model_gasoline), "", new Intent(this, GasolineHomeActivity.class)));
+        models.add(new ModelBean(9, R.mipmap.icon_note, getResources().getString(R.string.model_note), "", new Intent(this, EventLineActivity.class)));
+        //TODO 添加新模块入口
 
         String iconOrderStr = SPUtil.getInstance(this).getHomeIconOrder();
         if (!StringUtil.isStrNull(iconOrderStr)) {

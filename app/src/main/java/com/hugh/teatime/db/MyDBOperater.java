@@ -9,6 +9,7 @@ import com.hugh.teatime.models.bill.Bill;
 import com.hugh.teatime.models.book.Book;
 import com.hugh.teatime.models.comic.Comic;
 import com.hugh.teatime.models.gasoline.GasolineBean;
+import com.hugh.teatime.models.note.EventBean;
 import com.hugh.teatime.models.robot.CookBook;
 import com.hugh.teatime.models.home.Folder;
 import com.hugh.teatime.models.image.Image;
@@ -45,7 +46,6 @@ public class MyDBOperater {
      * @param context 上下文
      */
     private MyDBOperater(Context context) {
-
         MyDBOpenHelper mDBOpenHelper = new MyDBOpenHelper(context);
         db = mDBOpenHelper.getReadableDatabase();
     }
@@ -57,7 +57,6 @@ public class MyDBOperater {
      * @return 自身实例
      */
     public static MyDBOperater getInstance(Context context) {
-
         if (instance == null) {
             instance = new MyDBOperater(context);
         }
@@ -69,19 +68,16 @@ public class MyDBOperater {
      * 关闭数据库
      */
     public void close() {
-
-        LogUtil.logIResult("close");
-
         if (db != null) {
-            LogUtil.logIResult("db close");
             db.close();
         }
 
         if (instance != null) {
-            LogUtil.logIResult("instance close");
             instance = null;
         }
     }
+
+    // ------------------------------------------------------ messages table ---------------------------------------------------
 
     /**
      * 插入一条消息到数据库
@@ -89,7 +85,6 @@ public class MyDBOperater {
      * @param message 消息对象
      */
     public void addMessage(Message message) {
-
         if (!db.isOpen()) {
             return;
         }
@@ -152,7 +147,6 @@ public class MyDBOperater {
      * @return 消息集合
      */
     public List<Message> getMessages(int currentPage, int pageSize) {
-
         if (!db.isOpen()) {
             return null;
         }
@@ -236,6 +230,9 @@ public class MyDBOperater {
 
         return messageList;
     }
+    // ------------------------------------------------------ messages table ---------------------------------------------------
+
+    // ------------------------------------------------------ books table ---------------------------------------------------
 
     /**
      * 添加书籍
@@ -243,7 +240,6 @@ public class MyDBOperater {
      * @param book 书籍
      */
     public void addBook(Book book) {
-
         if (!db.isOpen()) {
             return;
         }
@@ -256,7 +252,6 @@ public class MyDBOperater {
      * @param id 书籍ID
      */
     public void deleteBookById(int id) {
-
         if (!db.isOpen()) {
             return;
         }
@@ -270,7 +265,6 @@ public class MyDBOperater {
      * @return true=存在，false=不存在
      */
     public boolean isBookExist(String name) {
-
         if (!db.isOpen()) {
             return false;
         }
@@ -288,7 +282,6 @@ public class MyDBOperater {
      * @param progress 进度
      */
     public void updateBookProgress(int bookId, int progress) {
-
         if (!db.isOpen()) {
             return;
         }
@@ -315,7 +308,6 @@ public class MyDBOperater {
      * @return 书籍列表
      */
     public List<Book> getBooks() {
-
         if (!db.isOpen()) {
             return null;
         }
@@ -345,6 +337,9 @@ public class MyDBOperater {
 
         return books;
     }
+    // ------------------------------------------------------ books table ---------------------------------------------------
+
+    // ------------------------------------------------------ images table ---------------------------------------------------
 
     /**
      * 添加图片
@@ -352,7 +347,6 @@ public class MyDBOperater {
      * @param img 图片
      */
     public void addImage(Image img) {
-
         if (!db.isOpen()) {
             return;
         }
@@ -365,7 +359,6 @@ public class MyDBOperater {
      * @return 图片文件夹列表
      */
     public List<Folder> getFolder() {
-
         if (!db.isOpen()) {
             return null;
         }
@@ -394,7 +387,6 @@ public class MyDBOperater {
      * @return 图片信息
      */
     public List<Image> getImagesByFolder(String folderName) {
-
         if (!db.isOpen()) {
             return null;
         }
@@ -423,7 +415,6 @@ public class MyDBOperater {
      * 清空图片表数据
      */
     public void clearImages() {
-
         if (!db.isOpen()) {
             return;
         }
@@ -431,6 +422,9 @@ public class MyDBOperater {
         db.execSQL("DELETE FROM images");
         db.execSQL("UPDATE sqlite_sequence SET seq=0 WHERE name='images'");
     }
+    // ------------------------------------------------------ images table ---------------------------------------------------
+
+    // ------------------------------------------------------ bills table ---------------------------------------------------
 
     /**
      * 添加账单
@@ -438,7 +432,6 @@ public class MyDBOperater {
      * @param bill 账单信息
      */
     public void addBill(Bill bill) {
-
         if (!db.isOpen()) {
             return;
         }
@@ -451,7 +444,6 @@ public class MyDBOperater {
      * @param id 账单ID
      */
     public void deleteBillByID(int id) {
-
         if (!db.isOpen()) {
             return;
         }
@@ -464,7 +456,6 @@ public class MyDBOperater {
      * @param bill 账单信息
      */
     public void updateBill(Bill bill) {
-
         if (!db.isOpen() || bill == null) {
             return;
         }
@@ -479,7 +470,6 @@ public class MyDBOperater {
      * @return 账单集合
      */
     public List<Bill> getBills(int monthForSearch, int yearForSearch) {
-
         if (!db.isOpen()) {
             return null;
         }
@@ -515,7 +505,6 @@ public class MyDBOperater {
      * @return 和
      */
     public double getBillSum(int monthForSearch, int yearForSearch, int iotype, int type) {
-
         double amountSum = 0;
         if (!db.isOpen()) {
             return amountSum;
@@ -540,7 +529,6 @@ public class MyDBOperater {
      * @return 和
      */
     public double getBillSum(int monthForSearch, int yearForSearch, int iotype) {
-
         double amountSum = 0;
         if (!db.isOpen()) {
             return amountSum;
@@ -566,7 +554,6 @@ public class MyDBOperater {
      * @return 某日收入/支出总和
      */
     public double getBillSumByDay(int dayForSearch, int monthForSearch, int yearForSearch, int iotype) {
-
         double amountSum = 0;
         if (!db.isOpen()) {
             return amountSum;
@@ -588,7 +575,6 @@ public class MyDBOperater {
      * @return 年份数组
      */
     public int[] getYears() {
-
         if (!db.isOpen()) {
             return null;
         }
@@ -605,6 +591,9 @@ public class MyDBOperater {
 
         return years;
     }
+    // ------------------------------------------------------ bills table ---------------------------------------------------
+
+    // ------------------------------------------------------ comics table ---------------------------------------------------
 
     /**
      * 添加漫画到数据库
@@ -612,7 +601,6 @@ public class MyDBOperater {
      * @param comic 漫画数据
      */
     public void addComic(Comic comic) {
-
         if (!db.isOpen()) {
             return;
         }
@@ -632,7 +620,6 @@ public class MyDBOperater {
      * @param id 漫画ID
      */
     public void deleteComicByID(int id) {
-
         if (!db.isOpen()) {
             return;
         }
@@ -648,7 +635,6 @@ public class MyDBOperater {
      * @param comic 漫画数据
      */
     public void updateComic(Comic comic) {
-
         if (!db.isOpen() || comic == null) {
             return;
         }
@@ -662,7 +648,6 @@ public class MyDBOperater {
      * @return true=存在，false=不存在
      */
     public boolean isComicExistByPath(String path) {
-
         if (!db.isOpen() || StringUtil.isStrNull(path)) {
             return true;
         }
@@ -682,7 +667,6 @@ public class MyDBOperater {
      * @return 漫画列表
      */
     public ArrayList<Comic> getComics() {
-
         if (!db.isOpen()) {
             return null;
         }
@@ -705,6 +689,9 @@ public class MyDBOperater {
 
         return comics;
     }
+    // ------------------------------------------------------ comics table ---------------------------------------------------
+
+    // ------------------------------------------------------ comic_file_lists table ---------------------------------------------------
 
     /**
      * 添加漫画文件列表
@@ -712,7 +699,6 @@ public class MyDBOperater {
      * @param comic 漫画数据
      */
     private void addComicFileList(Comic comic) {
-
         if (!db.isOpen()) {
             return;
         }
@@ -729,7 +715,6 @@ public class MyDBOperater {
      * @return 漫画文件列表
      */
     private ArrayList<File> getComicFileListByComicId(int comicId) {
-
         if (!db.isOpen()) {
             return null;
         }
@@ -744,6 +729,9 @@ public class MyDBOperater {
 
         return fileList;
     }
+    // ------------------------------------------------------ comic_file_lists table ---------------------------------------------------
+
+    // ------------------------------------------------------ gasoline_records table ---------------------------------------------------
 
     /**
      * 添加加油记录
@@ -751,7 +739,6 @@ public class MyDBOperater {
      * @param gasolineBean 加油记录数据
      */
     public void addGasolineRecord(GasolineBean gasolineBean) {
-
         if (!db.isOpen()) {
             return;
         }
@@ -764,7 +751,6 @@ public class MyDBOperater {
      * @param gasolineBean 加油记录数据
      */
     public void updateGasolineRecord(GasolineBean gasolineBean) {
-
         if (!db.isOpen() || gasolineBean == null) {
             return;
         }
@@ -777,7 +763,6 @@ public class MyDBOperater {
      * @param id 记录ID
      */
     public void deleteGasolineRecord(String id) {
-
         if (!db.isOpen()) {
             return;
         }
@@ -792,7 +777,6 @@ public class MyDBOperater {
      * @return 加油记录
      */
     public ArrayList<GasolineBean> getGasolineRecords(int key, String value) {
-
         if (!db.isOpen()) {
             return null;
         }
@@ -850,7 +834,6 @@ public class MyDBOperater {
      * @return 加油记录
      */
     public ArrayList<GasolineBean> getGasolineRecords(int key, String value, int year) {
-
         if (!db.isOpen()) {
             return null;
         }
@@ -905,7 +888,6 @@ public class MyDBOperater {
      * @return 所有车牌号
      */
     public ArrayList<String> getCars() {
-
         if (!db.isOpen()) {
             return null;
         }
@@ -927,7 +909,6 @@ public class MyDBOperater {
      * @return 所有汽油型号
      */
     public ArrayList<String> getModels() {
-
         if (!db.isOpen()) {
             return null;
         }
@@ -949,7 +930,6 @@ public class MyDBOperater {
      * @return 所有年份
      */
     public ArrayList<String> getGRYears() {
-
         if (!db.isOpen()) {
             return null;
         }
@@ -974,7 +954,6 @@ public class MyDBOperater {
      * @return 总和
      */
     public double getSumOfPrice(int type, int year, String value) {
-
         double sum = 0;
         if (!db.isOpen()) {
             return sum;
@@ -998,4 +977,69 @@ public class MyDBOperater {
 
         return sum;
     }
+    // ------------------------------------------------------ gasoline_records table ---------------------------------------------------
+
+    // ------------------------------------------------------ events table ---------------------------------------------------
+
+    /**
+     * 添加事件
+     *
+     * @param eventBean 事件数据
+     */
+    public void addEvent(EventBean eventBean) {
+        if (!db.isOpen()) {
+            return;
+        }
+        db.execSQL("INSERT INTO events(date, title, content) VALUES(?,?,?)", new String[]{eventBean.getDate() + "", eventBean.getTitle(), eventBean.getContent()});
+    }
+
+    /**
+     * 更新事件
+     *
+     * @param eventBean 事件数据
+     */
+    public void updateEvent(EventBean eventBean) {
+        if (!db.isOpen() || eventBean == null) {
+            return;
+        }
+        db.execSQL("UPDATE events SET date=?,title=?,content=? WHERE _eventid=?", new String[]{eventBean.getDate() + "", eventBean.getTitle(), eventBean.getContent(), eventBean.getId()});
+    }
+
+    /**
+     * 删除事件
+     *
+     * @param id 事件ID
+     */
+    public void deleteEvent(String id) {
+        if (!db.isOpen()) {
+            return;
+        }
+        db.execSQL("DELETE FROM events WHERE _eventid=?", new String[]{id});
+    }
+
+    /**
+     * 获取所有事件
+     *
+     * @return 事件集合
+     */
+    public ArrayList<EventBean> getEvents(int pageIndex, int pageSize) {
+        if (!db.isOpen()) {
+            return null;
+        }
+        ArrayList<EventBean> eventBeans = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM (SELECT * FROM events ORDER BY date DESC LIMIT ? OFFSET ?) ORDER BY date ASC", new String[]{String.valueOf(pageSize), String.valueOf(pageIndex * pageSize)});
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("_eventid"));
+            long date = cursor.getLong(cursor.getColumnIndex("date"));
+            String title = cursor.getString(cursor.getColumnIndex("title"));
+            String content = cursor.getString(cursor.getColumnIndex("content"));
+
+            EventBean eventBean = new EventBean(String.valueOf(id), date, title, content);
+            eventBeans.add(eventBean);
+        }
+        cursor.close();
+
+        return eventBeans;
+    }
+// ------------------------------------------------------ events table ---------------------------------------------------
 }

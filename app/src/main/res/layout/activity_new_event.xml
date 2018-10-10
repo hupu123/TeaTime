@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".models.note.NewEventActivity">
+
+    <com.hugh.teatime.view.TitlebarView
+        android:id="@+id/tbv_ne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightBarType="BTN_RIGHT"
+        app:titleName="@string/title_new_event" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/page_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/ne_time"
+                    android:textColor="@color/colorWhite" />
+
+                <Button
+                    android:id="@+id/btn_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/btn_click_bg_selector"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/page_margin">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/ne_location"
+                    android:textColor="@color/colorWhite" />
+
+                <Button
+                    android:id="@+id/btn_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/btn_click_bg_selector"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/page_margin">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/ne_title"
+                    android:textColor="@color/colorWhite" />
+
+                <EditText
+                    android:id="@+id/et_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite"
+                    android:hint="@string/ne_hint_title"
+                    android:inputType="textAutoComplete"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    tools:ignore="Autofill" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/high_item_height"
+                android:layout_marginTop="@dimen/page_margin">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/ne_content"
+                    android:textColor="@color/colorWhite" />
+
+                <EditText
+                    android:id="@+id/et_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite"
+                    android:gravity="start|top"
+                    android:hint="@string/ne_hint_content"
+                    android:inputType="textMultiLine"
+                    android:padding="@dimen/edit_padding"
+                    android:singleLine="false"
+                    tools:ignore="Autofill" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
