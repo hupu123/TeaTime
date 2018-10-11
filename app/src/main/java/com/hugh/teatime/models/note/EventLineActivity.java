@@ -17,12 +17,11 @@ import java.util.ArrayList;
 
 public class EventLineActivity extends BaseActivity {
 
-    private ListView lvEvents;
     private SmartRefreshLayout srlEvents;
 
     private EventsAdapter mAdapter;
     private ArrayList<EventBean> eventBeans = new ArrayList<>();
-    private int pageSize = 3;
+    private int pageSize = 10;
     private int pageIndex = 0;
 
     @Override
@@ -61,7 +60,7 @@ public class EventLineActivity extends BaseActivity {
         });
 
         srlEvents = findViewById(R.id.srl_events);
-        lvEvents = findViewById(R.id.lv_events);
+        ListView lvEvents = findViewById(R.id.lv_events);
 
         srlEvents.setEnableLoadMore(false);
         srlEvents.setOnRefreshListener(new OnRefreshListener() {

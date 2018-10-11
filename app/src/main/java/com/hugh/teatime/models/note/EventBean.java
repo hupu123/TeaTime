@@ -1,12 +1,17 @@
 package com.hugh.teatime.models.note;
 
-public class EventBean {
+import java.io.Serializable;
+
+public class EventBean implements Serializable {
 
     private String id;
     private long date;
     private String title;
     private String content;
     private int itemType;// 事件在时间线列表中的显示状态，0=左边，1=右边
+    private double latitude;
+    private double longitude;
+    private String poiAddress;
 
     public EventBean(String id, long date, String title, String content) {
         this.id = id;
@@ -18,6 +23,9 @@ public class EventBean {
     public EventBean(String title, long date) {
         this.title = title;
         this.date = date;
+    }
+
+    public EventBean() {
     }
 
     public String getId() {
@@ -58,5 +66,29 @@ public class EventBean {
 
     public void setItemType(int itemType) {
         this.itemType = itemType;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getPoiAddress() {
+        return poiAddress;
+    }
+
+    public void setPoiAddress(String poiAddress) {
+        this.poiAddress = poiAddress;
     }
 }

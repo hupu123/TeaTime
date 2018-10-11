@@ -63,10 +63,21 @@
 
                 <Button
                     android:id="@+id/btn_location"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:background="@drawable/btn_click_bg_selector"
                     android:textColor="@color/colorWhite" />
+
+                <ImageView
+                    android:id="@+id/iv_auto_locate"
+                    android:layout_width="@dimen/item_height"
+                    android:layout_height="@dimen/item_height"
+                    android:layout_marginStart="@dimen/margin_divider_width"
+                    android:background="@drawable/btn_click_bg_selector"
+                    android:contentDescription="@string/content_description"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/icon_location" />
             </LinearLayout>
 
             <LinearLayout

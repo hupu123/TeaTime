@@ -154,7 +154,10 @@ public class Home2Activity extends BaseActivity {
                     }
                 }
                 if (models.size() > modelBeans.size()) {
-                    modelBeans.addAll(modelBeans.size(), models);
+                    // 将新增模块添加到列表末尾
+                    for (int i = modelBeans.size(); i < models.size(); i++) {
+                        modelBeans.add(models.get(i));
+                    }
                 }
                 models = modelBeans;
             }
@@ -194,6 +197,9 @@ public class Home2Activity extends BaseActivity {
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.RECEIVE_SMS);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
         }
 
         if (!permissionList.isEmpty()) {

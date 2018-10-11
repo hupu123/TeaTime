@@ -32,7 +32,6 @@ public class GasolineDetailActivity extends BaseActivity {
     private TextView tvComment;
 
     private GasolineBean gasolineBean;
-    private final int REQUEST_EDIT_RECORD_CODE = 10000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class GasolineDetailActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_EDIT_RECORD_CODE) {
+        if (requestCode == GlobalVar.REQUEST_CODE_EDIT_RECORD) {
             if (resultCode == RESULT_OK) {
                 gasolineBean = (GasolineBean) data.getSerializableExtra(GlobalVar.INTENT_GASOLINE_RECORD_EDIT);
                 initData();
@@ -130,7 +129,7 @@ public class GasolineDetailActivity extends BaseActivity {
                 case R.id.btn_modify:
                     Intent intent1 = new Intent(GasolineDetailActivity.this, GasolineRecordEditActivity.class);
                     intent1.putExtra(GlobalVar.INTENT_GASOLINE_RECORD, gasolineBean);
-                    startActivityForResult(intent1, REQUEST_EDIT_RECORD_CODE);
+                    startActivityForResult(intent1, GlobalVar.REQUEST_CODE_EDIT_RECORD);
                     break;
                 case R.id.btn_delete:
                     DialogUtil deleteDialog = new DialogUtil(GasolineDetailActivity.this, R.mipmap.icon_info_g, getResources().getString(R.string.dialog_is_delete_record), new DialogListener() {

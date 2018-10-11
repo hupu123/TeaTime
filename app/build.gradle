@@ -44,4 +44,5 @@ dependencies {
     implementation 'com.geek.thread:thread-pool:1.0.1'
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
     implementation 'com.github.codbking:PickTime:v1.0.1'
+    implementation 'com.amap.api:location:4.2.0'
 }

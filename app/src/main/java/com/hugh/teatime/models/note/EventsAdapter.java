@@ -2,13 +2,17 @@ package com.hugh.teatime.models.note;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hugh.teatime.R;
+import com.hugh.teatime.app.GlobalVar;
 import com.hugh.teatime.utils.StringUtil;
 
 import java.util.ArrayList;
@@ -47,37 +51,83 @@ public class EventsAdapter extends BaseAdapter {
     @SuppressLint("InflateParams")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        EventBean eventBean = events.get(position);
-        ViewHolder viewHolder;
-        if (convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            switch (eventBean.getItemType()) {
-                case 0:
-                    convertView = inflater.inflate(R.layout.item_note_1, null);
-                    break;
-                case 1:
-                    convertView = inflater.inflate(R.layout.item_note, null);
-                    break;
-                default:
-                    convertView = inflater.inflate(R.layout.item_note, null);
-                    break;
-            }
-            viewHolder = new ViewHolder();
-            viewHolder.tvTitle = convertView.findViewById(R.id.tv_title);
-            viewHolder.tvDate = convertView.findViewById(R.id.tv_date);
-
-            convertView.setTag(viewHolder);
+        final EventBean eventBean = events.get(position);
+        boolean isShowDateLine = false;
+        if (position == 0) {
+            isShowDateLine = true;
+            eventBean.setItemType(0);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            EventBean eventBean1 = events.get(position - 1);
+            String time = StringUtil.formatTimestamp2(eventBean.getDate());
+            String time1 = StringUtil.formatTimestamp2(eventBean1.getDate());
+            if (time.equals(time1)) {
+                eventBean.setItemType(eventBean1.getItemType());
+            } else {
+                isShowDateLine = true;
+                if (eventBean1.getItemType() == 0) {
+                    eventBean.setItemType(1);
+                } else {
+                    eventBean.setItemType(0);
+                }
+            }
         }
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+        switch (eventBean.getItemType()) {
+            case 0:
+                convertView = inflater.inflate(R.layout.item_note_1, null);
+                break;
+            case 1:
+                convertView = inflater.inflate(R.layout.item_note, null);
+                break;
+            default:
+                convertView = inflater.inflate(R.layout.item_note, null);
+                break;
+        }
+        ViewHolder viewHolder = new ViewHolder();
+        viewHolder.llContent = convertView.findViewById(R.id.ll_content);
+        viewHolder.rlDateLine = convertView.findViewById(R.id.rl_date_line);
+        viewHolder.tvDateLine = convertView.findViewById(R.id.tv_date_line);
+        viewHolder.tvTitle = convertView.findViewById(R.id.tv_title);
+        viewHolder.tvContent = convertView.findViewById(R.id.tv_content);
+        viewHolder.tvDate = convertView.findViewById(R.id.tv_date);
+        viewHolder.tvLocation = convertView.findViewById(R.id.tv_location);
+        convertView.setTag(viewHolder);
+
+        viewHolder.llContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EventDetailActivity.class);
+                intent.putExtra(GlobalVar.INTENT_EVENT, eventBean);
+                context.startActivity(intent);
+            }
+        });
+        if (isShowDateLine) {
+            viewHolder.rlDateLine.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.rlDateLine.setVisibility(View.GONE);
+        }
+        viewHolder.tvDateLine.setText(StringUtil.formatTimestamp(eventBean.getDate()));
         viewHolder.tvTitle.setText(eventBean.getTitle());
+        if (StringUtil.isStrNull(eventBean.getContent())) {
+            viewHolder.tvContent.setVisibility(View.GONE);
+        } else {
+            viewHolder.tvContent.setVisibility(View.VISIBLE);
+        }
+        viewHolder.tvContent.setText(eventBean.getContent());
         viewHolder.tvDate.setText(StringUtil.formatTimestamp1(eventBean.getDate()));
+        viewHolder.tvLocation.setText(eventBean.getPoiAddress());
 
         return convertView;
     }
 
     private class ViewHolder {
-        TextView tvTitle;
-        TextView tvDate;
+        LinearLayout llContent;         // 内容显示区域
+        RelativeLayout rlDateLine;      // 日期分割线
+        TextView tvDateLine;            // 日期分割线日期
+        TextView tvTitle;               // 标题
+        TextView tvContent;             // 内容
+        TextView tvDate;                // 时间
+        TextView tvLocation;            // 位置
     }
 }

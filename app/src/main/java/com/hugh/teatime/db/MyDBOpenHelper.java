@@ -49,7 +49,7 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
         // 创建加油记录表
         db.execSQL("CREATE TABLE gasoline_records (_grecordid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, totalprice DOUBLE, unitprice DOUBLE, mileage DOUBLE, quantity DOUBLE, comment TEXT, model TEXT, invoice INTEGER, paymethod TEXT, carno TEXT, year INTEGER);");
         // 创建记事本表
-        db.execSQL("CREATE TABLE events (_eventid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, title TEXT, content TEXT, itemtype INTEGER);");
+        db.execSQL("CREATE TABLE events (_eventid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, title TEXT, content TEXT);");
     }
 
     @Override
@@ -59,7 +59,7 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
         switch (oldVersion) {
             case 1:
                 db.execSQL("DROP TABLE IF EXISTS events");
-                db.execSQL("CREATE TABLE events (_eventid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, title TEXT, content TEXT, itemtype INTEGER);");
+                db.execSQL("CREATE TABLE events (_eventid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, title TEXT, content TEXT);");
                 break;
             default:
                 break;

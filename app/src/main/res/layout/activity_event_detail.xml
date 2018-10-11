@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".models.note.EventDetailActivity">
+
+    <com.hugh.teatime.view.TitlebarView
+        android:id="@+id/tbv_event_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightBarType="BTN_RIGHT"
+        app:titleName="@string/title_event_detail" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/page_margin"
+            android:background="@drawable/shape_content_bg"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/edit_padding">
+
+            <TextView
+                android:id="@+id/tv_ed_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title Title Title"
+                android:textSize="@dimen/txt_size_1"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_ed_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content"
+                android:textSize="@dimen/txt_size_1" />
+
+            <TextView
+                android:id="@+id/tv_ed_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/icon_location_sb"
+                android:text="location location"
+                android:textSize="@dimen/txt_size_1"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_ed_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="time time time"
+                android:textSize="@dimen/txt_size_1" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

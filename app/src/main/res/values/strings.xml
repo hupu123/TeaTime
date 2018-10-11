@@ -262,6 +262,9 @@
     <string name="ne_hint_title">请输入标题</string>
     <string name="ne_hint_content">请输入内容（可选）</string>
 
+    <!-- activity_event_detail.xml -->
+    <string name="title_event_detail">事件详情</string>
+
     <!-- *********************************** Fragment ************************************** -->
 
     <!-- fragment_bill_list.xml -->

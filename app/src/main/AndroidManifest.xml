@@ -16,6 +16,17 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!--用于申请调用A-GPS模块-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!--用于申请获取蓝牙信息进行室内定位-->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:name=".app.MyApplication"
@@ -25,6 +36,14 @@
         android:supportsRtl="true"
         android:theme="@style/status_bar_translucent_theme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
+        <!-- 高德地图app_key配置 -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="9ea827e7885220459d46e49f688ae8d8" />
+        <!-- 申明高德定位服务 -->
+        <service android:name="com.amap.api.location.APSService" />
+
         <activity android:name=".models.home.BaseActivity" />
         <activity android:name=".models.home.HomeActivity" />
         <activity
@@ -91,6 +110,7 @@
         <activity
             android:name=".models.note.NewEventActivity"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".models.note.EventDetailActivity"></activity>
     </application>
 
 </manifest>

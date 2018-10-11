@@ -18,12 +18,20 @@ public class GlobalVar {
     public static final String INTENT_GASOLINE_RECORD = "intent_gasoline_record";
     // 加油记录数据修改
     public static final String INTENT_GASOLINE_RECORD_EDIT = "intent_gasoline_record_edit";
+    // 事件数据
+    public static final String INTENT_EVENT = "intent_event";
+    // 事件数据修改
+    public static final String INTENT_EVENT_EDIT = "intent_event_edit";
 
     /**
      * 返回数据请求代码相关
      */
     // 请求漫画路径
     public static final int REQUEST_CODE_COMIC_PATH = 998;
+    // 请求修改事件
+    public static final int REQUEST_CODE_EDIT_EVENT = 999;
+    // 请求修改加油记录
+    public static final int REQUEST_CODE_EDIT_RECORD = 1000;
 
     /**
      * 应用全局常量
