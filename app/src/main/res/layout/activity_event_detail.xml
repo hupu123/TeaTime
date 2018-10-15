@@ -34,13 +34,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title Title Title"
-                android:textSize="@dimen/txt_size_1"
+                android:textSize="@dimen/txt_size"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_ed_content"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="start|top"
                 android:text="content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content"
                 android:textSize="@dimen/txt_size_1" />
 
@@ -48,15 +49,20 @@
                 android:id="@+id/tv_ed_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:drawableStart="@mipmap/icon_location_sb"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
                 android:text="location location"
-                android:textSize="@dimen/txt_size_1"
-                android:textStyle="bold" />
+                android:textSize="@dimen/txt_size_1" />
 
             <TextView
                 android:id="@+id/tv_ed_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/icon_time_sb"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
                 android:text="time time time"
                 android:textSize="@dimen/txt_size_1" />
         </LinearLayout>

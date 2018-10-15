@@ -2,6 +2,7 @@ package com.hugh.teatime.models.note;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.hugh.teatime.R;
@@ -80,8 +81,14 @@ public class EventDetailActivity extends BaseActivity {
         if (eventBean == null) {
             return;
         }
+        if (StringUtil.isStrNull(eventBean.getContent())) {
+            tvContent.setVisibility(View.GONE);
+        } else {
+            tvContent.setVisibility(View.VISIBLE);
+        }
         tvTitle.setText(eventBean.getTitle());
         tvContent.setText(eventBean.getContent());
+        tvLocation.setText(eventBean.getAddress());
         tvTime.setText(StringUtil.formatTimestamp1(eventBean.getDate()));
     }
 }

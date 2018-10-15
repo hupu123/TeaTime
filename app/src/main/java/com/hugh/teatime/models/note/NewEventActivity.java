@@ -45,12 +45,29 @@ public class NewEventActivity extends BaseActivity {
         initData();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == GlobalVar.REQUEST_CODE_EDIT_LOCATION) {
+                EventBean eventBeanLocation = (EventBean) data.getSerializableExtra(GlobalVar.INTENT_LOCATION_EDIT);
+                LogUtil.logHugh("onActivityResult latitude=" + eventBeanLocation.getLatitude() + " longitude=" + eventBeanLocation.getLongitude() + " address=" + eventBeanLocation.getAddress());
+                eventBean.setLatitude(eventBeanLocation.getLatitude());
+                eventBean.setLongitude(eventBeanLocation.getLongitude());
+                eventBean.setAddress(eventBeanLocation.getAddress());
+                eventBean.setCityCode(eventBeanLocation.getCityCode());
+                btnLocation.setText(eventBean.getAddress());
+            }
+        }
+    }
+
     /**
      * 初始化控件
      */
     private void initView() {
         tbv = findViewById(R.id.tbv_ne);
         btnTime = findViewById(R.id.btn_time);
+        ImageView ivAutoTime = findViewById(R.id.iv_auto_time);
         btnLocation = findViewById(R.id.btn_location);
         ImageView ivAutoLocate = findViewById(R.id.iv_auto_locate);
         etTitle = findViewById(R.id.et_title);
@@ -73,6 +90,7 @@ public class NewEventActivity extends BaseActivity {
         });
         btnTime.setOnClickListener(clickListener);
         btnLocation.setOnClickListener(clickListener);
+        ivAutoTime.setOnClickListener(clickListener);
         ivAutoLocate.setOnClickListener(clickListener);
     }
 
@@ -93,7 +111,7 @@ public class NewEventActivity extends BaseActivity {
             tbv.setRightBtnText(getResources().getString(R.string.save));
             etTitle.setText(eventBean.getTitle());
             etContent.setText(eventBean.getContent());
-            btnLocation.setText(eventBean.getPoiAddress());
+            btnLocation.setText(eventBean.getAddress());
         } else {
             tbv.setRightBtnText(getResources().getString(R.string.add));
             getLocationInfo();
@@ -112,9 +130,9 @@ public class NewEventActivity extends BaseActivity {
             etTitle.requestFocus();
             return;
         }
-        EventBean eventBeanNew = new EventBean(title, eventBean.getDate());
-        eventBeanNew.setContent(content);
-        MyDBOperater.getInstance(this).addEvent(eventBeanNew);
+        eventBean.setTitle(title);
+        eventBean.setContent(content);
+        MyDBOperater.getInstance(this).addEvent(eventBean);
         ToastUtil.showSuccess(this, R.string.save_success, true);
         finish();
     }
@@ -130,11 +148,11 @@ public class NewEventActivity extends BaseActivity {
             etTitle.requestFocus();
             return;
         }
-        EventBean eventBeanNew = new EventBean(title, eventBean.getDate());
-        eventBeanNew.setContent(content);
-        MyDBOperater.getInstance(this).updateEvent(eventBeanNew);
+        eventBean.setTitle(title);
+        eventBean.setContent(content);
+        MyDBOperater.getInstance(this).updateEvent(eventBean);
         Intent intent = new Intent(this, EventDetailActivity.class);
-        intent.putExtra(GlobalVar.INTENT_EVENT_EDIT, eventBeanNew);
+        intent.putExtra(GlobalVar.INTENT_EVENT_EDIT, eventBean);
         setResult(RESULT_OK, intent);
         ToastUtil.showSuccess(this, R.string.save_success, true);
         finish();
@@ -152,11 +170,12 @@ public class NewEventActivity extends BaseActivity {
                 if (aMapLocation != null) {
                     LogUtil.logHugh("code=" + aMapLocation.getErrorCode() + " msg=" + aMapLocation.getErrorInfo());
                     if (aMapLocation.getErrorCode() == 0) {
-                        LogUtil.logHugh("latitude=" + aMapLocation.getLatitude() + " longitude=" + aMapLocation.getLongitude() + " address=" + aMapLocation.getAddress());
+                        LogUtil.logHugh("onLocationChanged latitude=" + aMapLocation.getLatitude() + " longitude=" + aMapLocation.getLongitude() + " address=" + aMapLocation.getAddress());
                         eventBean.setLatitude(aMapLocation.getLatitude());
                         eventBean.setLongitude(aMapLocation.getLongitude());
-                        eventBean.setPoiAddress(aMapLocation.getPoiName());
-                        btnLocation.setText(eventBean.getPoiAddress());
+                        eventBean.setAddress(aMapLocation.getAddress());
+                        eventBean.setCityCode(aMapLocation.getCityCode());
+                        btnLocation.setText(eventBean.getAddress());
                     }
                 }
                 AMLocationUtil.getInstance(getApplicationContext()).stopLocate();
@@ -180,7 +199,19 @@ public class NewEventActivity extends BaseActivity {
                     dpd.setOnSureLisener(sureLisener);
                     dpd.show();
                     break;
+                case R.id.iv_auto_time:
+                    Date date = new Date();
+                    eventBean.setDate(date.getTime());
+                    btnTime.setText(StringUtil.formatTimestamp1(date.getTime()));
+                    break;
                 case R.id.btn_location:
+                    if ((eventBean.getLatitude() == 0 && eventBean.getLongitude() == 0) || StringUtil.isStrNull(eventBean.getAddress())) {
+                        ToastUtil.showInfo(NewEventActivity.this, R.string.toast_no_location_info, true);
+                        break;
+                    }
+                    Intent intent = new Intent(NewEventActivity.this, PickLocationActivity.class);
+                    intent.putExtra(GlobalVar.INTENT_LOCATION, eventBean);
+                    startActivityForResult(intent, GlobalVar.REQUEST_CODE_EDIT_LOCATION);
                     break;
                 case R.id.iv_auto_locate:
                     getLocationInfo();

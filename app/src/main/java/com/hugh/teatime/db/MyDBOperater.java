@@ -990,7 +990,7 @@ public class MyDBOperater {
         if (!db.isOpen()) {
             return;
         }
-        db.execSQL("INSERT INTO events(date, title, content) VALUES(?,?,?)", new String[]{eventBean.getDate() + "", eventBean.getTitle(), eventBean.getContent()});
+        db.execSQL("INSERT INTO events(date, title, content, latitude, longitude, address, citycode) VALUES(?,?,?,?,?,?,?)", new String[]{String.valueOf(eventBean.getDate()), eventBean.getTitle(), eventBean.getContent(), String.valueOf(eventBean.getLatitude()), String.valueOf(eventBean.getLongitude()), eventBean.getAddress(), eventBean.getCityCode()});
     }
 
     /**
@@ -1002,7 +1002,7 @@ public class MyDBOperater {
         if (!db.isOpen() || eventBean == null) {
             return;
         }
-        db.execSQL("UPDATE events SET date=?,title=?,content=? WHERE _eventid=?", new String[]{eventBean.getDate() + "", eventBean.getTitle(), eventBean.getContent(), eventBean.getId()});
+        db.execSQL("UPDATE events SET date=?,title=?,content=?,latitude=?,longitude=?,address=?,citycode=? WHERE _eventid=?", new String[]{String.valueOf(eventBean.getDate()), eventBean.getTitle(), eventBean.getContent(), String.valueOf(eventBean.getLatitude()), String.valueOf(eventBean.getLongitude()), eventBean.getAddress(), eventBean.getCityCode(), eventBean.getId()});
     }
 
     /**
@@ -1033,8 +1033,12 @@ public class MyDBOperater {
             long date = cursor.getLong(cursor.getColumnIndex("date"));
             String title = cursor.getString(cursor.getColumnIndex("title"));
             String content = cursor.getString(cursor.getColumnIndex("content"));
+            double latitude = cursor.getDouble(cursor.getColumnIndex("latitude"));
+            double longitude = cursor.getDouble(cursor.getColumnIndex("longitude"));
+            String address = cursor.getString(cursor.getColumnIndex("address"));
+            String citycode = cursor.getString(cursor.getColumnIndex("citycode"));
 
-            EventBean eventBean = new EventBean(String.valueOf(id), date, title, content);
+            EventBean eventBean = new EventBean(String.valueOf(id), date, title, content, latitude, longitude, address, citycode);
             eventBeans.add(eventBean);
         }
         cursor.close();

@@ -22,6 +22,11 @@ public class AMLocationUtil {
         return instance;
     }
 
+    /**
+     * 开始定位一次
+     *
+     * @param listener 定位结果监听
+     */
     public void startLocateOnce(AMapLocationListener listener) {
         AMapLocationClientOption locationClientOption = new AMapLocationClientOption();
         locationClientOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
@@ -35,6 +40,9 @@ public class AMLocationUtil {
         locationClient.startLocation();
     }
 
+    /**
+     * 停止定位
+     */
     public void stopLocate() {
         locationClient.stopLocation();
     }

@@ -13,8 +13,9 @@ import com.hugh.teatime.utils.LogUtil;
 public class MyDBOpenHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "teatime.db";
-    //    private static final int DB_VERSION = 1;
-    private static final int DB_VERSION = 2;// 增加事件表
+    //    private static final int DB_VERSION = 1;// 初始化数据库
+//    private static final int DB_VERSION = 2;// 增加事件表
+    private static final int DB_VERSION = 3;// events表增加字段citycode
 
     /**
      * 构造函数
@@ -49,7 +50,7 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
         // 创建加油记录表
         db.execSQL("CREATE TABLE gasoline_records (_grecordid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, totalprice DOUBLE, unitprice DOUBLE, mileage DOUBLE, quantity DOUBLE, comment TEXT, model TEXT, invoice INTEGER, paymethod TEXT, carno TEXT, year INTEGER);");
         // 创建记事本表
-        db.execSQL("CREATE TABLE events (_eventid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, title TEXT, content TEXT);");
+        db.execSQL("CREATE TABLE events (_eventid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, title TEXT, content TEXT, latitude DOUBLE, longitude DOUBLE, address TEXT, citycode TEXT);");
     }
 
     @Override
@@ -59,7 +60,9 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
         switch (oldVersion) {
             case 1:
                 db.execSQL("DROP TABLE IF EXISTS events");
-                db.execSQL("CREATE TABLE events (_eventid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, title TEXT, content TEXT);");
+                db.execSQL("CREATE TABLE events (_eventid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, title TEXT, content TEXT, latitude DOUBLE, longitude DOUBLE, address TEXT);");
+            case 2:
+                db.execSQL("ALTER TABLE events ADD COLUMN citycode TEXT;");
                 break;
             default:
                 break;

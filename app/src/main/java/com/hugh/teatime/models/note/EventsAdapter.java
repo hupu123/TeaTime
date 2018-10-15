@@ -116,7 +116,7 @@ public class EventsAdapter extends BaseAdapter {
         }
         viewHolder.tvContent.setText(eventBean.getContent());
         viewHolder.tvDate.setText(StringUtil.formatTimestamp1(eventBean.getDate()));
-        viewHolder.tvLocation.setText(eventBean.getPoiAddress());
+        viewHolder.tvLocation.setText(eventBean.getAddress());
 
         return convertView;
     }

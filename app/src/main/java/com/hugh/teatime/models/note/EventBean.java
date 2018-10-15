@@ -11,18 +11,18 @@ public class EventBean implements Serializable {
     private int itemType;// 事件在时间线列表中的显示状态，0=左边，1=右边
     private double latitude;
     private double longitude;
-    private String poiAddress;
+    private String address;
+    private String cityCode;
 
-    public EventBean(String id, long date, String title, String content) {
+    public EventBean(String id, long date, String title, String content, double latitude, double longitude, String address, String cityCode) {
         this.id = id;
         this.date = date;
         this.title = title;
         this.content = content;
-    }
-
-    public EventBean(String title, long date) {
-        this.title = title;
-        this.date = date;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.address = address;
+        this.cityCode = cityCode;
     }
 
     public EventBean() {
@@ -84,11 +84,19 @@ public class EventBean implements Serializable {
         this.longitude = longitude;
     }
 
-    public String getPoiAddress() {
-        return poiAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setPoiAddress(String poiAddress) {
-        this.poiAddress = poiAddress;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCityCode() {
+        return cityCode;
+    }
+
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
     }
 }

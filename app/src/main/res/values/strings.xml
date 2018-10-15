@@ -36,6 +36,7 @@
     <string name="toast_gasoline_carno_null">车牌号不能为空</string>
     <string name="save_success">保存成功</string>
     <string name="toast_new_event_title_null">标题不能为空</string>
+    <string name="toast_no_location_info">没有可用的位置信息，请重新定位</string>
 
     <!-- dialog string -->
     <string name="dialog_is_delete_bill">是否删除该账单？</string>
@@ -264,6 +265,9 @@
 
     <!-- activity_event_detail.xml -->
     <string name="title_event_detail">事件详情</string>
+
+    <!-- activity_pick_location.xml -->
+    <string name="title_pick_location">手动定位</string>
 
     <!-- *********************************** Fragment ************************************** -->
 

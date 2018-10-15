@@ -41,10 +41,22 @@
 
                 <Button
                     android:id="@+id/btn_time"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:background="@drawable/btn_click_bg_selector"
                     android:textColor="@color/colorWhite" />
+
+                <ImageView
+                    android:id="@+id/iv_auto_time"
+                    android:layout_width="@dimen/item_height"
+                    android:layout_height="@dimen/item_height"
+                    android:layout_marginStart="@dimen/margin_divider_width"
+                    android:background="@drawable/btn_click_bg_selector"
+                    android:contentDescription="@string/content_description"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/icon_time" />
             </LinearLayout>
 
             <LinearLayout
@@ -67,6 +79,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/btn_click_bg_selector"
+                    android:ellipsize="start"
+                    android:singleLine="true"
                     android:textColor="@color/colorWhite" />
 
                 <ImageView
@@ -76,6 +90,7 @@
                     android:layout_marginStart="@dimen/margin_divider_width"
                     android:background="@drawable/btn_click_bg_selector"
                     android:contentDescription="@string/content_description"
+                    android:padding="10dp"
                     android:scaleType="centerInside"
                     android:src="@mipmap/icon_location" />
             </LinearLayout>

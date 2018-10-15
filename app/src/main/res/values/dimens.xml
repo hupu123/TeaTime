@@ -9,6 +9,8 @@
     <dimen name="item_comic_height">80dp</dimen>
     <!-- home item height -->
     <dimen name="item_home_height">80dp</dimen>
+    <!-- text size -->
+    <dimen name="txt_size">20sp</dimen>
     <!-- comic list item name size -->
     <dimen name="txt_size_1">16sp</dimen>
     <!-- comic list item progress size -->
