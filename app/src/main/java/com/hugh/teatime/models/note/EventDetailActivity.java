@@ -3,11 +3,23 @@ package com.hugh.teatime.models.note;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.hugh.teatime.R;
 import com.hugh.teatime.app.GlobalVar;
+import com.hugh.teatime.db.MyDBOperater;
+import com.hugh.teatime.listener.DialogListener;
 import com.hugh.teatime.models.home.BaseActivity;
+import com.hugh.teatime.utils.DialogUtil;
 import com.hugh.teatime.utils.StringUtil;
 import com.hugh.teatime.view.TitlebarView;
 
@@ -15,18 +27,45 @@ public class EventDetailActivity extends BaseActivity {
 
     private TextView tvTitle;
     private TextView tvContent;
-    private TextView tvLocation;
     private TextView tvTime;
+    private TextView tvLocation;
+    private MapView mvShowLocation;
 
     private EventBean eventBean;
+    private AMap aMap;
+    private Marker marker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
 
-        initView();
+        initView(savedInstanceState);
         initData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mvShowLocation.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mvShowLocation.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mvShowLocation.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mvShowLocation.onSaveInstanceState(outState);
     }
 
     @Override
@@ -43,9 +82,8 @@ public class EventDetailActivity extends BaseActivity {
     /**
      * 初始化控件
      */
-    private void initView() {
+    private void initView(Bundle savedInstanceState) {
         TitlebarView tbv = findViewById(R.id.tbv_event_detail);
-        tbv.setRightBtnText(getResources().getString(R.string.modify));
         tbv.setListener(new TitlebarView.TitlebarListener() {
             @Override
             public void onLeftBtnClick() {
@@ -54,16 +92,20 @@ public class EventDetailActivity extends BaseActivity {
 
             @Override
             public void onRightBtnClick() {
-                Intent intent = new Intent(EventDetailActivity.this, NewEventActivity.class);
-                intent.putExtra(GlobalVar.INTENT_EVENT, eventBean);
-                startActivityForResult(intent, GlobalVar.REQUEST_CODE_EDIT_EVENT);
+
             }
         });
 
         tvTitle = findViewById(R.id.tv_ed_title);
         tvContent = findViewById(R.id.tv_ed_content);
-        tvLocation = findViewById(R.id.tv_ed_location);
         tvTime = findViewById(R.id.tv_ed_time);
+        tvLocation = findViewById(R.id.tv_ed_location);
+        mvShowLocation = findViewById(R.id.mv_show_location);
+        mvShowLocation.onCreate(savedInstanceState);
+        Button btnModity = findViewById(R.id.btn_ev_modify);
+        Button btnDelete = findViewById(R.id.btn_ev_delete);
+        btnModity.setOnClickListener(clickListener);
+        btnDelete.setOnClickListener(clickListener);
     }
 
     /**
@@ -71,6 +113,11 @@ public class EventDetailActivity extends BaseActivity {
      */
     private void initData() {
         eventBean = (EventBean) getIntent().getSerializableExtra(GlobalVar.INTENT_EVENT);
+        aMap = mvShowLocation.getMap();
+        marker = aMap.addMarker(new MarkerOptions().position(new LatLng(eventBean.getLatitude(), eventBean.getLongitude())).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_location_selected)));
+        UiSettings settings = aMap.getUiSettings();
+        settings.setZoomControlsEnabled(false);
+
         refreshData();
     }
 
@@ -88,7 +135,43 @@ public class EventDetailActivity extends BaseActivity {
         }
         tvTitle.setText(eventBean.getTitle());
         tvContent.setText(eventBean.getContent());
-        tvLocation.setText(eventBean.getAddress());
         tvTime.setText(StringUtil.formatTimestamp1(eventBean.getDate()));
+        tvLocation.setText(eventBean.getAddress());
+
+        aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(eventBean.getLatitude(), eventBean.getLongitude()), 18));
+        marker.setPosition(new LatLng(eventBean.getLatitude(), eventBean.getLongitude()));
     }
+
+    /**
+     * 按钮点击事件监听
+     */
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_ev_modify:
+                    Intent intent = new Intent(EventDetailActivity.this, NewEventActivity.class);
+                    intent.putExtra(GlobalVar.INTENT_EVENT, eventBean);
+                    startActivityForResult(intent, GlobalVar.REQUEST_CODE_EDIT_EVENT);
+                    break;
+                case R.id.btn_ev_delete:
+                    DialogUtil dialogNotice = new DialogUtil(EventDetailActivity.this, R.mipmap.icon_info_g, getResources().getString(R.string.dialog_is_delete_event), new DialogListener() {
+                        @Override
+                        public void sure() {
+                            MyDBOperater.getInstance(EventDetailActivity.this).deleteEvent(eventBean.getId());
+                            finish();
+                        }
+
+                        @Override
+                        public void cancel() {
+
+                        }
+                    });
+                    dialogNotice.showDialog();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 }

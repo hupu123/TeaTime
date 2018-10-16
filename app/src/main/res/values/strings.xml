@@ -45,6 +45,7 @@
     <string name="dialog_is_listen_background">是否在后台继续听书？</string>
     <string name="dialog_is_import_path">确认导入【%1$s】？</string>
     <string name="dialog_is_delete_record">确认删除该记录？</string>
+    <string name="dialog_is_delete_event">确认删除该事件？</string>
 
     <!-- *********************************** Activity ************************************** -->
 

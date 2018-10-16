@@ -13,7 +13,7 @@ import com.hugh.teatime.utils.LogUtil;
 public class MyDBOpenHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "teatime.db";
-    //    private static final int DB_VERSION = 1;// 初始化数据库
+//    private static final int DB_VERSION = 1;// 初始化数据库
 //    private static final int DB_VERSION = 2;// 增加事件表
     private static final int DB_VERSION = 3;// events表增加字段citycode
 

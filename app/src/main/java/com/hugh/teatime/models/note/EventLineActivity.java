@@ -11,6 +11,7 @@ import com.hugh.teatime.models.home.BaseActivity;
 import com.hugh.teatime.view.TitlebarView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
@@ -62,6 +63,7 @@ public class EventLineActivity extends BaseActivity {
         srlEvents = findViewById(R.id.srl_events);
         ListView lvEvents = findViewById(R.id.lv_events);
 
+        srlEvents.setRefreshHeader(new ClassicsHeader(this));
         srlEvents.setEnableLoadMore(false);
         srlEvents.setOnRefreshListener(new OnRefreshListener() {
             @Override
