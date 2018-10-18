@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -65,7 +66,7 @@ public class ToolUtil {
             return null;
         }
 
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         try {
             InputStream inputStream = new FileInputStream(file);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "gbk");
@@ -308,5 +309,34 @@ public class ToolUtil {
                 break;
         }
         return day;
+    }
+
+    /**
+     * 获取一天的开始
+     *
+     * @param time 时间戳
+     * @return 开始
+     */
+    public static long getStartFromTimestamp(long time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.CHINA);
+        String date = sdf.format(new Date(time));
+        long start = time;
+        try {
+            start = sdf.parse(date).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return start;
+    }
+
+    /**
+     * 获取一天的结束
+     *
+     * @param time 时间戳
+     * @return 结束
+     */
+    public static long getEndFromTimestamp(long time) {
+        long end = getStartFromTimestamp(time);
+        return end + (23 * 60 * 60 * 1000 + 59 * 60 * 1000 + 59 * 1000);
     }
 }

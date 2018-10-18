@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
@@ -30,6 +31,7 @@ public class EventDetailActivity extends BaseActivity {
     private TextView tvTime;
     private TextView tvLocation;
     private MapView mvShowLocation;
+    private LinearLayout llBtnBar;
 
     private EventBean eventBean;
     private AMap aMap;
@@ -104,6 +106,7 @@ public class EventDetailActivity extends BaseActivity {
         mvShowLocation.onCreate(savedInstanceState);
         Button btnModity = findViewById(R.id.btn_ev_modify);
         Button btnDelete = findViewById(R.id.btn_ev_delete);
+        llBtnBar = findViewById(R.id.ll_btn_bar);
         btnModity.setOnClickListener(clickListener);
         btnDelete.setOnClickListener(clickListener);
     }
@@ -138,8 +141,17 @@ public class EventDetailActivity extends BaseActivity {
         tvTime.setText(StringUtil.formatTimestamp1(eventBean.getDate()));
         tvLocation.setText(eventBean.getAddress());
 
-        aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(eventBean.getLatitude(), eventBean.getLongitude()), 18));
-        marker.setPosition(new LatLng(eventBean.getLatitude(), eventBean.getLongitude()));
+        if (eventBean.getEventType() == 0) {
+            tvLocation.setVisibility(View.VISIBLE);
+            mvShowLocation.setVisibility(View.VISIBLE);
+            llBtnBar.setVisibility(View.VISIBLE);
+            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(eventBean.getLatitude(), eventBean.getLongitude()), 18));
+            marker.setPosition(new LatLng(eventBean.getLatitude(), eventBean.getLongitude()));
+        } else {
+            tvLocation.setVisibility(View.GONE);
+            mvShowLocation.setVisibility(View.GONE);
+            llBtnBar.setVisibility(View.GONE);
+        }
     }
 
     /**

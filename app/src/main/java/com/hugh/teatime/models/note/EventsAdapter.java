@@ -55,34 +55,28 @@ public class EventsAdapter extends BaseAdapter {
         boolean isShowDateLine = false;
         if (position == 0) {
             isShowDateLine = true;
-            eventBean.setItemType(0);
+            eventBean.setItemLeft(true);
         } else {
             EventBean eventBean1 = events.get(position - 1);
             String time = StringUtil.formatTimestamp2(eventBean.getDate());
             String time1 = StringUtil.formatTimestamp2(eventBean1.getDate());
             if (time.equals(time1)) {
-                eventBean.setItemType(eventBean1.getItemType());
+                eventBean.setItemLeft(eventBean1.isItemLeft());
             } else {
                 isShowDateLine = true;
-                if (eventBean1.getItemType() == 0) {
-                    eventBean.setItemType(1);
+                if (eventBean1.isItemLeft()) {
+                    eventBean.setItemLeft(false);
                 } else {
-                    eventBean.setItemType(0);
+                    eventBean.setItemLeft(true);
                 }
             }
         }
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        switch (eventBean.getItemType()) {
-            case 0:
-                convertView = inflater.inflate(R.layout.item_note_1, null);
-                break;
-            case 1:
-                convertView = inflater.inflate(R.layout.item_note, null);
-                break;
-            default:
-                convertView = inflater.inflate(R.layout.item_note, null);
-                break;
+        if (eventBean.isItemLeft()) {
+            convertView = inflater.inflate(R.layout.item_note_1, null);
+        } else {
+            convertView = inflater.inflate(R.layout.item_note, null);
         }
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.llContent = convertView.findViewById(R.id.ll_content);
@@ -107,15 +101,20 @@ public class EventsAdapter extends BaseAdapter {
         } else {
             viewHolder.rlDateLine.setVisibility(View.GONE);
         }
-        viewHolder.tvDateLine.setText(StringUtil.formatTimestamp(eventBean.getDate()));
-        viewHolder.tvTitle.setText(eventBean.getTitle());
         if (StringUtil.isStrNull(eventBean.getContent())) {
             viewHolder.tvContent.setVisibility(View.GONE);
         } else {
             viewHolder.tvContent.setVisibility(View.VISIBLE);
         }
+        if (StringUtil.isStrNull(eventBean.getAddress())) {
+            viewHolder.tvLocation.setVisibility(View.GONE);
+        } else {
+            viewHolder.tvLocation.setVisibility(View.VISIBLE);
+        }
+        viewHolder.tvDateLine.setText(StringUtil.formatTimestamp(eventBean.getDate()));
+        viewHolder.tvTitle.setText(eventBean.getTitle());
         viewHolder.tvContent.setText(eventBean.getContent());
-        viewHolder.tvDate.setText(StringUtil.formatTimestamp1(eventBean.getDate()));
+        viewHolder.tvDate.setText(StringUtil.formatTimestamp3(eventBean.getDate()));
         viewHolder.tvLocation.setText(eventBean.getAddress());
 
         return convertView;

@@ -222,6 +222,42 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/page_margin">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/ne_location"
+                    android:textColor="@color/colorWhite" />
+
+                <Button
+                    android:id="@+id/btn_location"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_click_bg_selector"
+                    android:ellipsize="start"
+                    android:singleLine="true"
+                    android:textColor="@color/colorWhite" />
+
+                <ImageView
+                    android:id="@+id/iv_auto_locate"
+                    android:layout_width="@dimen/item_height"
+                    android:layout_height="@dimen/item_height"
+                    android:layout_marginStart="@dimen/margin_divider_width"
+                    android:background="@drawable/btn_click_bg_selector"
+                    android:contentDescription="@string/content_description"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/icon_location" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/high_item_height"
                 android:layout_marginTop="@dimen/page_margin">
 

@@ -40,7 +40,7 @@ public class PickLocationActivity extends BaseActivity {
     private MapView mapView;
     private SearchView svSearch;
 
-    private EventBean eventBeanLocation;
+    private LocationBean locationBean;
     private AMap aMap;
     private Marker markerSelected;
     private ArrayList<Marker> markersSearched = new ArrayList<>();
@@ -140,10 +140,10 @@ public class PickLocationActivity extends BaseActivity {
      * 初始化数据
      */
     private void initData() {
-        eventBeanLocation = (EventBean) getIntent().getSerializableExtra(GlobalVar.INTENT_LOCATION);
+        locationBean = (LocationBean) getIntent().getSerializableExtra(GlobalVar.INTENT_LOCATION);
         aMap = mapView.getMap();
-        aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(eventBeanLocation.getLatitude(), eventBeanLocation.getLongitude()), cameraZoom));
-        markerSelected = aMap.addMarker(new MarkerOptions().position(new LatLng(eventBeanLocation.getLatitude(), eventBeanLocation.getLongitude())).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_location_selected)));
+        aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(locationBean.getLatitude(), locationBean.getLongitude()), cameraZoom));
+        markerSelected = aMap.addMarker(new MarkerOptions().position(new LatLng(locationBean.getLatitude(), locationBean.getLongitude())).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_location_selected)));
         markerSelected.setClickable(false);
         aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
             @Override
@@ -151,8 +151,8 @@ public class PickLocationActivity extends BaseActivity {
                 LogUtil.logHugh("onMapClick");
                 hideSelectedMarker(null);
                 markerSelected.setPosition(latLng);
-                eventBeanLocation.setLatitude(latLng.latitude);
-                eventBeanLocation.setLongitude(latLng.longitude);
+                locationBean.setLatitude(latLng.latitude);
+                locationBean.setLongitude(latLng.longitude);
             }
         });
         aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
@@ -161,8 +161,8 @@ public class PickLocationActivity extends BaseActivity {
                 LogUtil.logHugh("onMarkerClick");
                 hideSelectedMarker(marker);
                 markerSelected.setPosition(marker.getPosition());
-                eventBeanLocation.setLatitude(marker.getPosition().latitude);
-                eventBeanLocation.setLongitude(marker.getPosition().longitude);
+                locationBean.setLatitude(marker.getPosition().latitude);
+                locationBean.setLongitude(marker.getPosition().longitude);
                 return true;
             }
         });
@@ -224,8 +224,8 @@ public class PickLocationActivity extends BaseActivity {
      * @param keyWord 关键字
      */
     private void query(String keyWord) {
-        LogUtil.logHugh("cityCode=" + eventBeanLocation.getCityCode());
-        PoiSearch.Query query = new PoiSearch.Query(keyWord, "", eventBeanLocation.getCityCode());
+        LogUtil.logHugh("cityCode=" + locationBean.getCityCode());
+        PoiSearch.Query query = new PoiSearch.Query(keyWord, "", locationBean.getCityCode());
         query.setPageSize(100);
         query.setPageNum(1);
         PoiSearch poiSearch = new PoiSearch(this, query);
@@ -273,12 +273,12 @@ public class PickLocationActivity extends BaseActivity {
                 dialogWaiting.hideDialog();
                 if (i == 1000) {
                     String address = regeocodeResult.getRegeocodeAddress().getFormatAddress();
-                    eventBeanLocation.setAddress(address);
-                    eventBeanLocation.setCityCode(regeocodeResult.getRegeocodeAddress().getCityCode());
+                    locationBean.setAddress(address);
+                    locationBean.setCityCode(regeocodeResult.getRegeocodeAddress().getCityCode());
                     LogUtil.logHugh("confirm address=" + address);
 
                     Intent intent = new Intent();
-                    intent.putExtra(GlobalVar.INTENT_LOCATION_EDIT, eventBeanLocation);
+                    intent.putExtra(GlobalVar.INTENT_LOCATION_EDIT, locationBean);
                     setResult(RESULT_OK, intent);
                     finish();
                 }
@@ -289,6 +289,6 @@ public class PickLocationActivity extends BaseActivity {
 
             }
         });
-        geocodeSearch.getFromLocationAsyn(new RegeocodeQuery(new LatLonPoint(eventBeanLocation.getLatitude(), eventBeanLocation.getLongitude()), 50, GeocodeSearch.AMAP));
+        geocodeSearch.getFromLocationAsyn(new RegeocodeQuery(new LatLonPoint(locationBean.getLatitude(), locationBean.getLongitude()), 50, GeocodeSearch.AMAP));
     }
 }

@@ -244,7 +244,8 @@
     <string name="gd_have_invoiced">是否开票：已开票</string>
     <string name="gd_havent_invoiced">是否开票：未开票</string>
     <string name="gd_comment">备注：</string>
-    <string name="gd_open_chart">查看统计图表</string>
+    <string name="gd_location">地址：%1$s</string>
+    <string name="gd_open_chart">图表</string>
 
     <!-- activity_gasoline_chart.xml -->
     <string name="title_gasoline_chart">加油记录统计</string>

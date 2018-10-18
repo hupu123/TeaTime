@@ -50,12 +50,12 @@ public class NewEventActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == GlobalVar.REQUEST_CODE_EDIT_LOCATION) {
-                EventBean eventBeanLocation = (EventBean) data.getSerializableExtra(GlobalVar.INTENT_LOCATION_EDIT);
-                LogUtil.logHugh("onActivityResult latitude=" + eventBeanLocation.getLatitude() + " longitude=" + eventBeanLocation.getLongitude() + " address=" + eventBeanLocation.getAddress());
-                eventBean.setLatitude(eventBeanLocation.getLatitude());
-                eventBean.setLongitude(eventBeanLocation.getLongitude());
-                eventBean.setAddress(eventBeanLocation.getAddress());
-                eventBean.setCityCode(eventBeanLocation.getCityCode());
+                LocationBean locationBean = (LocationBean) data.getSerializableExtra(GlobalVar.INTENT_LOCATION_EDIT);
+                LogUtil.logHugh("onActivityResult latitude=" + locationBean.getLatitude() + " longitude=" + locationBean.getLongitude() + " address=" + locationBean.getAddress());
+                eventBean.setLatitude(locationBean.getLatitude());
+                eventBean.setLongitude(locationBean.getLongitude());
+                eventBean.setAddress(locationBean.getAddress());
+                eventBean.setCityCode(locationBean.getCityCode());
                 btnLocation.setText(eventBean.getAddress());
             }
         }
@@ -209,8 +209,13 @@ public class NewEventActivity extends BaseActivity {
                         ToastUtil.showInfo(NewEventActivity.this, R.string.toast_no_location_info, true);
                         break;
                     }
+                    LocationBean locationBean = new LocationBean();
+                    locationBean.setLatitude(eventBean.getLatitude());
+                    locationBean.setLongitude(eventBean.getLongitude());
+                    locationBean.setAddress(eventBean.getAddress());
+                    locationBean.setCityCode(eventBean.getCityCode());
                     Intent intent = new Intent(NewEventActivity.this, PickLocationActivity.class);
-                    intent.putExtra(GlobalVar.INTENT_LOCATION, eventBean);
+                    intent.putExtra(GlobalVar.INTENT_LOCATION, locationBean);
                     startActivityForResult(intent, GlobalVar.REQUEST_CODE_EDIT_LOCATION);
                     break;
                 case R.id.iv_auto_locate:

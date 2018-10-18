@@ -22,6 +22,10 @@ public class GasolineBean implements Serializable, Comparable<GasolineBean> {
     private String payMethod;       // 支付方式 *
     private String carNO;           // 车牌号 *
     private int year;               // 年份
+    private double latitude;        // 纬度
+    private double longitude;       // 经度
+    private String address;         // 地址
+    private String cityCode;        // 城市码
 
     public GasolineBean(long date, BigDecimal totalPrice, double mileage, String model, int invoice, String payMethod, String carNO) {
         this.date = date;
@@ -39,7 +43,7 @@ public class GasolineBean implements Serializable, Comparable<GasolineBean> {
         this.year = getYearFromDate(date);
     }
 
-    public GasolineBean(String id, long date, BigDecimal totalPrice, BigDecimal unitPrice, double mileage, double quantity, String comment, String model, int invoice, String payMethod, String carNO) {
+    public GasolineBean(String id, long date, BigDecimal totalPrice, BigDecimal unitPrice, double mileage, double quantity, String comment, String model, int invoice, String payMethod, String carNO, double latitude, double longitude, String address, String cityCode) {
         this.id = id;
         this.date = date;
         this.totalPrice = totalPrice;
@@ -52,6 +56,10 @@ public class GasolineBean implements Serializable, Comparable<GasolineBean> {
         this.payMethod = payMethod;
         this.carNO = carNO;
         this.year = getYearFromDate(date);
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.address = address;
+        this.cityCode = cityCode;
     }
 
     private int getYearFromDate(long date) {
@@ -158,6 +166,38 @@ public class GasolineBean implements Serializable, Comparable<GasolineBean> {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCityCode() {
+        return cityCode;
+    }
+
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
     }
 
     @Override

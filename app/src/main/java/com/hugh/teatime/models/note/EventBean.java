@@ -1,20 +1,23 @@
 package com.hugh.teatime.models.note;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
-public class EventBean implements Serializable {
+public class EventBean implements Serializable, Comparable<EventBean> {
 
-    private String id;
-    private long date;
-    private String title;
-    private String content;
-    private int itemType;// 事件在时间线列表中的显示状态，0=左边，1=右边
-    private double latitude;
-    private double longitude;
-    private String address;
-    private String cityCode;
+    private String id;              // 事件唯一标识
+    private long date;              // 时间戳
+    private String title;           // 标题
+    private String content;         // 内容
+    private double latitude;        // 纬度
+    private double longitude;       // 经度
+    private String address;         // 地址
+    private String cityCode;        // 城市码
+    private boolean isItemLeft;     // 事件是否显示在列表左侧，true=左侧，false=右侧
+    private int eventType;          // 事件类型，0=普通，1=加油记录
 
-    public EventBean(String id, long date, String title, String content, double latitude, double longitude, String address, String cityCode) {
+    public EventBean(String id, long date, String title, String content, double latitude, double longitude, String address, String cityCode, int eventType) {
         this.id = id;
         this.date = date;
         this.title = title;
@@ -23,6 +26,7 @@ public class EventBean implements Serializable {
         this.longitude = longitude;
         this.address = address;
         this.cityCode = cityCode;
+        this.eventType = eventType;
     }
 
     public EventBean() {
@@ -60,14 +64,6 @@ public class EventBean implements Serializable {
         this.content = content;
     }
 
-    public int getItemType() {
-        return itemType;
-    }
-
-    public void setItemType(int itemType) {
-        this.itemType = itemType;
-    }
-
     public double getLatitude() {
         return latitude;
     }
@@ -98,5 +94,26 @@ public class EventBean implements Serializable {
 
     public void setCityCode(String cityCode) {
         this.cityCode = cityCode;
+    }
+
+    public boolean isItemLeft() {
+        return isItemLeft;
+    }
+
+    public void setItemLeft(boolean itemLeft) {
+        isItemLeft = itemLeft;
+    }
+
+    public int getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(int eventType) {
+        this.eventType = eventType;
+    }
+
+    @Override
+    public int compareTo(@NonNull EventBean o) {
+        return (int) (this.getDate() - o.getDate());
     }
 }

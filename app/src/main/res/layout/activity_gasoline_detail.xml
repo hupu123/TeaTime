@@ -219,6 +219,24 @@
                             android:singleLine="false" />
 
                     </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/divider_height"
+                        android:background="@color/colorGray_1" />
+
+                    <TextView
+                        android:id="@+id/tv_gd_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/page_margin"
+                        android:paddingBottom="@dimen/page_margin"
+                        android:textSize="@dimen/txt_size_2" />
+
+                    <com.amap.api.maps.MapView
+                        android:id="@+id/mv_show_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp" />
                 </LinearLayout>
 
                 <View
@@ -236,14 +254,14 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/btn_click_bg6_selector"
+                        android:background="@drawable/btn_click_bg6_bl_selector"
                         android:text="@string/gd_open_chart" />
 
                     <View
                         android:layout_width="@dimen/divider_height"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:background="@color/colorGray_1" />
 
                     <Button
@@ -258,8 +276,8 @@
                     <View
                         android:layout_width="@dimen/divider_height"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:background="@color/colorGray_1" />
 
                     <Button
@@ -268,7 +286,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/btn_click_bg6_selector"
+                        android:background="@drawable/btn_click_bg6_br_selector"
                         android:text="@string/delete" />
                 </LinearLayout>
             </LinearLayout>

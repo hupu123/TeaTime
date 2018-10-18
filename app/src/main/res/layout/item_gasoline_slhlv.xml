@@ -2,22 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_gasoline_height"
-        android:layout_marginBottom="@dimen/item_margin_tb_width"
-        android:layout_marginEnd="@dimen/item_margin_lr_width"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/item_margin_lr_width"
         android:layout_marginTop="@dimen/item_margin_tb_width"
+        android:layout_marginEnd="@dimen/item_margin_lr_width"
+        android:layout_marginBottom="@dimen/item_margin_tb_width"
+        android:background="@drawable/shape_content_bg"
+        android:orientation="vertical"
         tools:ignore="UselessParent">
 
         <LinearLayout
             android:id="@+id/ll_item"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/item_click_bg1_selector"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_click_bg6_tlr_selector"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="@dimen/item_margin_lr_width">
@@ -57,52 +60,52 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/colorGray_1" />
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height">
 
-            <TextView
-                android:id="@+id/tv_car_no"
-                android:layout_width="70dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="@dimen/filter_tag_margin"
-                android:background="@drawable/filter_tag_click_selector"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:singleLine="true"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/txt_size_2"
-                android:textStyle="bold" />
+            <Button
+                android:id="@+id/btn_car_no"
+                style="?android:buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_click_bg6_bl_selector" />
 
-            <TextView
-                android:id="@+id/tv_model"
-                android:layout_width="70dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="@dimen/filter_tag_margin"
-                android:background="@drawable/filter_tag_click_selector"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:singleLine="true"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/txt_size_2"
-                android:textStyle="bold" />
+            <View
+                android:layout_width="@dimen/divider_height"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorGray_1" />
 
-            <TextView
-                android:id="@+id/tv_invoiced"
-                android:layout_width="70dp"
-                android:layout_height="30dp"
-                android:layout_marginBottom="@dimen/filter_tag_margin"
-                android:layout_marginTop="@dimen/filter_tag_margin"
-                android:background="@drawable/filter_tag_click_selector"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="@string/gasoline_invoiced"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/txt_size_2"
-                android:textStyle="bold" />
+            <Button
+                android:id="@+id/btn_model"
+                style="?android:buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_click_bg6_selector" />
+
+            <View
+                android:layout_width="@dimen/divider_height"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorGray_1" />
+
+            <Button
+                android:id="@+id/btn_invoiced"
+                style="?android:buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_click_bg6_br_selector" />
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

@@ -7,8 +7,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
 import com.codbking.widget.DatePickDialog;
 import com.codbking.widget.OnSureLisener;
 import com.codbking.widget.bean.DateType;
@@ -18,6 +21,11 @@ import com.hugh.teatime.adapter.common.ViewHolder;
 import com.hugh.teatime.app.GlobalVar;
 import com.hugh.teatime.db.MyDBOperater;
 import com.hugh.teatime.models.home.BaseActivity;
+import com.hugh.teatime.models.note.LocationBean;
+import com.hugh.teatime.models.note.PickLocationActivity;
+import com.hugh.teatime.utils.AMLocationUtil;
+import com.hugh.teatime.utils.DialogUtil;
+import com.hugh.teatime.utils.LogUtil;
 import com.hugh.teatime.utils.SPUtil;
 import com.hugh.teatime.utils.StringUtil;
 import com.hugh.teatime.utils.ToastUtil;
@@ -37,6 +45,7 @@ public class GasolineRecordEditActivity extends BaseActivity {
     private Spinner sPayType;               // 支付方式选择
     private EditText etCarNO;               // 车牌号输入框
     private Button btnRecordDate;           // 日期选择按钮
+    private Button btnLocation;             // 位置选择按钮
     private EditText etRecordComment;       // 备注信息输入框
     private CheckBox cbIsInvoice;           // 是否已开发票勾选框
 
@@ -47,6 +56,7 @@ public class GasolineRecordEditActivity extends BaseActivity {
     private Date recordDate = new Date();
     private boolean isModifyFlag = false;
     private String id;
+    private LocationBean locationBean = new LocationBean();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +65,17 @@ public class GasolineRecordEditActivity extends BaseActivity {
 
         initView();
         initData();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == GlobalVar.REQUEST_CODE_EDIT_LOCATION) {
+                locationBean = (LocationBean) data.getSerializableExtra(GlobalVar.INTENT_LOCATION_EDIT);
+                btnLocation.setText(locationBean.getAddress());
+            }
+        }
     }
 
     /**
@@ -80,6 +101,8 @@ public class GasolineRecordEditActivity extends BaseActivity {
         sPayType = findViewById(R.id.s_pay_type);
         etCarNO = findViewById(R.id.et_car_no);
         btnRecordDate = findViewById(R.id.btn_record_date);
+        btnLocation = findViewById(R.id.btn_location);
+        ImageView ivAutoLocate = findViewById(R.id.iv_auto_locate);
         etRecordComment = findViewById(R.id.et_record_comment);
         cbIsInvoice = findViewById(R.id.cb_is_invoice);
         Button btnConfirm = findViewById(R.id.btn_confirm);
@@ -107,6 +130,8 @@ public class GasolineRecordEditActivity extends BaseActivity {
             }
         });
         btnRecordDate.setOnClickListener(clickListener);
+        btnLocation.setOnClickListener(clickListener);
+        ivAutoLocate.setOnClickListener(clickListener);
         btnConfirm.setOnClickListener(clickListener);
     }
 
@@ -152,6 +177,12 @@ public class GasolineRecordEditActivity extends BaseActivity {
             recordDate = new Date(gasolineBean.getDate());
             carNO = gasolineBean.getCarNO();
             id = gasolineBean.getId();
+
+            locationBean.setLatitude(gasolineBean.getLatitude());
+            locationBean.setLongitude(gasolineBean.getLongitude());
+            locationBean.setAddress(gasolineBean.getAddress());
+            locationBean.setCityCode(gasolineBean.getCityCode());
+            btnLocation.setText(gasolineBean.getAddress());
         }
         sGasolineType.setSelection(gasolineTypePosition);
         sPayType.setSelection(payTypePosition);
@@ -213,6 +244,10 @@ public class GasolineRecordEditActivity extends BaseActivity {
         }
 
         GasolineBean gasolineBean = new GasolineBean(recordDate.getTime(), new BigDecimal(Double.parseDouble(totalAmountStr)), Double.parseDouble(totalMileageStr), gasolineTypes.get(gasolineTypePosition), invoice, payTypes.get(payTypePosition), carNO);
+        gasolineBean.setLatitude(locationBean.getLatitude());
+        gasolineBean.setLongitude(locationBean.getLongitude());
+        gasolineBean.setAddress(locationBean.getAddress());
+        gasolineBean.setCityCode(locationBean.getCityCode());
         if (!StringUtil.isStrNull(totalQuantityStr)) {
             gasolineBean.setQuantity(Double.parseDouble(totalQuantityStr));
         }
@@ -235,6 +270,32 @@ public class GasolineRecordEditActivity extends BaseActivity {
     }
 
     /**
+     * 获取位置信息
+     */
+    private void getLocationInfo() {
+        final DialogUtil waitDialog = new DialogUtil(this);
+        waitDialog.showDialog();
+        AMLocationUtil.getInstance(getApplicationContext()).startLocateOnce(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+                if (aMapLocation != null) {
+                    LogUtil.logHugh("code=" + aMapLocation.getErrorCode() + " msg=" + aMapLocation.getErrorInfo());
+                    if (aMapLocation.getErrorCode() == 0) {
+                        LogUtil.logHugh("onLocationChanged latitude=" + aMapLocation.getLatitude() + " longitude=" + aMapLocation.getLongitude() + " address=" + aMapLocation.getAddress());
+                        locationBean.setLatitude(aMapLocation.getLatitude());
+                        locationBean.setLongitude(aMapLocation.getLongitude());
+                        locationBean.setAddress(aMapLocation.getAddress());
+                        locationBean.setCityCode(aMapLocation.getCityCode());
+                        btnLocation.setText(locationBean.getAddress());
+                    }
+                }
+                AMLocationUtil.getInstance(getApplicationContext()).stopLocate();
+                waitDialog.hideDialog();
+            }
+        });
+    }
+
+    /**
      * 点击事件监听
      */
     private View.OnClickListener clickListener = new View.OnClickListener() {
@@ -248,6 +309,18 @@ public class GasolineRecordEditActivity extends BaseActivity {
                     dpd.setTitle(getResources().getString(R.string.bill_record_select_date));
                     dpd.setOnSureLisener(sureLisener);
                     dpd.show();
+                    break;
+                case R.id.btn_location:
+                    if ((locationBean.getLatitude() == 0 && locationBean.getLongitude() == 0) || StringUtil.isStrNull(locationBean.getAddress())) {
+                        ToastUtil.showInfo(GasolineRecordEditActivity.this, R.string.toast_no_location_info, true);
+                        break;
+                    }
+                    Intent intent = new Intent(GasolineRecordEditActivity.this, PickLocationActivity.class);
+                    intent.putExtra(GlobalVar.INTENT_LOCATION, locationBean);
+                    startActivityForResult(intent, GlobalVar.REQUEST_CODE_EDIT_LOCATION);
+                    break;
+                case R.id.iv_auto_locate:
+                    getLocationInfo();
                     break;
                 case R.id.btn_confirm:
                     saveRecord();

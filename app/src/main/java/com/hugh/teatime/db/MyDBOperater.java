@@ -17,13 +17,13 @@ import com.hugh.teatime.models.robot.Message;
 import com.hugh.teatime.models.robot.News;
 import com.hugh.teatime.utils.LogUtil;
 import com.hugh.teatime.utils.StringUtil;
+import com.hugh.teatime.utils.ToolUtil;
 
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * 数据库操作帮助类
@@ -742,7 +742,7 @@ public class MyDBOperater {
         if (!db.isOpen()) {
             return;
         }
-        db.execSQL("INSERT INTO gasoline_records(date,totalprice,unitprice,mileage,quantity,comment,model,invoice,paymethod,carno,year) VALUES(?,?,?,?,?,?,?,?,?,?,?)", new String[]{gasolineBean.getDate() + "", gasolineBean.getTotalPrice().doubleValue() + "", gasolineBean.getUnitPrice().doubleValue() + "", gasolineBean.getMileage() + "", gasolineBean.getQuantity() + "", gasolineBean.getComment(), gasolineBean.getModel(), gasolineBean.getInvoice() + "", gasolineBean.getPayMethod(), gasolineBean.getCarNO(), gasolineBean.getYear() + ""});
+        db.execSQL("INSERT INTO gasoline_records(date,totalprice,unitprice,mileage,quantity,comment,model,invoice,paymethod,carno,year,latitude,longitude,address,citycode) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new String[]{String.valueOf(gasolineBean.getDate()), String.valueOf(gasolineBean.getTotalPrice().doubleValue()), String.valueOf(gasolineBean.getUnitPrice().doubleValue()), String.valueOf(gasolineBean.getMileage()), String.valueOf(gasolineBean.getQuantity()), gasolineBean.getComment(), gasolineBean.getModel(), String.valueOf(gasolineBean.getInvoice()), gasolineBean.getPayMethod(), gasolineBean.getCarNO(), String.valueOf(gasolineBean.getYear()), String.valueOf(gasolineBean.getLatitude()), String.valueOf(gasolineBean.getLongitude()), gasolineBean.getAddress(), gasolineBean.getCityCode()});
     }
 
     /**
@@ -754,7 +754,7 @@ public class MyDBOperater {
         if (!db.isOpen() || gasolineBean == null) {
             return;
         }
-        db.execSQL("UPDATE gasoline_records SET date=?,totalprice=?,unitprice=?,mileage=?,quantity=?,comment=?,model=?,invoice=?,paymethod=?,carno=?,year=? WHERE _grecordid=?", new String[]{gasolineBean.getDate() + "", gasolineBean.getTotalPrice().doubleValue() + "", gasolineBean.getUnitPrice().doubleValue() + "", gasolineBean.getMileage() + "", gasolineBean.getQuantity() + "", gasolineBean.getComment(), gasolineBean.getModel(), gasolineBean.getInvoice() + "", gasolineBean.getPayMethod(), gasolineBean.getCarNO(), gasolineBean.getYear() + "", gasolineBean.getId()});
+        db.execSQL("UPDATE gasoline_records SET date=?,totalprice=?,unitprice=?,mileage=?,quantity=?,comment=?,model=?,invoice=?,paymethod=?,carno=?,year=?,latitude=?,longitude=?,address=?,citycode=? WHERE _grecordid=?", new String[]{String.valueOf(gasolineBean.getDate()), String.valueOf(gasolineBean.getTotalPrice().doubleValue()), String.valueOf(gasolineBean.getUnitPrice().doubleValue()), String.valueOf(gasolineBean.getMileage()), gasolineBean.getQuantity() + "", gasolineBean.getComment(), gasolineBean.getModel(), String.valueOf(gasolineBean.getInvoice()), gasolineBean.getPayMethod(), gasolineBean.getCarNO(), String.valueOf(gasolineBean.getYear()), String.valueOf(gasolineBean.getLatitude()), String.valueOf(gasolineBean.getLongitude()), gasolineBean.getAddress(), gasolineBean.getCityCode(), gasolineBean.getId()});
     }
 
     /**
@@ -816,8 +816,12 @@ public class MyDBOperater {
             int invoice = cursor.getInt(cursor.getColumnIndex("invoice"));
             String payMethod = cursor.getString(cursor.getColumnIndex("paymethod"));
             String carNO = cursor.getString(cursor.getColumnIndex("carno"));
+            double latitude = cursor.getDouble(cursor.getColumnIndex("latitude"));
+            double longitude = cursor.getDouble(cursor.getColumnIndex("longitude"));
+            String address = cursor.getString(cursor.getColumnIndex("address"));
+            String cityCode = cursor.getString(cursor.getColumnIndex("citycode"));
 
-            GasolineBean gasolineBean = new GasolineBean(id + "", date, new BigDecimal(totalPrice), new BigDecimal(unitPrice), mileage, quantity, comment, model, invoice, payMethod, carNO);
+            GasolineBean gasolineBean = new GasolineBean(String.valueOf(id), date, new BigDecimal(totalPrice), new BigDecimal(unitPrice), mileage, quantity, comment, model, invoice, payMethod, carNO, latitude, longitude, address, cityCode);
             records.add(gasolineBean);
         }
         cursor.close();
@@ -873,8 +877,12 @@ public class MyDBOperater {
             int invoice = cursor.getInt(cursor.getColumnIndex("invoice"));
             String payMethod = cursor.getString(cursor.getColumnIndex("paymethod"));
             String carNO = cursor.getString(cursor.getColumnIndex("carno"));
+            double latitude = cursor.getDouble(cursor.getColumnIndex("latitude"));
+            double longitude = cursor.getDouble(cursor.getColumnIndex("longitude"));
+            String address = cursor.getString(cursor.getColumnIndex("address"));
+            String cityCode = cursor.getString(cursor.getColumnIndex("citycode"));
 
-            GasolineBean gasolineBean = new GasolineBean(id + "", date, new BigDecimal(totalPrice), new BigDecimal(unitPrice), mileage, quantity, comment, model, invoice, payMethod, carNO);
+            GasolineBean gasolineBean = new GasolineBean(String.valueOf(id), date, new BigDecimal(totalPrice), new BigDecimal(unitPrice), mileage, quantity, comment, model, invoice, payMethod, carNO, latitude, longitude, address, cityCode);
             records.add(gasolineBean);
         }
         cursor.close();
@@ -990,7 +998,7 @@ public class MyDBOperater {
         if (!db.isOpen()) {
             return;
         }
-        db.execSQL("INSERT INTO events(date, title, content, latitude, longitude, address, citycode) VALUES(?,?,?,?,?,?,?)", new String[]{String.valueOf(eventBean.getDate()), eventBean.getTitle(), eventBean.getContent(), String.valueOf(eventBean.getLatitude()), String.valueOf(eventBean.getLongitude()), eventBean.getAddress(), eventBean.getCityCode()});
+        db.execSQL("INSERT INTO events(date, title, content, latitude, longitude, address, citycode, type) VALUES(?,?,?,?,?,?,?,?)", new String[]{String.valueOf(eventBean.getDate()), eventBean.getTitle(), eventBean.getContent(), String.valueOf(eventBean.getLatitude()), String.valueOf(eventBean.getLongitude()), eventBean.getAddress(), eventBean.getCityCode(), String.valueOf(eventBean.getEventType())});
     }
 
     /**
@@ -1002,7 +1010,7 @@ public class MyDBOperater {
         if (!db.isOpen() || eventBean == null) {
             return;
         }
-        db.execSQL("UPDATE events SET date=?,title=?,content=?,latitude=?,longitude=?,address=?,citycode=? WHERE _eventid=?", new String[]{String.valueOf(eventBean.getDate()), eventBean.getTitle(), eventBean.getContent(), String.valueOf(eventBean.getLatitude()), String.valueOf(eventBean.getLongitude()), eventBean.getAddress(), eventBean.getCityCode(), eventBean.getId()});
+        db.execSQL("UPDATE events SET date=?,title=?,content=?,latitude=?,longitude=?,address=?,citycode=?,type=? WHERE _eventid=?", new String[]{String.valueOf(eventBean.getDate()), eventBean.getTitle(), eventBean.getContent(), String.valueOf(eventBean.getLatitude()), String.valueOf(eventBean.getLongitude()), eventBean.getAddress(), eventBean.getCityCode(), String.valueOf(eventBean.getEventType()), eventBean.getId()});
     }
 
     /**
@@ -1027,6 +1035,7 @@ public class MyDBOperater {
             return null;
         }
         ArrayList<EventBean> eventBeans = new ArrayList<>();
+        // 查询事件数据
         Cursor cursor = db.rawQuery("SELECT * FROM (SELECT * FROM events ORDER BY date DESC LIMIT ? OFFSET ?) ORDER BY date ASC", new String[]{String.valueOf(pageSize), String.valueOf(pageIndex * pageSize)});
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex("_eventid"));
@@ -1037,12 +1046,43 @@ public class MyDBOperater {
             double longitude = cursor.getDouble(cursor.getColumnIndex("longitude"));
             String address = cursor.getString(cursor.getColumnIndex("address"));
             String citycode = cursor.getString(cursor.getColumnIndex("citycode"));
+            int eventType = cursor.getInt(cursor.getColumnIndex("type"));
 
-            EventBean eventBean = new EventBean(String.valueOf(id), date, title, content, latitude, longitude, address, citycode);
+            EventBean eventBean = new EventBean(String.valueOf(id), date, title, content, latitude, longitude, address, citycode, eventType);
             eventBeans.add(eventBean);
         }
         cursor.close();
 
+        // 查询加油数据
+        if (eventBeans.size() > 0) {
+            long startTime = ToolUtil.getStartFromTimestamp(eventBeans.get(0).getDate());
+            long endTime = ToolUtil.getEndFromTimestamp(eventBeans.get(eventBeans.size() - 1).getDate());
+            Cursor cursor1 = db.rawQuery("SELECT * FROM gasoline_records WHERE date>=? AND date<=? ORDER BY date ASC", new String[]{String.valueOf(startTime), String.valueOf(endTime)});
+            while (cursor1.moveToNext()) {
+                long date = cursor1.getLong(cursor1.getColumnIndex("date"));
+                double totalPrice = cursor1.getDouble(cursor1.getColumnIndex("totalprice"));
+                double unitPrice = cursor1.getDouble(cursor1.getColumnIndex("unitprice"));
+                double mileage = cursor1.getDouble(cursor1.getColumnIndex("mileage"));
+                double quantity = cursor1.getDouble(cursor1.getColumnIndex("quantity"));
+                String comment = cursor1.getString(cursor1.getColumnIndex("comment"));
+                String model = cursor1.getString(cursor1.getColumnIndex("model"));
+                int invoice = cursor1.getInt(cursor1.getColumnIndex("invoice"));
+                String payMethod = cursor1.getString(cursor1.getColumnIndex("paymethod"));
+                String carNO = cursor1.getString(cursor1.getColumnIndex("carno"));
+
+                EventBean eventBean = new EventBean();
+                eventBean.setDate(date);
+                eventBean.setTitle(carNO + "加油" + totalPrice + "元");
+                eventBean.setContent("单价：" + unitPrice + "元/升\n" + "总里程：" + mileage + "公里\n" + "加油数量：" + quantity + "升\n" + "汽油型号：" + model + "\n" + "支付方式：" + payMethod + "\n" + "备注：" + comment);
+                eventBean.setEventType(1);
+
+                eventBeans.add(eventBean);
+            }
+            cursor1.close();
+        }
+
+        // 按时间升序排序
+        Collections.sort(eventBeans);
         return eventBeans;
     }
 // ------------------------------------------------------ events table ---------------------------------------------------

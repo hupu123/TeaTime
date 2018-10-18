@@ -6,6 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.hugh.teatime.R;
 import com.hugh.teatime.app.GlobalVar;
 import com.hugh.teatime.db.MyDBOperater;
@@ -30,19 +38,44 @@ public class GasolineDetailActivity extends BaseActivity {
     private TextView tvCarNO;
     private TextView tvIsInvoice;
     private TextView tvComment;
+    private TextView tvLocation;
+    private MapView mvShowLocation;
 
     private GasolineBean gasolineBean;
+    private AMap aMap;
+    private Marker marker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gasoline_detail);
 
-        Intent intent = getIntent();
-        gasolineBean = (GasolineBean) intent.getSerializableExtra(GlobalVar.INTENT_GASOLINE_RECORD);
-
-        initView();
+        initView(savedInstanceState);
         initData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mvShowLocation.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mvShowLocation.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mvShowLocation.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mvShowLocation.onSaveInstanceState(outState);
     }
 
     @Override
@@ -51,7 +84,7 @@ public class GasolineDetailActivity extends BaseActivity {
         if (requestCode == GlobalVar.REQUEST_CODE_EDIT_RECORD) {
             if (resultCode == RESULT_OK) {
                 gasolineBean = (GasolineBean) data.getSerializableExtra(GlobalVar.INTENT_GASOLINE_RECORD_EDIT);
-                initData();
+                refreshData();
             }
         }
     }
@@ -59,7 +92,7 @@ public class GasolineDetailActivity extends BaseActivity {
     /**
      * 初始化控件
      */
-    private void initView() {
+    private void initView(Bundle savedInstanceState) {
         TitlebarView tbv = findViewById(R.id.tbv);
         tbv.setListener(new TitlebarView.TitlebarListener() {
             @Override
@@ -82,6 +115,9 @@ public class GasolineDetailActivity extends BaseActivity {
         tvCarNO = findViewById(R.id.tv_car_no);
         tvIsInvoice = findViewById(R.id.tv_is_invoice);
         tvComment = findViewById(R.id.tv_comment);
+        tvLocation = findViewById(R.id.tv_gd_location);
+        mvShowLocation = findViewById(R.id.mv_show_location);
+        mvShowLocation.onCreate(savedInstanceState);
         Button btnOpenChart = findViewById(R.id.btn_open_chart);
         Button btnModity = findViewById(R.id.btn_modify);
         Button btnDelete = findViewById(R.id.btn_delete);
@@ -94,6 +130,21 @@ public class GasolineDetailActivity extends BaseActivity {
      * 初始化数据
      */
     private void initData() {
+        Intent intent = getIntent();
+        gasolineBean = (GasolineBean) intent.getSerializableExtra(GlobalVar.INTENT_GASOLINE_RECORD);
+
+        aMap = mvShowLocation.getMap();
+        marker = aMap.addMarker(new MarkerOptions().position(new LatLng(gasolineBean.getLatitude(), gasolineBean.getLongitude())).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_location_selected)));
+        UiSettings settings = aMap.getUiSettings();
+        settings.setZoomControlsEnabled(false);
+
+        refreshData();
+    }
+
+    /**
+     * 刷新数据
+     */
+    private void refreshData() {
         if (gasolineBean != null) {
             BigDecimal fuelConsumption = gasolineBean.getTotalPrice().divide(new BigDecimal(gasolineBean.getMileage()), 2, BigDecimal.ROUND_HALF_UP);
             tvAmount.setText(String.format(getResources().getString(R.string.gd_total_amount), StringUtil.formatBigDecimalNum(gasolineBean.getTotalPrice())));
@@ -111,6 +162,10 @@ public class GasolineDetailActivity extends BaseActivity {
                 tvIsInvoice.setText(R.string.gd_havent_invoiced);
             }
             tvComment.setText(gasolineBean.getComment());
+            tvLocation.setText(String.format(getResources().getString(R.string.gd_location), gasolineBean.getAddress()));
+
+            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(gasolineBean.getLatitude(), gasolineBean.getLongitude()), 18));
+            marker.setPosition(new LatLng(gasolineBean.getLatitude(), gasolineBean.getLongitude()));
         }
     }
 

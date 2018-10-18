@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,7 +35,7 @@ public class GasolineListAdapter extends BaseAdapter implements StickyListHeader
         this.listener = listener;
     }
 
-    public void setFilterTag(String str) {
+    void setFilterTag(String str) {
         this.filterTag = str;
     }
 
@@ -108,9 +109,9 @@ public class GasolineListAdapter extends BaseAdapter implements StickyListHeader
             viewHolder.tvMileage = convertView.findViewById(R.id.tv_mileage);
             viewHolder.tvFuelConsumption = convertView.findViewById(R.id.tv_fuel_consumption);
             viewHolder.tvDate = convertView.findViewById(R.id.tv_date);
-            viewHolder.tvCarNO = convertView.findViewById(R.id.tv_car_no);
-            viewHolder.tvModel = convertView.findViewById(R.id.tv_model);
-            viewHolder.tvInvoiced = convertView.findViewById(R.id.tv_invoiced);
+            viewHolder.btnCarNO = convertView.findViewById(R.id.btn_car_no);
+            viewHolder.btnModel = convertView.findViewById(R.id.btn_model);
+            viewHolder.btnInvoiced = convertView.findViewById(R.id.btn_invoiced);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -121,12 +122,12 @@ public class GasolineListAdapter extends BaseAdapter implements StickyListHeader
         viewHolder.tvMileage.setText(String.format(context.getResources().getString(R.string.gasoline_mileage), StringUtil.formatDoubleNum(gasolineBean.getMileage())));
         viewHolder.tvFuelConsumption.setText(String.format(context.getResources().getString(R.string.gasoline_fuel_consumption), StringUtil.formatBigDecimalNum(fuelConsumption)));
         viewHolder.tvDate.setText(String.format(context.getResources().getString(R.string.gasoline_date), StringUtil.formatTimestamp(gasolineBean.getDate())));
-        viewHolder.tvCarNO.setText(gasolineBean.getCarNO());
-        viewHolder.tvModel.setText(gasolineBean.getModel());
+        viewHolder.btnCarNO.setText(gasolineBean.getCarNO());
+        viewHolder.btnModel.setText(gasolineBean.getModel());
         if (gasolineBean.getInvoice() == 0) {
-            viewHolder.tvInvoiced.setVisibility(View.VISIBLE);
+            viewHolder.btnInvoiced.setText(R.string.have_invoiced);
         } else {
-            viewHolder.tvInvoiced.setVisibility(View.GONE);
+            viewHolder.btnInvoiced.setText(R.string.have_not_invoiced);
         }
         viewHolder.llItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,19 +135,19 @@ public class GasolineListAdapter extends BaseAdapter implements StickyListHeader
                 listener.onClickItem(gasolineBean);
             }
         });
-        viewHolder.tvCarNO.setOnClickListener(new View.OnClickListener() {
+        viewHolder.btnCarNO.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onClickCarNO(gasolineBean.getCarNO());
             }
         });
-        viewHolder.tvModel.setOnClickListener(new View.OnClickListener() {
+        viewHolder.btnModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onClickModel(gasolineBean.getModel());
             }
         });
-        viewHolder.tvInvoiced.setOnClickListener(new View.OnClickListener() {
+        viewHolder.btnInvoiced.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onClickInvoice(gasolineBean.getInvoice());
@@ -166,9 +167,9 @@ public class GasolineListAdapter extends BaseAdapter implements StickyListHeader
         TextView tvMileage;
         TextView tvFuelConsumption;
         TextView tvDate;
-        TextView tvCarNO;
-        TextView tvModel;
-        TextView tvInvoiced;
+        Button btnCarNO;
+        Button btnModel;
+        Button btnInvoiced;
     }
 
     interface ClickListener {

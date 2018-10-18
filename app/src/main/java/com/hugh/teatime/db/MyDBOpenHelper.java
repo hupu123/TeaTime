@@ -13,9 +13,10 @@ import com.hugh.teatime.utils.LogUtil;
 public class MyDBOpenHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "teatime.db";
-//    private static final int DB_VERSION = 1;// 初始化数据库
-//    private static final int DB_VERSION = 2;// 增加事件表
-    private static final int DB_VERSION = 3;// events表增加字段citycode
+//    private static final int DB_VERSION = 1;      // 初始化数据库
+//    private static final int DB_VERSION = 2;      // 增加事件表
+//    private static final int DB_VERSION = 3;      // events表增加字段citycode
+    private static final int DB_VERSION = 4;        // gasoline_records表增加字段latitude、longitude、address、citycode，events表增加字段type
 
     /**
      * 构造函数
@@ -48,9 +49,9 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
         // 创建漫画文件列表表
         db.execSQL("CREATE TABLE comic_file_lists (_comicfileid INTEGER PRIMARY KEY AUTOINCREMENT, _comicid INTEGER, path TEXT, position INTEGER);");
         // 创建加油记录表
-        db.execSQL("CREATE TABLE gasoline_records (_grecordid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, totalprice DOUBLE, unitprice DOUBLE, mileage DOUBLE, quantity DOUBLE, comment TEXT, model TEXT, invoice INTEGER, paymethod TEXT, carno TEXT, year INTEGER);");
+        db.execSQL("CREATE TABLE gasoline_records (_grecordid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, totalprice DOUBLE, unitprice DOUBLE, mileage DOUBLE, quantity DOUBLE, comment TEXT, model TEXT, invoice INTEGER, paymethod TEXT, carno TEXT, year INTEGER, latitude DOUBLE, longitude DOUBLE, address TEXT, citycode TEXT);");
         // 创建记事本表
-        db.execSQL("CREATE TABLE events (_eventid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, title TEXT, content TEXT, latitude DOUBLE, longitude DOUBLE, address TEXT, citycode TEXT);");
+        db.execSQL("CREATE TABLE events (_eventid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, title TEXT, content TEXT, latitude DOUBLE, longitude DOUBLE, address TEXT, citycode TEXT, type INTEGER);");
     }
 
     @Override
@@ -63,6 +64,13 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
                 db.execSQL("CREATE TABLE events (_eventid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, title TEXT, content TEXT, latitude DOUBLE, longitude DOUBLE, address TEXT);");
             case 2:
                 db.execSQL("ALTER TABLE events ADD COLUMN citycode TEXT;");
+                break;
+            case 3:
+                db.execSQL("ALTER TABLE gasoline_records ADD COLUMN latitude DOUBLE;");
+                db.execSQL("ALTER TABLE gasoline_records ADD COLUMN longitude DOUBLE;");
+                db.execSQL("ALTER TABLE gasoline_records ADD COLUMN address TEXT;");
+                db.execSQL("ALTER TABLE gasoline_records ADD COLUMN citycode TEXT;");
+                db.execSQL("ALTER TABLE events ADD COLUMN type INTEGER;");
                 break;
             default:
                 break;
