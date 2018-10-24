@@ -213,6 +213,7 @@
 
     <!-- activity_add_gasoline_record.xml -->
     <string name="title_add_record">添加记录</string>
+    <string name="title_edit_record">修改记录</string>
     <string name="gasoline_total_amount">金&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;额 *</string>
     <string name="gasoline_total_mileage">里&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;程 *</string>
     <string name="gasoline_total_quantity">数&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;量&#160;&#160;</string>
@@ -229,6 +230,8 @@
     <string name="gasoline_mileage_hint">请输入总里程</string>
     <string name="gasoline_quantity_hint">请输入加油数量</string>
     <string name="gasoline_car_no_hint">请输入车牌号码</string>
+    <string name="gasoline_title">%1$s加油%2$s元</string>
+    <string name="gasoline_content">单价：%1$s元/升\n总里程：%2$s公里\n加油数量：%3$s升\n汽油型号：%4$s\n支付方式：%5$s\n开票状态：%6$s\n备注：%7$s</string>
 
     <!-- activity_gasoline_detail.xml -->
     <string name="title_gasoline_detail">记录详情</string>
@@ -258,6 +261,7 @@
 
     <!-- activity_new_event.xml -->
     <string name="title_new_event">新建事件</string>
+    <string name="title_edit_event">修改事件</string>
     <string name="ne_time">时&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;间 *</string>
     <string name="ne_location">地&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;点 *</string>
     <string name="ne_title">标&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;题 *</string>

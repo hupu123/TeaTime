@@ -45,7 +45,7 @@ public class PickLocationActivity extends BaseActivity {
     private Marker markerSelected;
     private ArrayList<Marker> markersSearched = new ArrayList<>();
     private ArrayList<MarkerView> markerViewsSearched = new ArrayList<>();
-    private float cameraZoom = 18;
+    private float cameraZoom = 16;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -38,6 +38,7 @@ import java.util.Date;
 
 public class GasolineRecordEditActivity extends BaseActivity {
 
+    private TitlebarView tbv;               // 标题栏
     private EditText etTotalAmount;         // 总金额输入框
     private EditText etTotalMileage;        // 总里程输入框
     private EditText etTotalQuantity;       // 总数量输入框
@@ -82,7 +83,8 @@ public class GasolineRecordEditActivity extends BaseActivity {
      * 初始化控件
      */
     private void initView() {
-        TitlebarView tbv = findViewById(R.id.tbv);
+        tbv = findViewById(R.id.tbv);
+        tbv.setRightBtnText(getResources().getString(R.string.save));
         tbv.setListener(new TitlebarView.TitlebarListener() {
             @Override
             public void onLeftBtnClick() {
@@ -91,6 +93,7 @@ public class GasolineRecordEditActivity extends BaseActivity {
 
             @Override
             public void onRightBtnClick() {
+                saveRecord();
             }
         });
 
@@ -105,7 +108,6 @@ public class GasolineRecordEditActivity extends BaseActivity {
         ImageView ivAutoLocate = findViewById(R.id.iv_auto_locate);
         etRecordComment = findViewById(R.id.et_record_comment);
         cbIsInvoice = findViewById(R.id.cb_is_invoice);
-        Button btnConfirm = findViewById(R.id.btn_confirm);
 
         sGasolineType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -132,7 +134,6 @@ public class GasolineRecordEditActivity extends BaseActivity {
         btnRecordDate.setOnClickListener(clickListener);
         btnLocation.setOnClickListener(clickListener);
         ivAutoLocate.setOnClickListener(clickListener);
-        btnConfirm.setOnClickListener(clickListener);
     }
 
     /**
@@ -163,6 +164,7 @@ public class GasolineRecordEditActivity extends BaseActivity {
         // 如果为修改记录，则自动填写值
         if (gasolineBean != null) {
             isModifyFlag = true;
+            tbv.setTitleName(getResources().getString(R.string.title_edit_record));
             etTotalAmount.setText(StringUtil.formatBigDecimalNum(gasolineBean.getTotalPrice()));
             etTotalMileage.setText(StringUtil.formatDoubleNum(gasolineBean.getMileage()));
             etTotalQuantity.setText(StringUtil.formatDoubleNum(gasolineBean.getQuantity()));
@@ -321,9 +323,6 @@ public class GasolineRecordEditActivity extends BaseActivity {
                     break;
                 case R.id.iv_auto_locate:
                     getLocationInfo();
-                    break;
-                case R.id.btn_confirm:
-                    saveRecord();
                     break;
                 default:
                     break;

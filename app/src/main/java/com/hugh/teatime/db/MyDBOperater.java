@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.hugh.teatime.R;
 import com.hugh.teatime.app.GlobalVar;
 import com.hugh.teatime.models.bill.Bill;
 import com.hugh.teatime.models.book.Book;
@@ -17,12 +18,10 @@ import com.hugh.teatime.models.robot.Message;
 import com.hugh.teatime.models.robot.News;
 import com.hugh.teatime.utils.LogUtil;
 import com.hugh.teatime.utils.StringUtil;
-import com.hugh.teatime.utils.ToolUtil;
 
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -39,6 +38,10 @@ public class MyDBOperater {
      * 数据库对象
      */
     private SQLiteDatabase db;
+    /**
+     * 上下文
+     */
+    private Context context;
 
     /**
      * 私有的构造函数
@@ -48,6 +51,7 @@ public class MyDBOperater {
     private MyDBOperater(Context context) {
         MyDBOpenHelper mDBOpenHelper = new MyDBOpenHelper(context);
         db = mDBOpenHelper.getReadableDatabase();
+        this.context = context;
     }
 
     /**
@@ -743,6 +747,13 @@ public class MyDBOperater {
             return;
         }
         db.execSQL("INSERT INTO gasoline_records(date,totalprice,unitprice,mileage,quantity,comment,model,invoice,paymethod,carno,year,latitude,longitude,address,citycode) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new String[]{String.valueOf(gasolineBean.getDate()), String.valueOf(gasolineBean.getTotalPrice().doubleValue()), String.valueOf(gasolineBean.getUnitPrice().doubleValue()), String.valueOf(gasolineBean.getMileage()), String.valueOf(gasolineBean.getQuantity()), gasolineBean.getComment(), gasolineBean.getModel(), String.valueOf(gasolineBean.getInvoice()), gasolineBean.getPayMethod(), gasolineBean.getCarNO(), String.valueOf(gasolineBean.getYear()), String.valueOf(gasolineBean.getLatitude()), String.valueOf(gasolineBean.getLongitude()), gasolineBean.getAddress(), gasolineBean.getCityCode()});
+        Cursor cursor = db.rawQuery("SELECT last_insert_rowid() FROM gasoline_records", null);
+        if (cursor.moveToFirst()) {
+            int gasolineId = cursor.getInt(0);
+            gasolineBean.setId(String.valueOf(gasolineId));
+            addEvent(Gasoline2Event(gasolineBean));
+        }
+        cursor.close();
     }
 
     /**
@@ -755,6 +766,7 @@ public class MyDBOperater {
             return;
         }
         db.execSQL("UPDATE gasoline_records SET date=?,totalprice=?,unitprice=?,mileage=?,quantity=?,comment=?,model=?,invoice=?,paymethod=?,carno=?,year=?,latitude=?,longitude=?,address=?,citycode=? WHERE _grecordid=?", new String[]{String.valueOf(gasolineBean.getDate()), String.valueOf(gasolineBean.getTotalPrice().doubleValue()), String.valueOf(gasolineBean.getUnitPrice().doubleValue()), String.valueOf(gasolineBean.getMileage()), gasolineBean.getQuantity() + "", gasolineBean.getComment(), gasolineBean.getModel(), String.valueOf(gasolineBean.getInvoice()), gasolineBean.getPayMethod(), gasolineBean.getCarNO(), String.valueOf(gasolineBean.getYear()), String.valueOf(gasolineBean.getLatitude()), String.valueOf(gasolineBean.getLongitude()), gasolineBean.getAddress(), gasolineBean.getCityCode(), gasolineBean.getId()});
+        updateGasolineInEvent(Gasoline2Event(gasolineBean));
     }
 
     /**
@@ -767,6 +779,7 @@ public class MyDBOperater {
             return;
         }
         db.execSQL("DELETE FROM gasoline_records WHERE _grecordid=?", new String[]{id});
+        deleteGasolineInEvent(id);
     }
 
     /**
@@ -985,6 +998,27 @@ public class MyDBOperater {
 
         return sum;
     }
+
+    /**
+     * Gasoline对象转换为Event对象
+     *
+     * @param gasolineBean 加油记录数据
+     * @return 事件数据
+     */
+    private EventBean Gasoline2Event(GasolineBean gasolineBean) {
+        String invoiceStr = gasolineBean.getInvoice() == 0 ? context.getResources().getString(R.string.have_invoiced) : context.getResources().getString(R.string.have_not_invoiced);
+        EventBean eventBean = new EventBean();
+        eventBean.setDate(gasolineBean.getDate());
+        eventBean.setTitle(String.format(context.getResources().getString(R.string.gasoline_title), gasolineBean.getCarNO(), StringUtil.formatBigDecimalNum(gasolineBean.getTotalPrice())));
+        eventBean.setContent(String.format(context.getResources().getString(R.string.gasoline_content), StringUtil.formatBigDecimalNum(gasolineBean.getUnitPrice()), String.valueOf(gasolineBean.getMileage()), String.valueOf(gasolineBean.getQuantity()), gasolineBean.getModel(), gasolineBean.getPayMethod(), invoiceStr, gasolineBean.getComment()));
+        eventBean.setLatitude(gasolineBean.getLatitude());
+        eventBean.setLongitude(gasolineBean.getLongitude());
+        eventBean.setAddress(gasolineBean.getAddress());
+        eventBean.setCityCode(gasolineBean.getCityCode());
+        eventBean.setEventType(1);
+        eventBean.setGasolineId(gasolineBean.getId());
+        return eventBean;
+    }
     // ------------------------------------------------------ gasoline_records table ---------------------------------------------------
 
     // ------------------------------------------------------ events table ---------------------------------------------------
@@ -1010,7 +1044,19 @@ public class MyDBOperater {
         if (!db.isOpen() || eventBean == null) {
             return;
         }
-        db.execSQL("UPDATE events SET date=?,title=?,content=?,latitude=?,longitude=?,address=?,citycode=?,type=? WHERE _eventid=?", new String[]{String.valueOf(eventBean.getDate()), eventBean.getTitle(), eventBean.getContent(), String.valueOf(eventBean.getLatitude()), String.valueOf(eventBean.getLongitude()), eventBean.getAddress(), eventBean.getCityCode(), String.valueOf(eventBean.getEventType()), eventBean.getId()});
+        db.execSQL("UPDATE events SET date=?,title=?,content=?,latitude=?,longitude=?,address=?,citycode=?,type=?,gasolineid=? WHERE _eventid=?", new String[]{String.valueOf(eventBean.getDate()), eventBean.getTitle(), eventBean.getContent(), String.valueOf(eventBean.getLatitude()), String.valueOf(eventBean.getLongitude()), eventBean.getAddress(), eventBean.getCityCode(), String.valueOf(eventBean.getEventType()), eventBean.getGasolineId(), eventBean.getId()});
+    }
+
+    /**
+     * 更新事件表中的加油记录数据
+     *
+     * @param eventBean 事件对象
+     */
+    private void updateGasolineInEvent(EventBean eventBean) {
+        if (!db.isOpen() || eventBean == null) {
+            return;
+        }
+        db.execSQL("UPDATE events SET date=?,title=?,content=?,latitude=?,longitude=?,address=?,citycode=?,type=? WHERE gasolineid=?", new String[]{String.valueOf(eventBean.getDate()), eventBean.getTitle(), eventBean.getContent(), String.valueOf(eventBean.getLatitude()), String.valueOf(eventBean.getLongitude()), eventBean.getAddress(), eventBean.getCityCode(), String.valueOf(eventBean.getEventType()), eventBean.getGasolineId()});
     }
 
     /**
@@ -1023,6 +1069,18 @@ public class MyDBOperater {
             return;
         }
         db.execSQL("DELETE FROM events WHERE _eventid=?", new String[]{id});
+    }
+
+    /**
+     * 删除事件表中的加油记录数据
+     *
+     * @param id 加油记录ID
+     */
+    private void deleteGasolineInEvent(String id) {
+        if (!db.isOpen()) {
+            return;
+        }
+        db.execSQL("DELETE FROM events WHERE gasolineid=?", new String[]{id});
     }
 
     /**
@@ -1047,42 +1105,13 @@ public class MyDBOperater {
             String address = cursor.getString(cursor.getColumnIndex("address"));
             String citycode = cursor.getString(cursor.getColumnIndex("citycode"));
             int eventType = cursor.getInt(cursor.getColumnIndex("type"));
+            String gasolineId = cursor.getString(cursor.getColumnIndex("gasolineid"));
 
-            EventBean eventBean = new EventBean(String.valueOf(id), date, title, content, latitude, longitude, address, citycode, eventType);
+            EventBean eventBean = new EventBean(String.valueOf(id), date, title, content, latitude, longitude, address, citycode, eventType, gasolineId);
             eventBeans.add(eventBean);
         }
         cursor.close();
 
-        // 查询加油数据
-        if (eventBeans.size() > 0) {
-            long startTime = ToolUtil.getStartFromTimestamp(eventBeans.get(0).getDate());
-            long endTime = ToolUtil.getEndFromTimestamp(eventBeans.get(eventBeans.size() - 1).getDate());
-            Cursor cursor1 = db.rawQuery("SELECT * FROM gasoline_records WHERE date>=? AND date<=? ORDER BY date ASC", new String[]{String.valueOf(startTime), String.valueOf(endTime)});
-            while (cursor1.moveToNext()) {
-                long date = cursor1.getLong(cursor1.getColumnIndex("date"));
-                double totalPrice = cursor1.getDouble(cursor1.getColumnIndex("totalprice"));
-                double unitPrice = cursor1.getDouble(cursor1.getColumnIndex("unitprice"));
-                double mileage = cursor1.getDouble(cursor1.getColumnIndex("mileage"));
-                double quantity = cursor1.getDouble(cursor1.getColumnIndex("quantity"));
-                String comment = cursor1.getString(cursor1.getColumnIndex("comment"));
-                String model = cursor1.getString(cursor1.getColumnIndex("model"));
-                int invoice = cursor1.getInt(cursor1.getColumnIndex("invoice"));
-                String payMethod = cursor1.getString(cursor1.getColumnIndex("paymethod"));
-                String carNO = cursor1.getString(cursor1.getColumnIndex("carno"));
-
-                EventBean eventBean = new EventBean();
-                eventBean.setDate(date);
-                eventBean.setTitle(carNO + "加油" + totalPrice + "元");
-                eventBean.setContent("单价：" + unitPrice + "元/升\n" + "总里程：" + mileage + "公里\n" + "加油数量：" + quantity + "升\n" + "汽油型号：" + model + "\n" + "支付方式：" + payMethod + "\n" + "备注：" + comment);
-                eventBean.setEventType(1);
-
-                eventBeans.add(eventBean);
-            }
-            cursor1.close();
-        }
-
-        // 按时间升序排序
-        Collections.sort(eventBeans);
         return eventBeans;
     }
 // ------------------------------------------------------ events table ---------------------------------------------------

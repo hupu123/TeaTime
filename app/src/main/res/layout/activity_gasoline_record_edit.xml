@@ -13,6 +13,7 @@
         android:id="@+id/tbv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:rightBarType="BTN_RIGHT"
         app:titleName="@string/title_add_record" />
 
     <ScrollView
@@ -256,6 +257,17 @@
                     android:src="@mipmap/icon_location" />
             </LinearLayout>
 
+            <CheckBox
+                android:id="@+id/cb_is_invoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/page_margin"
+                android:button="@drawable/cb_check_bg"
+                android:checked="true"
+                android:gravity="center_vertical"
+                android:text="@string/gasoline_is_invoice"
+                android:textColor="@color/colorGreen" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/high_item_height"
@@ -281,26 +293,6 @@
                     android:padding="@dimen/edit_padding"
                     android:singleLine="false" />
             </LinearLayout>
-
-            <CheckBox
-                android:id="@+id/cb_is_invoice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/page_margin"
-                android:button="@drawable/cb_check_bg"
-                android:checked="true"
-                android:gravity="center_vertical"
-                android:text="@string/gasoline_is_invoice"
-                android:textColor="@color/colorGreen" />
-
-            <Button
-                android:id="@+id/btn_confirm"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/item_height"
-                android:layout_marginTop="@dimen/page_margin"
-                android:background="@drawable/btn_click_bg_selector"
-                android:text="@string/confirm"
-                android:textColor="@color/colorWhite" />
         </LinearLayout>
     </ScrollView>
 

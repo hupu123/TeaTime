@@ -108,11 +108,13 @@ public class NewEventActivity extends BaseActivity {
         }
 
         if (isEdit) {
+            tbv.setTitleName(getResources().getString(R.string.title_edit_event));
             tbv.setRightBtnText(getResources().getString(R.string.save));
             etTitle.setText(eventBean.getTitle());
             etContent.setText(eventBean.getContent());
             btnLocation.setText(eventBean.getAddress());
         } else {
+            tbv.setTitleName(getResources().getString(R.string.title_new_event));
             tbv.setRightBtnText(getResources().getString(R.string.add));
             getLocationInfo();
         }

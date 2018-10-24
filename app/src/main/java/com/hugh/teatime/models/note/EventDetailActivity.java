@@ -140,18 +140,13 @@ public class EventDetailActivity extends BaseActivity {
         tvContent.setText(eventBean.getContent());
         tvTime.setText(StringUtil.formatTimestamp1(eventBean.getDate()));
         tvLocation.setText(eventBean.getAddress());
-
         if (eventBean.getEventType() == 0) {
-            tvLocation.setVisibility(View.VISIBLE);
-            mvShowLocation.setVisibility(View.VISIBLE);
             llBtnBar.setVisibility(View.VISIBLE);
-            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(eventBean.getLatitude(), eventBean.getLongitude()), 18));
-            marker.setPosition(new LatLng(eventBean.getLatitude(), eventBean.getLongitude()));
         } else {
-            tvLocation.setVisibility(View.GONE);
-            mvShowLocation.setVisibility(View.GONE);
             llBtnBar.setVisibility(View.GONE);
         }
+        aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(eventBean.getLatitude(), eventBean.getLongitude()), 18));
+        marker.setPosition(new LatLng(eventBean.getLatitude(), eventBean.getLongitude()));
     }
 
     /**

@@ -16,8 +16,9 @@ public class EventBean implements Serializable, Comparable<EventBean> {
     private String cityCode;        // 城市码
     private boolean isItemLeft;     // 事件是否显示在列表左侧，true=左侧，false=右侧
     private int eventType;          // 事件类型，0=普通，1=加油记录
+    private String gasolineId;      // 关联表加油记录ID
 
-    public EventBean(String id, long date, String title, String content, double latitude, double longitude, String address, String cityCode, int eventType) {
+    public EventBean(String id, long date, String title, String content, double latitude, double longitude, String address, String cityCode, int eventType, String gasolineId) {
         this.id = id;
         this.date = date;
         this.title = title;
@@ -27,6 +28,7 @@ public class EventBean implements Serializable, Comparable<EventBean> {
         this.address = address;
         this.cityCode = cityCode;
         this.eventType = eventType;
+        this.gasolineId = gasolineId;
     }
 
     public EventBean() {
@@ -110,6 +112,14 @@ public class EventBean implements Serializable, Comparable<EventBean> {
 
     public void setEventType(int eventType) {
         this.eventType = eventType;
+    }
+
+    public String getGasolineId() {
+        return gasolineId;
+    }
+
+    public void setGasolineId(String gasolineId) {
+        this.gasolineId = gasolineId;
     }
 
     @Override
