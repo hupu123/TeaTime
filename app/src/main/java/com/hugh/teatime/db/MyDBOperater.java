@@ -1015,7 +1015,7 @@ public class MyDBOperater {
         eventBean.setLongitude(gasolineBean.getLongitude());
         eventBean.setAddress(gasolineBean.getAddress());
         eventBean.setCityCode(gasolineBean.getCityCode());
-        eventBean.setEventType(1);
+        eventBean.setEventType(EventBean.TYPE_GASOLINE);
         eventBean.setGasolineId(gasolineBean.getId());
         return eventBean;
     }
@@ -1032,7 +1032,7 @@ public class MyDBOperater {
         if (!db.isOpen()) {
             return;
         }
-        db.execSQL("INSERT INTO events(date, title, content, latitude, longitude, address, citycode, type) VALUES(?,?,?,?,?,?,?,?)", new String[]{String.valueOf(eventBean.getDate()), eventBean.getTitle(), eventBean.getContent(), String.valueOf(eventBean.getLatitude()), String.valueOf(eventBean.getLongitude()), eventBean.getAddress(), eventBean.getCityCode(), String.valueOf(eventBean.getEventType())});
+        db.execSQL("INSERT INTO events(date, title, content, latitude, longitude, address, citycode, type, gasolineid) VALUES(?,?,?,?,?,?,?,?,?)", new String[]{String.valueOf(eventBean.getDate()), eventBean.getTitle(), eventBean.getContent(), String.valueOf(eventBean.getLatitude()), String.valueOf(eventBean.getLongitude()), eventBean.getAddress(), eventBean.getCityCode(), String.valueOf(eventBean.getEventType()), eventBean.getGasolineId()});
     }
 
     /**
@@ -1056,7 +1056,13 @@ public class MyDBOperater {
         if (!db.isOpen() || eventBean == null) {
             return;
         }
-        db.execSQL("UPDATE events SET date=?,title=?,content=?,latitude=?,longitude=?,address=?,citycode=?,type=? WHERE gasolineid=?", new String[]{String.valueOf(eventBean.getDate()), eventBean.getTitle(), eventBean.getContent(), String.valueOf(eventBean.getLatitude()), String.valueOf(eventBean.getLongitude()), eventBean.getAddress(), eventBean.getCityCode(), String.valueOf(eventBean.getEventType()), eventBean.getGasolineId()});
+        Cursor cursor = db.rawQuery("SELECT * FROM events WHERE gasolineid=?", new String[]{eventBean.getGasolineId()});
+        if (cursor.moveToFirst()) {
+            db.execSQL("UPDATE events SET date=?,title=?,content=?,latitude=?,longitude=?,address=?,citycode=?,type=? WHERE gasolineid=?", new String[]{String.valueOf(eventBean.getDate()), eventBean.getTitle(), eventBean.getContent(), String.valueOf(eventBean.getLatitude()), String.valueOf(eventBean.getLongitude()), eventBean.getAddress(), eventBean.getCityCode(), String.valueOf(eventBean.getEventType()), eventBean.getGasolineId()});
+        } else {
+            addEvent(eventBean);
+        }
+        cursor.close();
     }
 
     /**

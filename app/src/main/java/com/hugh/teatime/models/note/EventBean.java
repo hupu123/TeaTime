@@ -6,6 +6,9 @@ import java.io.Serializable;
 
 public class EventBean implements Serializable, Comparable<EventBean> {
 
+    public static final int TYPE_NOTE = 0;
+    public static final int TYPE_GASOLINE = 1;
+
     private String id;              // 事件唯一标识
     private long date;              // 时间戳
     private String title;           // 标题
@@ -14,7 +17,6 @@ public class EventBean implements Serializable, Comparable<EventBean> {
     private double longitude;       // 经度
     private String address;         // 地址
     private String cityCode;        // 城市码
-    private boolean isItemLeft;     // 事件是否显示在列表左侧，true=左侧，false=右侧
     private int eventType;          // 事件类型，0=普通，1=加油记录
     private String gasolineId;      // 关联表加油记录ID
 
@@ -96,14 +98,6 @@ public class EventBean implements Serializable, Comparable<EventBean> {
 
     public void setCityCode(String cityCode) {
         this.cityCode = cityCode;
-    }
-
-    public boolean isItemLeft() {
-        return isItemLeft;
-    }
-
-    public void setItemLeft(boolean itemLeft) {
-        isItemLeft = itemLeft;
     }
 
     public int getEventType() {

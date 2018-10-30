@@ -82,4 +82,6 @@ public class GlobalVar {
     public static final String[] GASOLINE_TYPE_NAME_ARRAY = new String[]{"92#", "95#", "98#", "0#"};
     // 支付方式名称集合
     public static final String[] PAY_TYPE_NAME_ARRAY = new String[]{"现金", "信用卡", "储蓄卡", "微信", "支付宝"};
+    // 每页数据数量
+    public static final int PAGE_SIZE = 10;
 }

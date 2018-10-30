@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.widget.ListView;
 
 import com.hugh.teatime.R;
+import com.hugh.teatime.app.GlobalVar;
 import com.hugh.teatime.db.MyDBOperater;
 import com.hugh.teatime.models.home.BaseActivity;
 import com.hugh.teatime.view.TitlebarView;
@@ -19,10 +20,10 @@ import java.util.ArrayList;
 public class EventLineActivity extends BaseActivity {
 
     private SmartRefreshLayout srlEvents;
+    private ListView lvEvents;
 
     private EventsAdapter mAdapter;
     private ArrayList<EventBean> eventBeans = new ArrayList<>();
-    private int pageSize = 10;
     private int pageIndex = 0;
 
     @Override
@@ -31,7 +32,6 @@ public class EventLineActivity extends BaseActivity {
         setContentView(R.layout.activity_event_line);
 
         initView();
-        initData();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class EventLineActivity extends BaseActivity {
         });
 
         srlEvents = findViewById(R.id.srl_events);
-        ListView lvEvents = findViewById(R.id.lv_events);
+        lvEvents = findViewById(R.id.lv_events);
 
         srlEvents.setRefreshHeader(new ClassicsHeader(this));
         srlEvents.setEnableLoadMore(false);
@@ -76,16 +76,6 @@ public class EventLineActivity extends BaseActivity {
     }
 
     /**
-     * 初始化数据
-     */
-    private void initData() {
-        ArrayList<EventBean> events = MyDBOperater.getInstance(this).getEvents(pageIndex, pageSize);
-        eventBeans.clear();
-        eventBeans.addAll(events);
-        mAdapter.notifyDataSetChanged();
-    }
-
-    /**
      * 刷新数据
      *
      * @param type 操作类型，0=刷新当前页，1=加载下一页
@@ -97,14 +87,28 @@ public class EventLineActivity extends BaseActivity {
             pageIndex = 0;
             eventBeans.clear();
         }
-        ArrayList<EventBean> events = MyDBOperater.getInstance(this).getEvents(pageIndex, pageSize);
+        ArrayList<EventBean> events = MyDBOperater.getInstance(this).getEvents(pageIndex, GlobalVar.PAGE_SIZE);
+        eventBeans.addAll(0, events);
+        mAdapter.notifyDataSetChanged();
+        final int selectPosition;
         if (events == null || events.size() == 0) {
             if (type == 1) {
                 pageIndex--;
             }
+            selectPosition = 0;
+        } else {
+            if (type == 0) {
+                selectPosition = eventBeans.size() - 1;
+            } else {
+                selectPosition = events.size() - 1;
+            }
         }
-        eventBeans.addAll(0, events);
-        mAdapter.notifyDataSetChanged();
+        lvEvents.post(new Runnable() {
+            @Override
+            public void run() {
+                lvEvents.setSelection(selectPosition);
+            }
+        });
         srlEvents.finishRefresh();
     }
 }

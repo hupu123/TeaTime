@@ -48,36 +48,23 @@ public class EventsAdapter extends BaseAdapter {
         return position;
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint({"InflateParams", "ViewHolder"})
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final EventBean eventBean = events.get(position);
         boolean isShowDateLine = false;
         if (position == 0) {
             isShowDateLine = true;
-            eventBean.setItemLeft(true);
         } else {
             EventBean eventBean1 = events.get(position - 1);
             String time = StringUtil.formatTimestamp2(eventBean.getDate());
             String time1 = StringUtil.formatTimestamp2(eventBean1.getDate());
-            if (time.equals(time1)) {
-                eventBean.setItemLeft(eventBean1.isItemLeft());
-            } else {
+            if (!time.equals(time1)) {
                 isShowDateLine = true;
-                if (eventBean1.isItemLeft()) {
-                    eventBean.setItemLeft(false);
-                } else {
-                    eventBean.setItemLeft(true);
-                }
             }
         }
 
-        LayoutInflater inflater = LayoutInflater.from(context);
-        if (eventBean.isItemLeft()) {
-            convertView = inflater.inflate(R.layout.item_note_1, null);
-        } else {
-            convertView = inflater.inflate(R.layout.item_note, null);
-        }
+        convertView = LayoutInflater.from(context).inflate(R.layout.item_note, null);
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.llContent = convertView.findViewById(R.id.ll_content);
         viewHolder.rlDateLine = convertView.findViewById(R.id.rl_date_line);
@@ -86,6 +73,7 @@ public class EventsAdapter extends BaseAdapter {
         viewHolder.tvContent = convertView.findViewById(R.id.tv_content);
         viewHolder.tvDate = convertView.findViewById(R.id.tv_date);
         viewHolder.tvLocation = convertView.findViewById(R.id.tv_location);
+        viewHolder.tvSource = convertView.findViewById(R.id.tv_source);
         convertView.setTag(viewHolder);
 
         viewHolder.llContent.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +104,16 @@ public class EventsAdapter extends BaseAdapter {
         viewHolder.tvContent.setText(eventBean.getContent());
         viewHolder.tvDate.setText(StringUtil.formatTimestamp3(eventBean.getDate()));
         viewHolder.tvLocation.setText(eventBean.getAddress());
+        switch (eventBean.getEventType()) {
+            case EventBean.TYPE_NOTE:
+                viewHolder.tvSource.setText(R.string.event_type_note);
+                break;
+            case EventBean.TYPE_GASOLINE:
+                viewHolder.tvSource.setText(R.string.event_type_gasoline);
+                break;
+            default:
+                break;
+        }
 
         return convertView;
     }
@@ -128,5 +126,6 @@ public class EventsAdapter extends BaseAdapter {
         TextView tvContent;             // 内容
         TextView tvDate;                // 时间
         TextView tvLocation;            // 位置
+        TextView tvSource;              // 来源
     }
 }

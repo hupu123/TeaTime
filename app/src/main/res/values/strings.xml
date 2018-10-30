@@ -258,6 +258,8 @@
 
     <!-- activity_events_line.xml -->
     <string name="title_events_line">记事本</string>
+    <string name="event_type_note">来自记事本</string>
+    <string name="event_type_gasoline">来自加油记录</string>
 
     <!-- activity_new_event.xml -->
     <string name="title_new_event">新建事件</string>

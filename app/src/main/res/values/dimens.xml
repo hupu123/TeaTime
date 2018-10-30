@@ -49,6 +49,14 @@
     <dimen name="item_gasoline_height">110dp</dimen>
     <!-- filter tag margin height -->
     <dimen name="filter_tag_margin">5dp</dimen>
-    <!-- point size 1 -->
-    <dimen name="point_size_1">10dp</dimen>
+
+    <!-- event items line margin left -->
+    <dimen name="eil_margin_start">50dp</dimen>
+    <!-- event items margin left -->
+    <dimen name="ei_margin_start">10dp</dimen>
+    <!-- ed_width = (eil_margin_start - el_margin_start) * 2 -->
+    <dimen name="ed_width">80dp</dimen>
+    <!-- eip_width = (ed_width - ei_margin_start) / 2 -->
+    <dimen name="eip_with">35dp</dimen>
+
 </resources>

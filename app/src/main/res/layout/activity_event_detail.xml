@@ -48,6 +48,16 @@
                     android:textSize="@dimen/txt_size_1" />
 
                 <TextView
+                    android:id="@+id/tv_ed_source"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:drawableStart="@mipmap/icon_source_sb"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/txt_size_2" />
+
+                <TextView
                     android:id="@+id/tv_ed_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

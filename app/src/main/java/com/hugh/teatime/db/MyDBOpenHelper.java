@@ -30,7 +30,6 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         // 创建消息表
         db.execSQL("CREATE TABLE messages (_id INTEGER PRIMARY KEY AUTOINCREMENT, code INTEGER, msg TEXT, url TEXT, type INTEGER, time LONG);");
         // 创建新闻表
@@ -57,7 +56,6 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
         LogUtil.logHugh("DB onUpgrade oldVersion=" + oldVersion + " newVersion=" + newVersion);
         switch (oldVersion) {
             case 1:

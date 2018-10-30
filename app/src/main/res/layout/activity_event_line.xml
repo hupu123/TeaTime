@@ -23,7 +23,8 @@
         <View
             android:layout_width="@dimen/divider_height"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/eil_margin_start"
             android:background="@color/colorGray_2" />
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout

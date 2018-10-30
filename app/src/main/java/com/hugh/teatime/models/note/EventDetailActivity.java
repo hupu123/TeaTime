@@ -28,6 +28,7 @@ public class EventDetailActivity extends BaseActivity {
 
     private TextView tvTitle;
     private TextView tvContent;
+    private TextView tvSource;
     private TextView tvTime;
     private TextView tvLocation;
     private MapView mvShowLocation;
@@ -100,6 +101,7 @@ public class EventDetailActivity extends BaseActivity {
 
         tvTitle = findViewById(R.id.tv_ed_title);
         tvContent = findViewById(R.id.tv_ed_content);
+        tvSource = findViewById(R.id.tv_ed_source);
         tvTime = findViewById(R.id.tv_ed_time);
         tvLocation = findViewById(R.id.tv_ed_location);
         mvShowLocation = findViewById(R.id.mv_show_location);
@@ -136,11 +138,21 @@ public class EventDetailActivity extends BaseActivity {
         } else {
             tvContent.setVisibility(View.VISIBLE);
         }
+        switch (eventBean.getEventType()) {
+            case EventBean.TYPE_NOTE:
+                tvSource.setText(R.string.event_type_note);
+                break;
+            case EventBean.TYPE_GASOLINE:
+                tvSource.setText(R.string.event_type_gasoline);
+                break;
+            default:
+                break;
+        }
         tvTitle.setText(eventBean.getTitle());
         tvContent.setText(eventBean.getContent());
         tvTime.setText(StringUtil.formatTimestamp1(eventBean.getDate()));
         tvLocation.setText(eventBean.getAddress());
-        if (eventBean.getEventType() == 0) {
+        if (eventBean.getEventType() == EventBean.TYPE_NOTE) {
             llBtnBar.setVisibility(View.VISIBLE);
         } else {
             llBtnBar.setVisibility(View.GONE);
