@@ -904,6 +904,40 @@ public class MyDBOperater {
     }
 
     /**
+     * 通过记录ID查询加油记录数据
+     *
+     * @param id 加油记录ID
+     * @return 加油记录数据
+     */
+    public GasolineBean getGasolineRecordById(String id) {
+        if (!db.isOpen()) {
+            return null;
+        }
+        Cursor cursor = db.rawQuery("SELECT * FROM gasoline_records WHERE _grecordid=?", new String[]{id});
+        if (cursor.moveToFirst()) {
+            int grecordId = cursor.getInt(cursor.getColumnIndex("_grecordid"));
+            long date = cursor.getLong(cursor.getColumnIndex("date"));
+            double totalPrice = cursor.getDouble(cursor.getColumnIndex("totalprice"));
+            double unitPrice = cursor.getDouble(cursor.getColumnIndex("unitprice"));
+            double mileage = cursor.getDouble(cursor.getColumnIndex("mileage"));
+            double quantity = cursor.getDouble(cursor.getColumnIndex("quantity"));
+            String comment = cursor.getString(cursor.getColumnIndex("comment"));
+            String model = cursor.getString(cursor.getColumnIndex("model"));
+            int invoice = cursor.getInt(cursor.getColumnIndex("invoice"));
+            String payMethod = cursor.getString(cursor.getColumnIndex("paymethod"));
+            String carNO = cursor.getString(cursor.getColumnIndex("carno"));
+            double latitude = cursor.getDouble(cursor.getColumnIndex("latitude"));
+            double longitude = cursor.getDouble(cursor.getColumnIndex("longitude"));
+            String address = cursor.getString(cursor.getColumnIndex("address"));
+            String cityCode = cursor.getString(cursor.getColumnIndex("citycode"));
+
+            return new GasolineBean(String.valueOf(grecordId), date, new BigDecimal(totalPrice), new BigDecimal(unitPrice), mileage, quantity, comment, model, invoice, payMethod, carNO, latitude, longitude, address, cityCode);
+        }
+        cursor.close();
+        return null;
+    }
+
+    /**
      * 获取所有车辆
      *
      * @return 所有车牌号
@@ -1005,7 +1039,7 @@ public class MyDBOperater {
      * @param gasolineBean 加油记录数据
      * @return 事件数据
      */
-    private EventBean Gasoline2Event(GasolineBean gasolineBean) {
+    public EventBean Gasoline2Event(GasolineBean gasolineBean) {
         String invoiceStr = gasolineBean.getInvoice() == 0 ? context.getResources().getString(R.string.have_invoiced) : context.getResources().getString(R.string.have_not_invoiced);
         EventBean eventBean = new EventBean();
         eventBean.setDate(gasolineBean.getDate());

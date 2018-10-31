@@ -84,46 +84,49 @@
                     android:layout_marginTop="5dp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_btn_bar"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="@dimen/divider_height"
+                android:background="@color/colorGray_1" />
+
+            <Button
+                android:id="@+id/btn_gasoline"
+                style="?android:buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@drawable/btn_click_bg6_blr_selector"
+                android:text="@string/jump_to_gasoline"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/ll_note"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height">
+
+                <Button
+                    android:id="@+id/btn_ev_modify"
+                    style="?android:buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_click_bg6_bl_selector"
+                    android:text="@string/modify" />
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/divider_height"
+                    android:layout_width="@dimen/divider_height"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@color/colorGray_1" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/item_height">
-
-                    <Button
-                        android:id="@+id/btn_ev_modify"
-                        style="?android:buttonBarButtonStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/btn_click_bg6_bl_selector"
-                        android:text="@string/modify" />
-
-                    <View
-                        android:layout_width="@dimen/divider_height"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/colorGray_1" />
-
-                    <Button
-                        android:id="@+id/btn_ev_delete"
-                        style="?android:buttonBarButtonStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/btn_click_bg6_br_selector"
-                        android:text="@string/delete" />
-                </LinearLayout>
+                <Button
+                    android:id="@+id/btn_ev_delete"
+                    style="?android:buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_click_bg6_br_selector"
+                    android:text="@string/delete" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

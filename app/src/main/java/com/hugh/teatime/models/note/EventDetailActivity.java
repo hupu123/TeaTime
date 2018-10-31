@@ -19,9 +19,12 @@ import com.hugh.teatime.R;
 import com.hugh.teatime.app.GlobalVar;
 import com.hugh.teatime.db.MyDBOperater;
 import com.hugh.teatime.listener.DialogListener;
+import com.hugh.teatime.models.gasoline.GasolineBean;
+import com.hugh.teatime.models.gasoline.GasolineDetailActivity;
 import com.hugh.teatime.models.home.BaseActivity;
 import com.hugh.teatime.utils.DialogUtil;
 import com.hugh.teatime.utils.StringUtil;
+import com.hugh.teatime.utils.ToastUtil;
 import com.hugh.teatime.view.TitlebarView;
 
 public class EventDetailActivity extends BaseActivity {
@@ -32,7 +35,8 @@ public class EventDetailActivity extends BaseActivity {
     private TextView tvTime;
     private TextView tvLocation;
     private MapView mvShowLocation;
-    private LinearLayout llBtnBar;
+    private LinearLayout llNote;
+    private Button btnGasoline;
 
     private EventBean eventBean;
     private AMap aMap;
@@ -77,8 +81,11 @@ public class EventDetailActivity extends BaseActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == GlobalVar.REQUEST_CODE_EDIT_EVENT) {
                 eventBean = (EventBean) data.getSerializableExtra(GlobalVar.INTENT_EVENT_EDIT);
-                refreshData();
+            } else if (requestCode == GlobalVar.REQUEST_CODE_EDIT_RECORD_IN_EVENT) {
+                GasolineBean gasolineBean = (GasolineBean) data.getSerializableExtra(GlobalVar.INTENT_GASOLINE_RECORD);
+                eventBean = MyDBOperater.getInstance(this).Gasoline2Event(gasolineBean);
             }
+            refreshData();
         }
     }
 
@@ -106,10 +113,12 @@ public class EventDetailActivity extends BaseActivity {
         tvLocation = findViewById(R.id.tv_ed_location);
         mvShowLocation = findViewById(R.id.mv_show_location);
         mvShowLocation.onCreate(savedInstanceState);
-        Button btnModity = findViewById(R.id.btn_ev_modify);
+        Button btnModify = findViewById(R.id.btn_ev_modify);
         Button btnDelete = findViewById(R.id.btn_ev_delete);
-        llBtnBar = findViewById(R.id.ll_btn_bar);
-        btnModity.setOnClickListener(clickListener);
+        llNote = findViewById(R.id.ll_note);
+        btnGasoline = findViewById(R.id.btn_gasoline);
+        btnGasoline.setOnClickListener(clickListener);
+        btnModify.setOnClickListener(clickListener);
         btnDelete.setOnClickListener(clickListener);
     }
 
@@ -153,9 +162,11 @@ public class EventDetailActivity extends BaseActivity {
         tvTime.setText(StringUtil.formatTimestamp1(eventBean.getDate()));
         tvLocation.setText(eventBean.getAddress());
         if (eventBean.getEventType() == EventBean.TYPE_NOTE) {
-            llBtnBar.setVisibility(View.VISIBLE);
+            llNote.setVisibility(View.VISIBLE);
+            btnGasoline.setVisibility(View.GONE);
         } else {
-            llBtnBar.setVisibility(View.GONE);
+            llNote.setVisibility(View.GONE);
+            btnGasoline.setVisibility(View.VISIBLE);
         }
         aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(eventBean.getLatitude(), eventBean.getLongitude()), 18));
         marker.setPosition(new LatLng(eventBean.getLatitude(), eventBean.getLongitude()));
@@ -168,6 +179,17 @@ public class EventDetailActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
+                case R.id.btn_gasoline:
+                    GasolineBean gasolineBean = MyDBOperater.getInstance(EventDetailActivity.this).getGasolineRecordById(eventBean.getGasolineId());
+                    if (gasolineBean == null) {
+                        ToastUtil.showError(EventDetailActivity.this, getResources().getString(R.string.toast_data_error), true);
+                    } else {
+                        Intent intent = new Intent(EventDetailActivity.this, GasolineDetailActivity.class);
+                        intent.putExtra(GlobalVar.INTENT_GASOLINE_RECORD, gasolineBean);
+                        intent.putExtra(GlobalVar.INTENT_IS_FROM_EVENT, true);
+                        startActivityForResult(intent, GlobalVar.REQUEST_CODE_EDIT_RECORD_IN_EVENT);
+                    }
+                    break;
                 case R.id.btn_ev_modify:
                     Intent intent = new Intent(EventDetailActivity.this, NewEventActivity.class);
                     intent.putExtra(GlobalVar.INTENT_EVENT, eventBean);

@@ -36,7 +36,8 @@
                 android:id="@+id/lv_events"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:divider="@null" />
+                android:divider="@null"
+                android:listSelector="@color/transparent" />
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </RelativeLayout>
 </LinearLayout>

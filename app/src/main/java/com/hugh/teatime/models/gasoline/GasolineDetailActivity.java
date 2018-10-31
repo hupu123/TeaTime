@@ -2,6 +2,7 @@ package com.hugh.teatime.models.gasoline;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.hugh.teatime.app.GlobalVar;
 import com.hugh.teatime.db.MyDBOperater;
 import com.hugh.teatime.listener.DialogListener;
 import com.hugh.teatime.models.home.BaseActivity;
+import com.hugh.teatime.models.note.EventDetailActivity;
 import com.hugh.teatime.utils.DialogUtil;
 import com.hugh.teatime.utils.StringUtil;
 import com.hugh.teatime.view.TitlebarView;
@@ -42,6 +44,7 @@ public class GasolineDetailActivity extends BaseActivity {
     private MapView mvShowLocation;
 
     private GasolineBean gasolineBean;
+    private boolean isFromEventDetail = false;
     private AMap aMap;
     private Marker marker;
 
@@ -89,6 +92,27 @@ public class GasolineDetailActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 退出当前页面
+     */
+    private void exit() {
+        if (isFromEventDetail) {
+            Intent intent = new Intent(GasolineDetailActivity.this, EventDetailActivity.class);
+            intent.putExtra(GlobalVar.INTENT_GASOLINE_RECORD, gasolineBean);
+            setResult(RESULT_OK, intent);
+        }
+        finish();
+    }
+
     /**
      * 初始化控件
      */
@@ -97,7 +121,7 @@ public class GasolineDetailActivity extends BaseActivity {
         tbv.setListener(new TitlebarView.TitlebarListener() {
             @Override
             public void onLeftBtnClick() {
-                finish();
+                exit();
             }
 
             @Override
@@ -132,6 +156,7 @@ public class GasolineDetailActivity extends BaseActivity {
     private void initData() {
         Intent intent = getIntent();
         gasolineBean = (GasolineBean) intent.getSerializableExtra(GlobalVar.INTENT_GASOLINE_RECORD);
+        isFromEventDetail = intent.getBooleanExtra(GlobalVar.INTENT_IS_FROM_EVENT, false);
 
         aMap = mvShowLocation.getMap();
         marker = aMap.addMarker(new MarkerOptions().position(new LatLng(gasolineBean.getLatitude(), gasolineBean.getLongitude())).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_location_selected)));

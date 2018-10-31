@@ -26,6 +26,8 @@ public class GlobalVar {
     public static final String INTENT_LOCATION = "intent_location";
     // 位置数据修改
     public static final String INTENT_LOCATION_EDIT = "intent_location_edit";
+    // 判断数据是否来自事件详情标识
+    public static final String INTENT_IS_FROM_EVENT = "intent_is_from_event";
 
     /**
      * 返回数据请求代码相关
@@ -38,6 +40,8 @@ public class GlobalVar {
     public static final int REQUEST_CODE_EDIT_RECORD = 1000;
     // 请求修改地理位置
     public static final int REQUEST_CODE_EDIT_LOCATION = 1001;
+    // 请求在事件中修改加油记录
+    public static final int REQUEST_CODE_EDIT_RECORD_IN_EVENT = 1002;
 
     /**
      * 应用全局常量

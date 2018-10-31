@@ -27,6 +27,9 @@ public class GasolineBean implements Serializable, Comparable<GasolineBean> {
     private String address;         // 地址
     private String cityCode;        // 城市码
 
+    public GasolineBean() {
+    }
+
     public GasolineBean(long date, BigDecimal totalPrice, double mileage, String model, int invoice, String payMethod, String carNO) {
         this.date = date;
         this.totalPrice = totalPrice;

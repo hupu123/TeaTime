@@ -9,6 +9,7 @@ import com.hugh.teatime.R;
 import com.hugh.teatime.app.GlobalVar;
 import com.hugh.teatime.db.MyDBOperater;
 import com.hugh.teatime.models.home.BaseActivity;
+import com.hugh.teatime.utils.ToastUtil;
 import com.hugh.teatime.view.TitlebarView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -91,11 +92,12 @@ public class EventLineActivity extends BaseActivity {
         eventBeans.addAll(0, events);
         mAdapter.notifyDataSetChanged();
         final int selectPosition;
-        if (events == null || events.size() == 0) {
+        if (events.size() == 0) {
             if (type == 1) {
                 pageIndex--;
             }
             selectPosition = 0;
+            ToastUtil.showInfo(this, R.string.toast_no_more_data, true);
         } else {
             if (type == 0) {
                 selectPosition = eventBeans.size() - 1;
