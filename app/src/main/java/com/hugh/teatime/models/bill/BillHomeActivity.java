@@ -66,6 +66,7 @@ public class BillHomeActivity extends BaseActivity {
         // 设置ViewPager
         List<Fragment> fragments = new ArrayList<>();
         billListFragment = new BillListFragment();
+        billListFragment.setDate(currentMonth, currentYear);
         chartFragment = new ChartFragment();
         fragments.add(billListFragment);
         fragments.add(chartFragment);

@@ -474,11 +474,10 @@ public class MyDBOperater {
      * @return 账单集合
      */
     public List<Bill> getBills(int monthForSearch, int yearForSearch) {
-        if (!db.isOpen()) {
-            return null;
-        }
-
         List<Bill> bills = new ArrayList<>();
+        if (!db.isOpen()) {
+            return bills;
+        }
         Cursor cursor = db.rawQuery("SELECT * FROM bills WHERE month=? AND year=? ORDER BY day DESC", new String[]{monthForSearch + "", yearForSearch + ""});
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex("_billid"));

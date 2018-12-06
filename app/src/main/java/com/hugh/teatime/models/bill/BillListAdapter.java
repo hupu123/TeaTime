@@ -1,5 +1,6 @@
 package com.hugh.teatime.models.bill;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ public class BillListAdapter extends BaseAdapter {
     private Context context;
     private List<Bill> bills;
 
-    public BillListAdapter(Context context, List<Bill> bills) {
+    BillListAdapter(Context context, List<Bill> bills) {
 
         this.context = context;
         this.bills = bills;
@@ -46,6 +47,7 @@ public class BillListAdapter extends BaseAdapter {
         return 0;
     }
 
+    @SuppressLint({"InflateParams", "SetTextI18n"})
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -73,12 +75,12 @@ public class BillListAdapter extends BaseAdapter {
         }
         if (bill.getIoType() == 0) {
             //            holder.llItem.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
-            holder.llItem.setBackground(context.getResources().getDrawable(R.drawable.btn_click_bg1_selector));
+            holder.llItem.setBackgroundResource(R.drawable.btn_click_bg1_selector);
             holder.tvDate.setTextColor(context.getResources().getColor(R.color.colorAccent_2));
             holder.tvAmount.setText("-" + bill.getAmount() + "¥");
         } else {
             //            holder.llItem.setBackgroundColor(context.getResources().getColor(R.color.colorGreen));
-            holder.llItem.setBackground(context.getResources().getDrawable(R.drawable.btn_click_bg_selector));
+            holder.llItem.setBackgroundResource(R.drawable.btn_click_bg_selector);
             holder.tvDate.setTextColor(context.getResources().getColor(R.color.colorGreen_2));
             holder.tvAmount.setText("+" + bill.getAmount() + "¥");
         }

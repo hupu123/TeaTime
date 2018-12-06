@@ -91,6 +91,7 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".models.note.AlarmReceiver" />
 
         <activity android:name=".models.comic.ComicShelfActivity" />
         <activity android:name=".models.comic.ComicDetailActivity" />
@@ -111,7 +112,7 @@
             android:name=".models.note.NewEventActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".models.note.EventDetailActivity" />
-        <activity android:name=".models.note.PickLocationActivity"></activity>
+        <activity android:name=".models.note.PickLocationActivity"/>
     </application>
 
 </manifest>

@@ -48,6 +48,10 @@
     <string name="dialog_is_delete_record">确认删除该记录？</string>
     <string name="dialog_is_delete_event">确认删除该事件？</string>
 
+    <!-- notification string -->
+    <string name="title_note">今天有需要记录的事情吗？</string>
+    <string name="content_note">点击进入TeaTime记事本</string>
+
     <!-- *********************************** Activity ************************************** -->
 
     <!-- activity_login2.xml -->

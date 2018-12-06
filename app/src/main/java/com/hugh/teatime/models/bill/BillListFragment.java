@@ -16,6 +16,7 @@ import android.widget.ListView;
 
 import com.hugh.teatime.R;
 import com.hugh.teatime.db.MyDBOperater;
+import com.hugh.teatime.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,8 @@ public class BillListFragment extends Fragment {
     private List<Bill> bills;
     private Context context;
     private BillListAdapter bla;
+    private int year;
+    private int month;
 
     private ImageView ivBillNoData;
     private ListView lvBillList;
@@ -55,7 +58,30 @@ public class BillListFragment extends Fragment {
         lvBillList.setOnItemClickListener(itemClickListener);
         btnAddBill.setOnClickListener(clickListener);
 
+        initData();
+
         return contentView;
+    }
+
+    /**
+     * 设置日期
+     *
+     * @param month 月份
+     * @param year  年份
+     */
+    public void setDate(int month, int year) {
+        this.month = month;
+        this.year = year;
+    }
+
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+        if (month == -1 || year == -1) {
+            return;
+        }
+        updateData(month, year);
     }
 
     /**
@@ -65,12 +91,17 @@ public class BillListFragment extends Fragment {
      */
     public void updateData(int month, int year) {
 
+        this.month = month;
+        this.year = year;
         if (context == null || lvBillList == null || ivBillNoData == null || bills == null || bla == null) {
             return;
         }
 
         List<Bill> billsTemp = MyDBOperater.getInstance(context).getBills(month, year);
-        if (billsTemp != null && billsTemp.size() > 0) {
+
+        LogUtil.logHugh("updateData month=" + month + " year=" + year + " size=" + billsTemp.size());
+
+        if (billsTemp.size() > 0) {
             lvBillList.setVisibility(View.VISIBLE);
             ivBillNoData.setVisibility(View.GONE);
             bills.clear();

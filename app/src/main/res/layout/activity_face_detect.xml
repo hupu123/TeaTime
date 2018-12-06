@@ -25,7 +25,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorGray">
+            android:background="@color/colorWhite">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -38,17 +38,18 @@
                     android:id="@+id/iv_target_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/colorGray_1"
                     android:contentDescription="@string/content_description"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/iv_user_head" />
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/icon_face" />
             </LinearLayout>
 
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorBlack" />
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorGray_1" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -61,9 +62,10 @@
                     android:id="@+id/iv_detected_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/colorGray_1"
                     android:contentDescription="@string/content_description"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/iv_robot_head" />
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/icon_face" />
             </LinearLayout>
         </LinearLayout>
 
@@ -79,22 +81,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_click_bg_selector"
                 android:text="@string/detect_face"
-                android:textColor="@color/colorWhite" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/btn_click_bg_selector"
-                android:text="@string/btn2"
-                android:textColor="@color/colorWhite" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/btn_click_bg_selector"
-                android:text="@string/btn3"
                 android:textColor="@color/colorWhite" />
         </LinearLayout>
 

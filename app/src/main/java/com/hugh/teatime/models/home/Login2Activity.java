@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.hugh.teatime.R;
 import com.hugh.teatime.app.GlobalVar;
+import com.hugh.teatime.utils.NotificationChannelUtil;
 import com.hugh.teatime.utils.SPUtil;
 import com.hugh.teatime.view.TitlebarView;
 
@@ -44,6 +45,7 @@ public class Login2Activity extends BaseActivity {
         setContentView(R.layout.activity_login2);
 
         initView();
+        NotificationChannelUtil.createNotificationChannels(this);
 
         if (SPUtil.getInstance(this).isFirstLogin()) {
             tvSkbMsg.setVisibility(View.VISIBLE);

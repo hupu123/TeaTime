@@ -95,6 +95,10 @@ public class FaceDetectActivity extends BaseActivity {
 
             switch (v.getId()) {
                 case R.id.btn_verify_face:
+                    if (detectedBitmap == null || targetBitmap == null) {
+                        ToastUtil.showInfo(FaceDetectActivity.this, "请选择检测图片", true);
+                        break;
+                    }
                     MSCUtil.getInstance(FaceDetectActivity.this).verifyFace(detectedBitmap, verifyRL);
                     break;
                 case R.id.iv_target_img:
@@ -126,12 +130,10 @@ public class FaceDetectActivity extends BaseActivity {
                 if (requestCode == 1) {
                     targetBitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
                     ivTI.setImageBitmap(targetBitmap);
-
                     MSCUtil.getInstance(this).faceDetect(targetBitmap, targetRL);
                 } else if (requestCode == 2) {
                     detectedBitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
                     ivDI.setImageBitmap(detectedBitmap);
-
                     MSCUtil.getInstance(this).faceDetect(detectedBitmap, detectedRL);
                 }
             } catch (FileNotFoundException e) {

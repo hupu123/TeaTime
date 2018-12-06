@@ -23,7 +23,6 @@ public class JsonParseUtil {
      * 解析消息
      *
      * @param result JSON字符串
-     *
      * @return 消息对象
      */
     public static Message parseMessage(String result) {
@@ -128,7 +127,6 @@ public class JsonParseUtil {
      * 解析人脸位置信息
      *
      * @param result JSON数据
-     *
      * @return 人脸位置列表
      */
     public static List<int[]> parseFaces(String result) {
@@ -140,10 +138,13 @@ public class JsonParseUtil {
             int ret = resultJO.optInt("ret");
             if (ret != 0) {
                 LogUtil.logIResult("人脸位置检测失败");
-                return null;
+                return faces;
             }
 
             JSONArray facesJA = resultJO.optJSONArray("face");
+            if (facesJA == null) {
+                return faces;
+            }
             for (int i = 0; i < facesJA.length(); i++) {
                 JSONObject faceJO = facesJA.getJSONObject(i);
                 JSONObject positionJO = faceJO.optJSONObject("position");
@@ -166,7 +167,6 @@ public class JsonParseUtil {
      * 解析人脸注册返回结果
      *
      * @param result 返回结果JSON字符串
-     *
      * @return 返回结果
      */
     public static RegFace parseRegFace(String result) {
@@ -191,7 +191,6 @@ public class JsonParseUtil {
      * 解析人脸验证返回结果
      *
      * @param result 返回结果JSON字符串
-     *
      * @return 返回结果
      */
     public static String parseVerifyFace(String result) {

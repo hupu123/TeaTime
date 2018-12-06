@@ -1,5 +1,7 @@
 package com.hugh.teatime.models.note;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +11,7 @@ import com.hugh.teatime.R;
 import com.hugh.teatime.app.GlobalVar;
 import com.hugh.teatime.db.MyDBOperater;
 import com.hugh.teatime.models.home.BaseActivity;
+import com.hugh.teatime.utils.LogUtil;
 import com.hugh.teatime.utils.ToastUtil;
 import com.hugh.teatime.view.TitlebarView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -17,6 +20,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class EventLineActivity extends BaseActivity {
 
@@ -33,12 +37,30 @@ public class EventLineActivity extends BaseActivity {
         setContentView(R.layout.activity_event_line);
 
         initView();
+        openAlarmNotice();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         refreshData(0);
+    }
+
+    /**
+     * 打开定时提醒
+     */
+    private void openAlarmNotice() {
+        LogUtil.logHugh("openALarmNotice");
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 22);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        final long INTERVAL = 24 * 60 * 60 * 1000;//24小时
+
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), INTERVAL, broadcast);
     }
 
     /**
