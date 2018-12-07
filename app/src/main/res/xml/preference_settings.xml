@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/preference_note_title">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="preference_note_switch"
+            android:summary="@string/preference_note_alarm_switch_summary"
+            android:title="@string/preference_note_alarm_switch_title" />
+
+        <Preference
+            android:enabled="false"
+            android:key="preference_note_time"
+            android:summary="@string/preference_note_alarm_time_summary"
+            android:title="@string/preference_note_alarm_time_title" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -112,7 +112,8 @@
             android:name=".models.note.NewEventActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".models.note.EventDetailActivity" />
-        <activity android:name=".models.note.PickLocationActivity"/>
+        <activity android:name=".models.note.PickLocationActivity" />
+        <activity android:name=".models.home.SettingsActivity" />
     </application>
 
 </manifest>

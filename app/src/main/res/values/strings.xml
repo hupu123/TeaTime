@@ -15,6 +15,7 @@
     <string name="save">保存</string>
     <string name="add">新建</string>
     <string name="clean">清除</string>
+    <string name="setting">设置</string>
 
     <!-- toast string -->
     <string name="toast_amount_not_null">金额不能为空</string>
@@ -51,6 +52,13 @@
     <!-- notification string -->
     <string name="title_note">今天有需要记录的事情吗？</string>
     <string name="content_note">点击进入TeaTime记事本</string>
+
+    <!-- settings -->
+    <string name="preference_note_title">记事本设置</string>
+    <string name="preference_note_alarm_switch_title">每日记事提醒</string>
+    <string name="preference_note_alarm_switch_summary">开启后将在每日指定时间点提醒记录事件</string>
+    <string name="preference_note_alarm_time_title">提醒时间</string>
+    <string name="preference_note_alarm_time_summary">00:00</string>
 
     <!-- *********************************** Activity ************************************** -->
 

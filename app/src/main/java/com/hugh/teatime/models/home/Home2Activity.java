@@ -24,12 +24,14 @@ import com.hugh.teatime.models.gasoline.GasolineHomeActivity;
 import com.hugh.teatime.models.image.ImageFolderActivity;
 import com.hugh.teatime.models.message.MsgHomeActivity;
 import com.hugh.teatime.models.note.EventLineActivity;
+import com.hugh.teatime.models.note.NoteAlarmUitls;
 import com.hugh.teatime.models.robot.RobotActivity;
 import com.hugh.teatime.models.tool.ToolListActivity;
 import com.hugh.teatime.utils.LogUtil;
 import com.hugh.teatime.utils.SPUtil;
 import com.hugh.teatime.utils.StringUtil;
 import com.hugh.teatime.utils.ToastUtil;
+import com.hugh.teatime.view.TitlebarView;
 import com.hugh.teatime.view.dsgv.DragSortGridView;
 
 import java.util.ArrayList;
@@ -51,6 +53,14 @@ public class Home2Activity extends BaseActivity {
 
         initView();
         initData();
+
+        boolean isOpen = getSharedPreferences(SettingsFragment.PREFERENCE_NAME, MODE_PRIVATE).getBoolean(SettingsFragment.PREFERENCE_NOTE_SWITCH, false);
+        String time = getSharedPreferences(SettingsFragment.PREFERENCE_NAME, MODE_PRIVATE).getString(SettingsFragment.PREFERENCE_NOTE_TIME, "00:00");
+        if (isOpen) {
+            NoteAlarmUitls.openAlarmNotice(this, time);
+        } else {
+            NoteAlarmUitls.cancelAlarmNotice(this);
+        }
     }
 
     @Override
@@ -69,6 +79,20 @@ public class Home2Activity extends BaseActivity {
      * 初始化控件
      */
     private void initView() {
+        TitlebarView tbv = findViewById(R.id.tbv);
+        tbv.setRightBtnText(getResources().getString(R.string.setting));
+        tbv.setListener(new TitlebarView.TitlebarListener() {
+            @Override
+            public void onLeftBtnClick() {
+
+            }
+
+            @Override
+            public void onRightBtnClick() {
+                Intent intent = new Intent(Home2Activity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
         dragFrame = findViewById(R.id.fl_drag_frame);
         dsgvHome = findViewById(R.id.dsgv_home);
         dsgvHome.setDragModel(DragSortGridView.DRAG_BY_LONG_CLICK);

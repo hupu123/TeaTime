@@ -107,4 +107,15 @@ public class StringUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.CHINA);
         return sdf.format(new Date(time));
     }
+
+    /**
+     * 格式化时间戳
+     *
+     * @param time 时间戳
+     * @return HH:mm格式字符串
+     */
+    public static String formatTimestamp4(long time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.CHINA);
+        return sdf.format(new Date(time));
+    }
 }

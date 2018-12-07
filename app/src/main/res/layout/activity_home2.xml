@@ -14,9 +14,11 @@
         android:orientation="vertical">
 
         <com.hugh.teatime.view.TitlebarView
+            android:id="@+id/tbv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:leftBarType="HIDDEN"
+            app:rightBarType="BTN_RIGHT"
             app:titleName="@string/app_name" />
 
         <com.hugh.teatime.view.dsgv.DragSortGridView

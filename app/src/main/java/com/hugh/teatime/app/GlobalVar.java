@@ -88,4 +88,6 @@ public class GlobalVar {
     public static final String[] PAY_TYPE_NAME_ARRAY = new String[]{"现金", "信用卡", "储蓄卡", "微信", "支付宝"};
     // 每页数据数量
     public static final int PAGE_SIZE = 10;
+    // 记事本闹钟请求码
+    public static final int NOTE_ALARM_REQUEST_CODE = 0;
 }
