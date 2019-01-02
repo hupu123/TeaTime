@@ -219,7 +219,9 @@
     <string name="title_gasoline">加油管理</string>
     <string name="gasoline_total_price">%1$s￥</string>
     <string name="gasoline_mileage">里程：%1$sKM</string>
-    <string name="gasoline_fuel_consumption">油耗：%1$s￥/KM</string>
+    <string name="gasoline_quantity">数量：%1$sL</string>
+    <string name="gasoline_fuel_consumption">每公里油耗：%1$sL/KM</string>
+    <string name="gasoline_money_consumption">每公里价格：%1$s￥/KM</string>
     <string name="gasoline_date">日期：%1$s</string>
     <string name="gasoline_list_header">yyyy年</string>
     <string name="gasoline_invoiced">已开票</string>
@@ -249,7 +251,8 @@
     <!-- activity_gasoline_detail.xml -->
     <string name="title_gasoline_detail">记录详情</string>
     <string name="gd_total_amount">总金额：%1$s￥</string>
-    <string name="gd_fuel_consumption">油耗：%1$s￥/KM</string>
+    <string name="gd_fuel_consumption">每公里油耗：%1$sL/KM</string>
+    <string name="gd_money_consumption">每公里价格：%1$s￥/KM</string>
     <string name="gd_mileage">总里程：%1$sKM</string>
     <string name="gd_price">油价：%1$s￥/L</string>
     <string name="gd_quantity">数量：%1$sL</string>
@@ -306,7 +309,8 @@
     <!-- fragment_gasoline_line.xml -->
     <string name="line_price_chart_title">%1$d年加油支出统计</string>
     <string name="line_unit_price_chart_title">%1$d年油价统计</string>
-    <string name="line_fuel_consumption_chart_title">%1$d年油耗统计</string>
+    <string name="line_fuel_consumption_chart_title">%1$d年每公里油耗统计</string>
+    <string name="line_money_consumption_chart_title">%1$d年每公里价格统计</string>
     <string name="line_chart_x_name">日期</string>
 
     <!-- fragment_gasoline_pie.xml -->

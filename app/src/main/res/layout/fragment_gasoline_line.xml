@@ -92,6 +92,32 @@
                     android:layout_height="wrap_content"
                     android:numColumns="4" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/page_margin"
+                android:background="@color/colorWhite"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tv_money_consumption_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <lecho.lib.hellocharts.view.LineChartView
+                    android:id="@+id/lcv_gasoline_money_consumption"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/chart_height" />
+
+                <com.hugh.teatime.view.NoScrollGridView
+                    android:id="@+id/nsgv_money_consumption_illustration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="4" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

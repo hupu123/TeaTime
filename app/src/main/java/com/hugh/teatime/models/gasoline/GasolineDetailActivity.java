@@ -31,6 +31,7 @@ public class GasolineDetailActivity extends BaseActivity {
 
     private TextView tvAmount;
     private TextView tvFuelConsumption;
+    private TextView tvMoneyConsumption;
     private TextView tvMileage;
     private TextView tvPrice;
     private TextView tvQuantity;
@@ -130,6 +131,7 @@ public class GasolineDetailActivity extends BaseActivity {
         });
         tvAmount = findViewById(R.id.tv_amount);
         tvFuelConsumption = findViewById(R.id.tv_fuel_consumption);
+        tvMoneyConsumption = findViewById(R.id.tv_money_consumption);
         tvMileage = findViewById(R.id.tv_mileage);
         tvPrice = findViewById(R.id.tv_gasoline_price);
         tvQuantity = findViewById(R.id.tv_quantity);
@@ -171,10 +173,12 @@ public class GasolineDetailActivity extends BaseActivity {
      */
     private void refreshData() {
         if (gasolineBean != null) {
-            BigDecimal fuelConsumption = gasolineBean.getTotalPrice().divide(new BigDecimal(gasolineBean.getMileage()), 2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal fuelConsumption = new BigDecimal(gasolineBean.getQuantity()).divide(new BigDecimal(gasolineBean.getMileage()), 2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal moneyConsumption = gasolineBean.getTotalPrice().divide(new BigDecimal(gasolineBean.getMileage()), 2, BigDecimal.ROUND_HALF_UP);
             tvAmount.setText(String.format(getResources().getString(R.string.gd_total_amount), StringUtil.formatBigDecimalNum(gasolineBean.getTotalPrice())));
             tvMileage.setText(String.format(getResources().getString(R.string.gd_mileage), StringUtil.formatDoubleNum(gasolineBean.getMileage())));
             tvFuelConsumption.setText(String.format(getResources().getString(R.string.gd_fuel_consumption), StringUtil.formatBigDecimalNum(fuelConsumption)));
+            tvMoneyConsumption.setText(String.format(getResources().getString(R.string.gd_money_consumption), StringUtil.formatBigDecimalNum(moneyConsumption)));
             tvPrice.setText(String.format(getResources().getString(R.string.gd_price), StringUtil.formatBigDecimalNum(gasolineBean.getUnitPrice())));
             tvQuantity.setText(String.format(getResources().getString(R.string.gd_quantity), StringUtil.formatDoubleNum(gasolineBean.getQuantity())));
             tvGasolineType.setText(String.format(getResources().getString(R.string.gd_gasoline_type), gasolineBean.getModel()));

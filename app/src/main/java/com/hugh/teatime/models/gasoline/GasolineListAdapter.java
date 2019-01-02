@@ -107,7 +107,9 @@ public class GasolineListAdapter extends BaseAdapter implements StickyListHeader
             viewHolder.llItem = convertView.findViewById(R.id.ll_item);
             viewHolder.tvTotalPrice = convertView.findViewById(R.id.tv_total_price);
             viewHolder.tvMileage = convertView.findViewById(R.id.tv_mileage);
+            viewHolder.tvQuantity = convertView.findViewById(R.id.tv_quantity);
             viewHolder.tvFuelConsumption = convertView.findViewById(R.id.tv_fuel_consumption);
+            viewHolder.tvMoneyConsumption = convertView.findViewById(R.id.tv_money_consumption);
             viewHolder.tvDate = convertView.findViewById(R.id.tv_date);
             viewHolder.btnCarNO = convertView.findViewById(R.id.btn_car_no);
             viewHolder.btnModel = convertView.findViewById(R.id.btn_model);
@@ -117,10 +119,13 @@ public class GasolineListAdapter extends BaseAdapter implements StickyListHeader
             viewHolder = (ViewHolder) convertView.getTag();
         }
         final GasolineBean gasolineBean = datas.get(position);
-        BigDecimal fuelConsumption = gasolineBean.getTotalPrice().divide(new BigDecimal(gasolineBean.getMileage()), 2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal fuelConsumption = new BigDecimal(gasolineBean.getQuantity()).divide(new BigDecimal(gasolineBean.getMileage()), 2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal moneyConsumption = gasolineBean.getTotalPrice().divide(new BigDecimal(gasolineBean.getMileage()), 2, BigDecimal.ROUND_HALF_UP);
         viewHolder.tvTotalPrice.setText(String.format(context.getResources().getString(R.string.gasoline_total_price), StringUtil.formatBigDecimalNum(gasolineBean.getTotalPrice())));
         viewHolder.tvMileage.setText(String.format(context.getResources().getString(R.string.gasoline_mileage), StringUtil.formatDoubleNum(gasolineBean.getMileage())));
+        viewHolder.tvQuantity.setText(String.format(context.getResources().getString(R.string.gasoline_quantity), StringUtil.formatDoubleNum(gasolineBean.getQuantity())));
         viewHolder.tvFuelConsumption.setText(String.format(context.getResources().getString(R.string.gasoline_fuel_consumption), StringUtil.formatBigDecimalNum(fuelConsumption)));
+        viewHolder.tvMoneyConsumption.setText(String.format(context.getResources().getString(R.string.gasoline_money_consumption), StringUtil.formatBigDecimalNum(moneyConsumption)));
         viewHolder.tvDate.setText(String.format(context.getResources().getString(R.string.gasoline_date), StringUtil.formatTimestamp(gasolineBean.getDate())));
         viewHolder.btnCarNO.setText(gasolineBean.getCarNO());
         viewHolder.btnModel.setText(gasolineBean.getModel());
@@ -165,7 +170,9 @@ public class GasolineListAdapter extends BaseAdapter implements StickyListHeader
         LinearLayout llItem;
         TextView tvTotalPrice;
         TextView tvMileage;
+        TextView tvQuantity;
         TextView tvFuelConsumption;
+        TextView tvMoneyConsumption;
         TextView tvDate;
         Button btnCarNO;
         Button btnModel;

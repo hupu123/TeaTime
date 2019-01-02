@@ -227,7 +227,7 @@ public class Home2Activity extends BaseActivity {
         }
 
         if (!permissionList.isEmpty()) {
-            ActivityCompat.requestPermissions(this, permissionList.toArray(new String[permissionList.size()]), REQUEST_PERMISSION_CODE);
+            ActivityCompat.requestPermissions(this, permissionList.toArray(new String[0]), REQUEST_PERMISSION_CODE);
         }
     }
 
