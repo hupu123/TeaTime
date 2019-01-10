@@ -115,6 +115,8 @@ public class EventLineActivity extends BaseActivity {
                 int marginSize = DimensUtil.getInstance(EventLineActivity.this).dp2px(20);
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(svSearch.getHeight(), svSearch.getHeight());
                 params.setMargins(marginSize, marginSize, marginSize, marginSize);
+                params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                params.addRule(RelativeLayout.ALIGN_PARENT_END);
                 svSearch.setLayoutParams(params);
                 searchStr = "";
                 refreshData(0);
