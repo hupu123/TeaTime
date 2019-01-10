@@ -3,12 +3,19 @@ package com.hugh.teatime.models.note;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.SearchView;
 
 import com.hugh.teatime.R;
 import com.hugh.teatime.app.GlobalVar;
 import com.hugh.teatime.db.MyDBOperater;
 import com.hugh.teatime.models.home.BaseActivity;
+import com.hugh.teatime.utils.DimensUtil;
+import com.hugh.teatime.utils.LogUtil;
+import com.hugh.teatime.utils.StringUtil;
 import com.hugh.teatime.utils.ToastUtil;
 import com.hugh.teatime.view.TitlebarView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -22,10 +29,12 @@ public class EventLineActivity extends BaseActivity {
 
     private SmartRefreshLayout srlEvents;
     private ListView lvEvents;
+    private SearchView svSearch;
 
     private EventsAdapter mAdapter;
     private ArrayList<EventBean> eventBeans = new ArrayList<>();
     private int pageIndex = 0;
+    private String searchStr = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +83,44 @@ public class EventLineActivity extends BaseActivity {
         });
         mAdapter = new EventsAdapter(this, eventBeans);
         lvEvents.setAdapter(mAdapter);
+
+        svSearch = findViewById(R.id.sv_search);
+        svSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchStr = query;
+                refreshData(0);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        svSearch.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtil.logHugh("setOnSearchClickListener");
+                int marginSize = DimensUtil.getInstance(EventLineActivity.this).dp2px(20);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, svSearch.getHeight());
+                params.setMargins(marginSize, marginSize, marginSize, marginSize);
+                svSearch.setLayoutParams(params);
+            }
+        });
+        svSearch.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                LogUtil.logHugh("setOnCloseListener");
+                int marginSize = DimensUtil.getInstance(EventLineActivity.this).dp2px(20);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(svSearch.getHeight(), svSearch.getHeight());
+                params.setMargins(marginSize, marginSize, marginSize, marginSize);
+                svSearch.setLayoutParams(params);
+                searchStr = "";
+                refreshData(0);
+                return false;
+            }
+        });
     }
 
     /**
@@ -88,7 +135,12 @@ public class EventLineActivity extends BaseActivity {
             pageIndex = 0;
             eventBeans.clear();
         }
-        ArrayList<EventBean> events = MyDBOperater.getInstance(this).getEvents(pageIndex, GlobalVar.PAGE_SIZE);
+        ArrayList<EventBean> events;
+        if (StringUtil.isStrNull(searchStr)) {
+            events = MyDBOperater.getInstance(this).getEvents(pageIndex, GlobalVar.PAGE_SIZE);
+        } else {
+            events = MyDBOperater.getInstance(this).getEventsBySearch(pageIndex, GlobalVar.PAGE_SIZE, searchStr);
+        }
         eventBeans.addAll(0, events);
         mAdapter.notifyDataSetChanged();
         final int selectPosition;

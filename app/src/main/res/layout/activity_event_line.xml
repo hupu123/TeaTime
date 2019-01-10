@@ -39,5 +39,14 @@
                 android:divider="@null"
                 android:listSelector="@color/transparent" />
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <SearchView
+            android:id="@+id/sv_search"
+            android:layout_width="@dimen/item_height"
+            android:layout_height="@dimen/item_height"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="20dp"
+            android:background="@drawable/shape_content_bg1" />
     </RelativeLayout>
 </LinearLayout>

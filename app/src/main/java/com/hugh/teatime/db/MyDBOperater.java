@@ -1125,6 +1125,8 @@ public class MyDBOperater {
     /**
      * 获取所有事件
      *
+     * @param pageIndex 页码
+     * @param pageSize  每页数量
      * @return 事件集合
      */
     public ArrayList<EventBean> getEvents(int pageIndex, int pageSize) {
@@ -1134,6 +1136,41 @@ public class MyDBOperater {
         ArrayList<EventBean> eventBeans = new ArrayList<>();
         // 查询事件数据
         Cursor cursor = db.rawQuery("SELECT * FROM (SELECT * FROM events ORDER BY date DESC LIMIT ? OFFSET ?) ORDER BY date ASC", new String[]{String.valueOf(pageSize), String.valueOf(pageIndex * pageSize)});
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("_eventid"));
+            long date = cursor.getLong(cursor.getColumnIndex("date"));
+            String title = cursor.getString(cursor.getColumnIndex("title"));
+            String content = cursor.getString(cursor.getColumnIndex("content"));
+            double latitude = cursor.getDouble(cursor.getColumnIndex("latitude"));
+            double longitude = cursor.getDouble(cursor.getColumnIndex("longitude"));
+            String address = cursor.getString(cursor.getColumnIndex("address"));
+            String citycode = cursor.getString(cursor.getColumnIndex("citycode"));
+            int eventType = cursor.getInt(cursor.getColumnIndex("type"));
+            String gasolineId = cursor.getString(cursor.getColumnIndex("gasolineid"));
+
+            EventBean eventBean = new EventBean(String.valueOf(id), date, title, content, latitude, longitude, address, citycode, eventType, gasolineId);
+            eventBeans.add(eventBean);
+        }
+        cursor.close();
+
+        return eventBeans;
+    }
+
+    /**
+     * 查询事件
+     *
+     * @param pageIndex 页码
+     * @param pageSize  每页数量
+     * @param str       查询关键字
+     * @return 事件集合
+     */
+    public ArrayList<EventBean> getEventsBySearch(int pageIndex, int pageSize, String str) {
+        if (!db.isOpen()) {
+            return null;
+        }
+        ArrayList<EventBean> eventBeans = new ArrayList<>();
+        // 查询事件数据
+        Cursor cursor = db.rawQuery("SELECT * FROM (SELECT * FROM events ORDER BY date DESC LIMIT ? OFFSET ?) WHERE title LIKE '%" + str + "%' OR content LIKE '%" + str + "%' OR address LIKE '%" + str + "%' ORDER BY date ASC", new String[]{String.valueOf(pageSize), String.valueOf(pageIndex * pageSize)});
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex("_eventid"));
             long date = cursor.getLong(cursor.getColumnIndex("date"));
