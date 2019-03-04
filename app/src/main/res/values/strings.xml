@@ -16,6 +16,8 @@
     <string name="add">新建</string>
     <string name="clean">清除</string>
     <string name="setting">设置</string>
+    <string name="update">更新</string>
+    <string name="complete">完成</string>
 
     <!-- toast string -->
     <string name="toast_amount_not_null">金额不能为空</string>
@@ -39,6 +41,10 @@
     <string name="toast_new_event_title_null">标题不能为空</string>
     <string name="toast_no_location_info">没有可用的位置信息，请重新定位</string>
     <string name="toast_data_error">数据异常</string>
+    <string name="toast_nt_title_null">标题不能为空</string>
+    <string name="toast_nt_target_name_null">目标名称不能为空</string>
+    <string name="toast_nt_target_num_null">目标数量不能为空</string>
+    <string name="toast_nt_done_num_null">完成数量不能为空</string>
 
     <!-- dialog string -->
     <string name="dialog_is_delete_bill">是否删除该账单？</string>
@@ -48,6 +54,8 @@
     <string name="dialog_is_import_path">确认导入【%1$s】？</string>
     <string name="dialog_is_delete_record">确认删除该记录？</string>
     <string name="dialog_is_delete_event">确认删除该事件？</string>
+    <string name="dialog_is_delete_target">确认删除该目标？</string>
+    <string name="dialog_is_delete_daily_target">确认删除该每日目标？与该目标相关的所有记录将同时被删除。</string>
 
     <!-- notification string -->
     <string name="title_note">今天有需要记录的事情吗？</string>
@@ -135,6 +143,7 @@
     <string name="model_tools">工具箱</string>
     <string name="model_gasoline">加油管理</string>
     <string name="model_note">记事本</string>
+    <string name="model_target">每日目标</string>
 
     <!-- activity_image_detail.xml -->
     <string name="image_rotate">旋转</string>
@@ -293,6 +302,26 @@
 
     <!-- activity_pick_location.xml -->
     <string name="title_pick_location">手动定位</string>
+
+    <!-- activity_new_target.xml -->
+    <string name="title_new_target">新建目标</string>
+    <string name="nt_type">目标类型 *</string>
+    <string name="nt_title">标&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;题 *</string>
+    <string name="nt_target_name">目标名称 *</string>
+    <string name="nt_target_num">目标数量 *</string>
+    <string name="nt_done_num">完成数量 *</string>
+    <string name="nt_start_time">开始时间 *</string>
+    <string name="nt_end_time">结束时间 *</string>
+    <string name="nt_title_hint">请输入标题</string>
+    <string name="nt_target_name_hint">请输入目标名称</string>
+    <string name="nt_target_num_hint">请输入目标数量</string>
+    <string name="nt_done_num_hint">请输入完成数量</string>
+    <string name="nt_choose_start_time">选择开始时间</string>
+    <string name="nt_choose_end_time">选择结束时间</string>
+    <string name="nt_remaining_time">剩余时间</string>
+    <string name="nt_tn">%1$s(%2$d/%3$d)</string>
+    <string name="nt_st">开始时间：%1$s</string>
+    <string name="nt_et">结束时间：%1$s</string>
 
     <!-- *********************************** Fragment ************************************** -->
 

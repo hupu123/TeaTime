@@ -13,11 +13,13 @@ import com.hugh.teatime.utils.LogUtil;
 public class MyDBOpenHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "teatime.db";
-//    private static final int DB_VERSION = 1;      // 初始化数据库
+    //    private static final int DB_VERSION = 1;      // 初始化数据库
 //    private static final int DB_VERSION = 2;      // 增加事件表
 //    private static final int DB_VERSION = 3;      // events表增加字段citycode
 //    private static final int DB_VERSION = 4;      // gasoline_records表增加字段latitude、longitude、address、citycode，events表增加字段type
-    private static final int DB_VERSION = 5;      // events表增加字段gasolineid
+//    private static final int DB_VERSION = 5;      // events表增加字段gasolineid
+//    private static final int DB_VERSION = 6;      // 增加目标表和每日目标表
+    private static final int DB_VERSION = 7;      // 修改每日目标表，删除【已完成数量】字段
 
     /**
      * 构造函数
@@ -52,6 +54,10 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE gasoline_records (_grecordid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, totalprice DOUBLE, unitprice DOUBLE, mileage DOUBLE, quantity DOUBLE, comment TEXT, model TEXT, invoice INTEGER, paymethod TEXT, carno TEXT, year INTEGER, latitude DOUBLE, longitude DOUBLE, address TEXT, citycode TEXT);");
         // 创建记事本表
         db.execSQL("CREATE TABLE events (_eventid INTEGER PRIMARY KEY AUTOINCREMENT, date LONG, title TEXT, content TEXT, latitude DOUBLE, longitude DOUBLE, address TEXT, citycode TEXT, type INTEGER, gasolineid TEXT);");
+        // 创建目标表
+        db.execSQL("CREATE TABLE targets (_targetid INTEGER PRIMARY KEY AUTOINCREMENT, _dailytargetid INTEGER, type INTEGER, date TEXT, title TEXT, targetname TEXT, targetnum INTEGER, donenum INTEGER, status INTEGER, createtime LONG, starttime LONG, endtime LONG);");
+        // 创建每日目标表
+        db.execSQL("CREATE TABLE daily_targets (_dailytargetid INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, targetname TEXT, targetnum INTEGER, createtime LONG);");
     }
 
     @Override
@@ -71,6 +77,19 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
                 db.execSQL("ALTER TABLE events ADD COLUMN type INTEGER;");
             case 4:
                 db.execSQL("ALTER TABLE events ADD COLUMN gasolineid TEXT");
+                break;
+            case 5:
+                db.execSQL("DROP TABLE IF EXISTS targets");
+                db.execSQL("CREATE TABLE targets (_targetid INTEGER PRIMARY KEY AUTOINCREMENT, _dailytargetid INTEGER, type INTEGER, date TEXT, title TEXT, targetname TEXT, targetnum INTEGER, donenum INTEGER, status INTEGER, createtime LONG, starttime LONG, endtime LONG);");
+                db.execSQL("DROP TABLE IF EXISTS daily_targets");
+                db.execSQL("CREATE TABLE daily_targets (_dailytargetid INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, targetname TEXT, targetnum INTEGER, createtime LONG);");
+                break;
+            case 6:
+                // 由于sqlite不支持删除列，故采用新建表，转移数据，然后删除原表，最后重命名的方式修改
+                db.execSQL("CREATE TABLE daily_targets_temp (_dailytargetid INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, targetname TEXT, targetnum INTEGER, createtime LONG);");
+                db.execSQL("INSERT INTO daily_targets_temp SELECT _dailytargetid, title, targetname, targetnum, createtime FROM daily_targets;");
+                db.execSQL("DROP TABLE IF EXISTS daily_targets;");
+                db.execSQL("ALTER TABLE daily_targets_temp RENAME TO daily_targets;");
                 break;
             default:
                 break;

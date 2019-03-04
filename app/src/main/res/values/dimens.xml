@@ -17,12 +17,18 @@
     <dimen name="txt_size_2">12sp</dimen>
     <!-- invoiced txt size -->
     <dimen name="txt_size_3">10sp</dimen>
+    <!-- progress done txt size -->
+    <dimen name="txt_size_4">100sp</dimen>
+    <!-- progress target txt size -->
+    <dimen name="txt_size_5">60sp</dimen>
     <!-- icon size -->
     <dimen name="icon_size">20dp</dimen>
     <!-- check box size -->
     <dimen name="cb_size">30dp</dimen>
     <!-- divider height -->
     <dimen name="divider_height">0.5dp</dimen>
+    <!-- target divider height -->
+    <dimen name="divider_height_1">2dp</dimen>
     <!-- bottom listview dialog height -->
     <dimen name="high_item_height">200dp</dimen>
     <!-- gasoline listview item height -->

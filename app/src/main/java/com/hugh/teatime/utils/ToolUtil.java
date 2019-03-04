@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -312,31 +313,32 @@ public class ToolUtil {
     }
 
     /**
-     * 获取一天的开始
+     * 获取一天的开始时间
      *
-     * @param time 时间戳
-     * @return 开始
+     * @param time 日期
+     * @return 开始时间
      */
-    public static long getStartFromTimestamp(long time) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.CHINA);
-        String date = sdf.format(new Date(time));
-        long start = time;
-        try {
-            start = sdf.parse(date).getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return start;
+    public static long getStartTimeOfDay(long time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return calendar.getTimeInMillis();
     }
 
     /**
-     * 获取一天的结束
+     * 获取一天的结束时间
      *
-     * @param time 时间戳
-     * @return 结束
+     * @param time 日期
+     * @return 结束时间
      */
-    public static long getEndFromTimestamp(long time) {
-        long end = getStartFromTimestamp(time);
-        return end + (23 * 60 * 60 * 1000 + 59 * 60 * 1000 + 59 * 1000);
+    public static long getEndTimeOfDay(long time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        calendar.set(Calendar.HOUR, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        return calendar.getTimeInMillis();
     }
 }

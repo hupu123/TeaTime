@@ -26,6 +26,7 @@ import com.hugh.teatime.models.message.MsgHomeActivity;
 import com.hugh.teatime.models.note.EventLineActivity;
 import com.hugh.teatime.models.note.NoteAlarmUitls;
 import com.hugh.teatime.models.robot.RobotActivity;
+import com.hugh.teatime.models.target.TargetHomeActivity;
 import com.hugh.teatime.models.tool.ToolListActivity;
 import com.hugh.teatime.utils.LogUtil;
 import com.hugh.teatime.utils.SPUtil;
@@ -164,6 +165,7 @@ public class Home2Activity extends BaseActivity {
         models.add(new ModelBean(7, R.mipmap.icon_tool, getResources().getString(R.string.model_tools), "", new Intent(this, ToolListActivity.class)));
         models.add(new ModelBean(8, R.mipmap.icon_gasoline, getResources().getString(R.string.model_gasoline), "", new Intent(this, GasolineHomeActivity.class)));
         models.add(new ModelBean(9, R.mipmap.icon_note, getResources().getString(R.string.model_note), "", new Intent(this, EventLineActivity.class)));
+        models.add(new ModelBean(10, R.mipmap.icon_target, getResources().getString(R.string.model_target), "", new Intent(this, TargetHomeActivity.class)));
         //TODO 添加新模块入口
 
         String iconOrderStr = SPUtil.getInstance(this).getHomeIconOrder();

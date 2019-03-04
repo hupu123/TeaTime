@@ -23,6 +23,7 @@
     <color name="readed_bg">#f5c0b9</color>
     <color name="reading_bg">#cde9c5</color>
     <color name="transparent">#00000000</color>
+    <color name="transparent_1">#10000000</color>
 
     <color name="colorChart_1">#33b5e5</color>
     <color name="colorChart_2">#aa66cc</color>

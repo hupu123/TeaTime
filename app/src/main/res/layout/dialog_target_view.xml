@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTWhite"
+            android:textSize="@dimen/txt_size_4"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/v_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height_1"
+            android:background="@color/colorTWhite" />
+
+        <TextView
+            android:id="@+id/tv_target"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTWhite"
+            android:textSize="@dimen/txt_size_5"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textSize="@dimen/txt_size_1"
+                android:textStyle="bold" />
+
+            <SeekBar
+                android:id="@+id/sb_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/page_margin" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/colorGray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_confirm"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_click_bg3_selector"
+                android:text="@string/confirm" />
+
+            <View
+                android:layout_width="@dimen/divider_height"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorGray" />
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_click_bg3_selector"
+                android:text="@string/delete" />
+
+            <View
+                android:layout_width="@dimen/divider_height"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorGray" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_click_bg3_selector"
+                android:text="@string/cancel" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -16,4 +16,10 @@
             <enum name="IB_RESET_PSW" value="5" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="ProgressItemView">
+        <attr name="bgColor" format="color" />
+        <attr name="progress" format="integer" />
+        <attr name="max" format="integer" />
+    </declare-styleable>
 </resources>

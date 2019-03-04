@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorGray_1">
+
+    <RelativeLayout
+        android:id="@+id/rl_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_margin_lr_width"
+        android:layout_marginTop="@dimen/item_margin_tb_width"
+        android:layout_marginEnd="@dimen/item_margin_lr_width"
+        android:layout_marginBottom="@dimen/item_margin_tb_width"
+        tools:ignore="UselessParent">
+
+        <com.hugh.teatime.view.ProgressItemView
+            android:id="@+id/piv_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:bgColor="@color/colorGreen_4" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_click_bg6_selector"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/item_margin_lr_width">
+
+            <ImageView
+                android:id="@+id/iv_status"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_marginEnd="@dimen/item_margin_lr_width"
+                android:contentDescription="@string/content_description" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_target_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/txt_size_1"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_target_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/txt_size_2" />
+
+                <LinearLayout
+                    android:id="@+id/ll_target_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_target_start_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/txt_size_2" />
+
+                    <TextView
+                        android:id="@+id/tv_target_end_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/txt_size_2" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_target_remaining_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/txt_size_1"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nt_remaining_time"
+                    android:textSize="@dimen/txt_size_2" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

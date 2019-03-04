@@ -16,8 +16,11 @@ import com.hugh.teatime.models.home.Folder;
 import com.hugh.teatime.models.image.Image;
 import com.hugh.teatime.models.robot.Message;
 import com.hugh.teatime.models.robot.News;
+import com.hugh.teatime.models.target.DailyTargetBean;
+import com.hugh.teatime.models.target.TargetBean;
 import com.hugh.teatime.utils.LogUtil;
 import com.hugh.teatime.utils.StringUtil;
+import com.hugh.teatime.utils.ToolUtil;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -1190,5 +1193,161 @@ public class MyDBOperater {
 
         return eventBeans;
     }
-// ------------------------------------------------------ events table ---------------------------------------------------
+    // ------------------------------------------------------ events table ---------------------------------------------------
+
+    // ------------------------------------------------------ targets table ---------------------------------------------------
+
+    /**
+     * 添加目标
+     *
+     * @param targetBean 目标数据
+     * @return 目标ID，错误返回-1
+     */
+    public int addTarget(TargetBean targetBean) {
+        int id = -1;
+        if (!db.isOpen()) {
+            return id;
+        }
+        db.execSQL("INSERT INTO targets(_dailytargetid, type, date, title, targetname, targetnum, donenum, status, createtime, starttime, endtime) VALUES(?,?,?,?,?,?,?,?,?,?,?)", new String[]{String.valueOf(targetBean.getDailyId()), String.valueOf(targetBean.getType()), targetBean.getDate(), targetBean.getTitle(), targetBean.getTargetName(), String.valueOf(targetBean.getTargetNum()), String.valueOf(targetBean.getDoneNum()), String.valueOf(targetBean.getStatus()), String.valueOf(targetBean.getCreateTime()), String.valueOf(targetBean.getStartTime()), String.valueOf(targetBean.getEndTime())});
+        Cursor cursor = db.rawQuery("SELECT last_insert_rowid() FROM targets", null);
+        if (cursor.moveToFirst()) {
+            id = cursor.getInt(0);
+        }
+        cursor.close();
+        return id;
+    }
+
+    /**
+     * 删除目标
+     *
+     * @param target 目标
+     */
+    public void deleteTarget(TargetBean target) {
+        if (!db.isOpen() || target == null || target.getId() < 0) {
+            return;
+        }
+        if (target.getType() == 0) {
+            db.execSQL("DELETE FROM daily_targets WHERE _dailytargetid=?", new String[]{String.valueOf(target.getDailyId())});
+            db.execSQL("DELETE FROM targets WHERE _dailytargetid=?", new String[]{String.valueOf(target.getDailyId())});
+        } else {
+            db.execSQL("DELETE FROM targets WHERE _targetid=?", new String[]{String.valueOf(target.getId())});
+        }
+    }
+
+    /**
+     * 修改目标
+     *
+     * @param targetBean 目标数据
+     */
+    public void updateTarget(TargetBean targetBean) {
+        if (!db.isOpen() || targetBean == null) {
+            return;
+        }
+        db.execSQL("UPDATE targets SET _dailytargetid=?,type=?,date=?,title=?,targetname=?,targetnum=?,donenum=?,status=?,createtime=?,starttime=?,endtime=? WHERE _targetid=?", new String[]{String.valueOf(targetBean.getDailyId()), String.valueOf(targetBean.getType()), targetBean.getDate(), targetBean.getTitle(), targetBean.getTargetName(), String.valueOf(targetBean.getTargetNum()), String.valueOf(targetBean.getDoneNum()), String.valueOf(targetBean.getStatus()), String.valueOf(targetBean.getCreateTime()), String.valueOf(targetBean.getStartTime()), String.valueOf(targetBean.getEndTime()), String.valueOf(targetBean.getId())});
+    }
+
+    /**
+     * 按照时间获取目标
+     *
+     * @param targetTime 时间
+     * @return 目标
+     */
+    public ArrayList<TargetBean> getTargetsByDate(long targetTime) {
+        if (!db.isOpen()) {
+            return null;
+        }
+        String date = StringUtil.formatTimestamp2(targetTime);
+        ArrayList<TargetBean> targetBeans = new ArrayList<>();
+        // 查询每日目标
+        ArrayList<DailyTargetBean> dailyTargets = getDailyTargets(targetTime);
+        if (dailyTargets != null && dailyTargets.size() > 0) {
+            for (DailyTargetBean dailyTargetBean : dailyTargets) {
+                Cursor cursor = db.rawQuery("SELECT * FROM targets WHERE date=? AND _dailytargetid=?", new String[]{date, String.valueOf(dailyTargetBean.getDailyId())});
+                if (cursor.moveToFirst()) {
+                    int id = cursor.getInt(cursor.getColumnIndex("_targetid"));
+                    int dailyId = cursor.getInt(cursor.getColumnIndex("_dailytargetid"));
+                    int type = cursor.getInt(cursor.getColumnIndex("type"));
+                    String title = cursor.getString(cursor.getColumnIndex("title"));
+                    String targetname = cursor.getString(cursor.getColumnIndex("targetname"));
+                    int targetnum = cursor.getInt(cursor.getColumnIndex("targetnum"));
+                    int donenum = cursor.getInt(cursor.getColumnIndex("donenum"));
+                    int status = cursor.getInt(cursor.getColumnIndex("status"));
+                    long createTime = cursor.getLong(cursor.getColumnIndex("createtime"));
+                    long startTime = cursor.getLong(cursor.getColumnIndex("starttime"));
+                    long endTime = cursor.getLong(cursor.getColumnIndex("endtime"));
+                    TargetBean targetBean = new TargetBean(id, dailyId, type, date, title, targetname, targetnum, donenum, status, createTime, startTime, endTime);
+                    targetBeans.add(targetBean);
+                } else {
+                    TargetBean targetBean = new TargetBean(dailyTargetBean.getDailyId(), 0, date, dailyTargetBean.getTitle(), dailyTargetBean.getTargetName(), dailyTargetBean.getTargetNum(), 0, 0, ToolUtil.getStartTimeOfDay(targetTime), ToolUtil.getStartTimeOfDay(targetTime), ToolUtil.getEndTimeOfDay(targetTime));
+                    int id = addTarget(targetBean);
+                    targetBean.setId(id);
+                    targetBeans.add(targetBean);
+                }
+                cursor.close();
+            }
+        }
+        // 查询一次性目标
+        long startTimeOfDay = ToolUtil.getStartTimeOfDay(targetTime);
+        long endTimeOfDay = ToolUtil.getEndTimeOfDay(targetTime);
+        Cursor cursor = db.rawQuery("SELECT * FROM targets WHERE type<>? AND endtime>=? AND starttime<=? ORDER BY createtime DESC", new String[]{String.valueOf(0), String.valueOf(startTimeOfDay), String.valueOf(endTimeOfDay)});
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("_targetid"));
+            int dailyId = cursor.getInt(cursor.getColumnIndex("_dailytargetid"));
+            int type = cursor.getInt(cursor.getColumnIndex("type"));
+            String title = cursor.getString(cursor.getColumnIndex("title"));
+            String targetname = cursor.getString(cursor.getColumnIndex("targetname"));
+            int targetnum = cursor.getInt(cursor.getColumnIndex("targetnum"));
+            int donenum = cursor.getInt(cursor.getColumnIndex("donenum"));
+            int status = cursor.getInt(cursor.getColumnIndex("status"));
+            long createTime = cursor.getLong(cursor.getColumnIndex("createtime"));
+            long startTime = cursor.getLong(cursor.getColumnIndex("starttime"));
+            long endTime = cursor.getLong(cursor.getColumnIndex("endtime"));
+            TargetBean targetBean = new TargetBean(id, dailyId, type, date, title, targetname, targetnum, donenum, status, createTime, startTime, endTime);
+            targetBeans.add(targetBean);
+        }
+        cursor.close();
+
+        return targetBeans;
+    }
+
+    /**
+     * 获取每日目标
+     *
+     * @param targetTime 时间
+     * @return 每日目标
+     */
+    private ArrayList<DailyTargetBean> getDailyTargets(long targetTime) {
+        if (!db.isOpen()) {
+            return null;
+        }
+        ArrayList<DailyTargetBean> dailyTargets = new ArrayList<>();
+        // 查询目标数据
+        Cursor cursor = db.rawQuery("SELECT * FROM daily_targets WHERE createtime<=? ORDER BY createtime DESC", new String[]{String.valueOf(targetTime)});
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("_dailytargetid"));
+            String title = cursor.getString(cursor.getColumnIndex("title"));
+            String targetname = cursor.getString(cursor.getColumnIndex("targetname"));
+            int targetnum = cursor.getInt(cursor.getColumnIndex("targetnum"));
+            long createTime = cursor.getLong(cursor.getColumnIndex("createtime"));
+
+            DailyTargetBean dailyTarget = new DailyTargetBean(id, title, targetname, targetnum, createTime);
+            dailyTargets.add(dailyTarget);
+        }
+        cursor.close();
+
+        return dailyTargets;
+    }
+
+    /**
+     * 添加每日目标
+     *
+     * @param dailyTargetBean 每日目标数据
+     */
+    public void addDailyTarget(DailyTargetBean dailyTargetBean) {
+        if (!db.isOpen()) {
+            return;
+        }
+        db.execSQL("INSERT INTO daily_targets(title, targetname, targetnum, createtime) VALUES(?,?,?,?)", new String[]{dailyTargetBean.getTitle(), dailyTargetBean.getTargetName(), String.valueOf(dailyTargetBean.getTargetNum()), String.valueOf(dailyTargetBean.getCreateTime())});
+    }
+    // ------------------------------------------------------ targets table ---------------------------------------------------
 }

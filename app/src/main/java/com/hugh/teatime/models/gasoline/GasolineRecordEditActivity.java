@@ -161,6 +161,7 @@ public class GasolineRecordEditActivity extends BaseActivity {
         Intent intent = getIntent();
         GasolineBean gasolineBean = (GasolineBean) intent.getSerializableExtra(GlobalVar.INTENT_GASOLINE_RECORD);
         String carNO = SPUtil.getInstance(this).getLastInputCarNO();
+        payTypePosition = getPositionOfValue(SPUtil.getInstance(this).getLastSelectedPayType(), payTypes);
         // 如果为修改记录，则自动填写值
         if (gasolineBean != null) {
             isModifyFlag = true;
@@ -258,6 +259,7 @@ public class GasolineRecordEditActivity extends BaseActivity {
         }
 
         SPUtil.getInstance(this).setLastInputCarNO(carNO);
+        SPUtil.getInstance(this).setLastSelectedPayType(payTypes.get(payTypePosition));
         if (isModifyFlag) {
             gasolineBean.setId(id);
             MyDBOperater.getInstance(this).updateGasolineRecord(gasolineBean);

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".models.target.NewTargetActivity">
+
+    <com.hugh.teatime.view.TitlebarView
+        android:id="@+id/tbv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightBarType="BTN_RIGHT"
+        app:titleName="@string/title_new_target" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/page_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/page_margin">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/nt_type"
+                    android:textColor="@color/colorWhite" />
+
+                <Spinner
+                    android:id="@+id/s_target_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/page_margin">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/nt_title"
+                    android:textColor="@color/colorWhite" />
+
+                <EditText
+                    android:id="@+id/et_target_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite"
+                    android:hint="@string/nt_title_hint"
+                    android:inputType="textNoSuggestions"
+                    android:maxLength="30"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    tools:ignore="Autofill" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/page_margin">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/nt_target_name"
+                    android:textColor="@color/colorWhite" />
+
+                <EditText
+                    android:id="@+id/et_target_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite"
+                    android:hint="@string/nt_target_name_hint"
+                    android:inputType="textNoSuggestions"
+                    android:maxLength="10"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    tools:ignore="Autofill" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/page_margin">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/nt_target_num"
+                    android:textColor="@color/colorWhite" />
+
+                <EditText
+                    android:id="@+id/et_target_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite"
+                    android:hint="@string/nt_target_num_hint"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    tools:ignore="Autofill" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_starttime"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/page_margin">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/nt_start_time"
+                    android:textColor="@color/colorWhite" />
+
+                <Button
+                    android:id="@+id/btn_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/btn_click_bg_selector"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_endtime"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_marginTop="@dimen/page_margin">
+
+                <TextView
+                    android:layout_width="@dimen/txt_key_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_divider_width"
+                    android:background="@color/colorGreen"
+                    android:gravity="center"
+                    android:text="@string/nt_end_time"
+                    android:textColor="@color/colorWhite" />
+
+                <Button
+                    android:id="@+id/btn_end_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/btn_click_bg_selector"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

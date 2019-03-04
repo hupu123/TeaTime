@@ -11,17 +11,18 @@ import java.util.Set;
  */
 public class SPUtil {
 
-    private final String SP_PSW_NAME = "sp_teatime_psw";
-    private final String SP_IS_FIRST_LOGIN = "sp_teatime_is_first";
-    private final String SP_IS_INIT_IMAGE_TABLE = "sp_is_init_image_table";
-    private final String SP_SMS_BLACK_LIST = "sp_sms_black_list";
-    private final String SP_FP_PATH = "sp_fp_path";
-    private final String SP_COMIC_POSITION = "sp_comic_position";
-    private final String SP_HOME_ICON_ORDER = "sp_home_icon_order";
-    private final String SP_DISABLE_LOGIN_TIME = "sp_disable_login_time";
-    private final String SP_WRONG_PSW_COUNT = "sp_wrong_psw_count";
-    private final String SP_EXIT_TIME = "sp_exit_time";
-    private final String SP_LAST_INPUT_CARNO = "sp_last_input_carno";
+    private final String SP_PSW_NAME = "sp_teatime_psw";                            // 登陆密码
+    private final String SP_IS_FIRST_LOGIN = "sp_teatime_is_first";                 // 是否第一次启动
+    private final String SP_IS_INIT_IMAGE_TABLE = "sp_is_init_image_table";         // 是否初始化image_table
+    private final String SP_SMS_BLACK_LIST = "sp_sms_black_list";                   // 短信黑名单
+    private final String SP_FP_PATH = "sp_fp_path";                                 // 上次文件选择路径
+    private final String SP_COMIC_POSITION = "sp_comic_position";                   // 漫画阅读位置
+    private final String SP_HOME_ICON_ORDER = "sp_home_icon_order";                 // 首页图标顺序
+    private final String SP_DISABLE_LOGIN_TIME = "sp_disable_login_time";           // 禁止登陆时间戳
+    private final String SP_WRONG_PSW_COUNT = "sp_wrong_psw_count";                 // 错误密码输入次数
+    private final String SP_EXIT_TIME = "sp_exit_time";                             // 退出时间戳
+    private final String SP_LAST_INPUT_CARNO = "sp_last_input_carno";               // 上次车牌号输入
+    private final String SP_LAST_SELECTED_PAY_TYPE = "sp_last_selected_pay_type";   // 上次支付方式选择
 
     private static SPUtil instance;
     private SharedPreferences sp;
@@ -100,7 +101,7 @@ public class SPUtil {
      *
      * @return true=已初始化，false=未初始化
      */
-    public boolean isInitImageTable() {
+    boolean isInitImageTable() {
         return sp.getBoolean(SP_IS_INIT_IMAGE_TABLE, false);
     }
 
@@ -264,5 +265,23 @@ public class SPUtil {
      */
     public String getLastInputCarNO() {
         return sp.getString(SP_LAST_INPUT_CARNO, "");
+    }
+
+    /**
+     * 设置上次选择的支付类型
+     *
+     * @param payType 支付类型
+     */
+    public void setLastSelectedPayType(String payType) {
+        sp.edit().putString(SP_LAST_SELECTED_PAY_TYPE, payType).apply();
+    }
+
+    /**
+     * 获取上次选择的支付类型
+     *
+     * @return 支付类型
+     */
+    public String getLastSelectedPayType() {
+        return sp.getString(SP_LAST_SELECTED_PAY_TYPE, "");
     }
 }
