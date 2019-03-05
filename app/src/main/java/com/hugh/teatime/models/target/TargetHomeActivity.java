@@ -76,10 +76,6 @@ public class TargetHomeActivity extends BaseActivity {
         slhlvTargets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                // 未完成任务不可编辑
-                if (targets.get(i).getStatus() == 2) {
-                    return;
-                }
                 DialogUtil targetDialog = new DialogUtil(TargetHomeActivity.this, targets.get(i), new TargetDialogListener() {
                     @Override
                     public void sure(TargetBean targetBean) {

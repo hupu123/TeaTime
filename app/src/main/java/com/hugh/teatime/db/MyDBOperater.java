@@ -1322,7 +1322,7 @@ public class MyDBOperater {
         }
         ArrayList<DailyTargetBean> dailyTargets = new ArrayList<>();
         // 查询目标数据
-        Cursor cursor = db.rawQuery("SELECT * FROM daily_targets WHERE createtime<=? ORDER BY createtime DESC", new String[]{String.valueOf(targetTime)});
+        Cursor cursor = db.rawQuery("SELECT * FROM daily_targets WHERE createtime<=? ORDER BY createtime DESC", new String[]{String.valueOf(ToolUtil.getEndTimeOfDay(targetTime))});
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex("_dailytargetid"));
             String title = cursor.getString(cursor.getColumnIndex("title"));

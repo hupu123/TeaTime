@@ -157,7 +157,9 @@ public class DialogUtil {
         final TextView tvTarget = contentView.findViewById(R.id.tv_target);
         final View vDivider = contentView.findViewById(R.id.v_divider);
         TextView tvTitle = contentView.findViewById(R.id.tv_title);
-        SeekBar sbProgress = contentView.findViewById(R.id.sb_progress);
+        final SeekBar sbProgress = contentView.findViewById(R.id.sb_progress);
+        Button btnDown = contentView.findViewById(R.id.btn_down);
+        Button btnUp = contentView.findViewById(R.id.btn_up);
         Button btnConfirm = contentView.findViewById(R.id.btn_confirm);
         Button btnDelete = contentView.findViewById(R.id.btn_delete);
         Button btnCancel = contentView.findViewById(R.id.btn_cancel);
@@ -199,6 +201,16 @@ public class DialogUtil {
 
                 int id = v.getId();
                 switch (id) {
+                    case R.id.btn_down:
+                        int progressDown = sbProgress.getProgress();
+                        progressDown--;
+                        sbProgress.setProgress(progressDown);
+                        return;
+                    case R.id.btn_up:
+                        int progressUp = sbProgress.getProgress();
+                        progressUp++;
+                        sbProgress.setProgress(progressUp);
+                        return;
                     case R.id.btn_confirm:
                         listener.sure(targetTemp);
                         break;
@@ -234,6 +246,8 @@ public class DialogUtil {
         sbProgress.setMax(targetTemp.getTargetNum());
         sbProgress.setProgress(targetTemp.getDoneNum());
         sbProgress.setOnSeekBarChangeListener(seekBarChangeListener);
+        btnDown.setOnClickListener(clickListener);
+        btnUp.setOnClickListener(clickListener);
         btnConfirm.setOnClickListener(clickListener);
         btnDelete.setOnClickListener(clickListener);
         btnCancel.setOnClickListener(clickListener);

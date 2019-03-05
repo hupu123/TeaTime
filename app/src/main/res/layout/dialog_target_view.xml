@@ -40,26 +40,46 @@
         android:background="@color/colorWhite"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:gravity="center"
+            android:textSize="@dimen/txt_size_1"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/colorGray" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
+            android:gravity="center_vertical"
             android:padding="10dp">
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:textSize="@dimen/txt_size_1"
-                android:textStyle="bold" />
+            <Button
+                android:id="@+id/btn_down"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_click_bg6_selector"
+                android:text="@string/nt_down"
+                android:textSize="@dimen/txt_size" />
 
             <SeekBar
                 android:id="@+id/sb_progress"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/page_margin" />
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btn_up"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_click_bg6_selector"
+                android:text="@string/nt_up"
+                android:textSize="@dimen/txt_size" />
         </LinearLayout>
 
         <View
