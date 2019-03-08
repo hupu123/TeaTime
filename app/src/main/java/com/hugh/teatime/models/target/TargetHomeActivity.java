@@ -59,6 +59,25 @@ public class TargetHomeActivity extends BaseActivity {
     private void initView() {
         tbv = findViewById(R.id.tbv);
         tbv.setRightBtnText("选项");
+        tbv.setOnTitleClickListener(new TitlebarView.TitleClickListener() {
+            @Override
+            public void onTitleClick() {
+                Date date = new Date(choosedTime);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(TargetHomeActivity.this, DatePickerDialog.THEME_DEVICE_DEFAULT_LIGHT, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        LogUtil.logHugh("onDateSet i=" + i + " i1=" + i1 + " i2=" + i2);
+                        Calendar calendarTemp = Calendar.getInstance();
+                        calendarTemp.set(i, i1, i2);
+                        choosedTime = calendarTemp.getTimeInMillis();
+                        onResume();
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+            }
+        });
         tbv.setListener(new TitlebarView.TitlebarListener() {
             @Override
             public void onLeftBtnClick() {
@@ -118,7 +137,6 @@ public class TargetHomeActivity extends BaseActivity {
         ArrayList<String> items = new ArrayList<>();
         items.add("新建");
         items.add("统计");
-        items.add("切换日期");
         dialogUtil = new DialogUtil(this, items, new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -127,33 +145,15 @@ public class TargetHomeActivity extends BaseActivity {
                     case 0:
                         intent = new Intent(TargetHomeActivity.this, NewTargetActivity.class);
                         startActivity(intent);
-                        dialogUtil.hideDialog();
                         break;
                     case 1:
-                        intent = new Intent(TargetHomeActivity.this, NewTargetActivity.class);
+                        intent = new Intent(TargetHomeActivity.this, TargetOverviewActivity.class);
                         startActivity(intent);
-                        dialogUtil.hideDialog();
-                        break;
-                    case 2:
-                        Date date = new Date(choosedTime);
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(date);
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(TargetHomeActivity.this, DatePickerDialog.THEME_DEVICE_DEFAULT_LIGHT, new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                LogUtil.logHugh("onDateSet i=" + i + " i1=" + i1 + " i2=" + i2);
-                                Calendar calendarTemp = Calendar.getInstance();
-                                calendarTemp.set(i, i1, i2);
-                                choosedTime = calendarTemp.getTimeInMillis();
-                                onResume();
-                            }
-                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                        datePickerDialog.show();
-                        dialogUtil.hideDialog();
                         break;
                     default:
                         break;
                 }
+                dialogUtil.hideDialog();
             }
         });
     }

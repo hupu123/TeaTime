@@ -64,7 +64,7 @@
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:background="@drawable/btn_click_bg6_selector"
-                android:text="@string/nt_down"
+                android:text="@string/th_down"
                 android:textSize="@dimen/txt_size" />
 
             <SeekBar
@@ -78,7 +78,7 @@
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:background="@drawable/btn_click_bg6_selector"
-                android:text="@string/nt_up"
+                android:text="@string/th_up"
                 android:textSize="@dimen/txt_size" />
         </LinearLayout>
 

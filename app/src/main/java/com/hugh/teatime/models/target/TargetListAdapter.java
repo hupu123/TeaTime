@@ -103,7 +103,7 @@ public class TargetListAdapter extends BaseAdapter implements StickyListHeadersA
             holder = (ViewHolder) view.getTag();
         }
         holder.tvTitle.setText(datas.get(i).getTitle());
-        holder.tvName.setText(String.format(mContext.getResources().getString(R.string.nt_tn), datas.get(i).getTargetName(), datas.get(i).getDoneNum(), datas.get(i).getTargetNum()));
+        holder.tvName.setText(String.format(mContext.getResources().getString(R.string.th_tn), datas.get(i).getTargetName(), datas.get(i).getDoneNum(), datas.get(i).getTargetNum()));
         int progress = 100 * datas.get(i).getDoneNum() / datas.get(i).getTargetNum();
         if (progress >= 100) {
             datas.get(i).setStatus(1);
@@ -139,8 +139,8 @@ public class TargetListAdapter extends BaseAdapter implements StickyListHeadersA
             params.setMargins(DimensUtil.getInstance(mContext).dp2px(10), DimensUtil.getInstance(mContext).dp2px(5), DimensUtil.getInstance(mContext).dp2px(10), DimensUtil.getInstance(mContext).dp2px(5));
             holder.rlContent.setLayoutParams(params);
             holder.llTimeBar.setVisibility(View.VISIBLE);
-            holder.tvStartTime.setText(String.format(mContext.getResources().getString(R.string.nt_st), StringUtil.formatTimestamp1(datas.get(i).getStartTime())));
-            holder.tvEndTime.setText(String.format(mContext.getResources().getString(R.string.nt_et), StringUtil.formatTimestamp1(datas.get(i).getEndTime())));
+            holder.tvStartTime.setText(String.format(mContext.getResources().getString(R.string.th_st), StringUtil.formatTimestamp1(datas.get(i).getStartTime())));
+            holder.tvEndTime.setText(String.format(mContext.getResources().getString(R.string.th_et), StringUtil.formatTimestamp1(datas.get(i).getEndTime())));
         }
         holder.tvRemainingTime.setText(StringUtil.getTimeDiff(datas.get(i).getEndTime(), System.currentTimeMillis()));
         return view;

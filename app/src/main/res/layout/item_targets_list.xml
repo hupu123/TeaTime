@@ -92,7 +92,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/nt_remaining_time"
+                    android:text="@string/th_remaining_time"
                     android:textSize="@dimen/txt_size_2" />
             </LinearLayout>
         </LinearLayout>

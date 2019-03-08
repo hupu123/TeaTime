@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray_1"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".models.target.TargetOverviewActivity">
+
+    <com.hugh.teatime.view.TitlebarView
+        android:id="@+id/tbv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleName="@string/title_target_overview" />
+
+</LinearLayout>

@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hugh.teatime.R;
-import com.hugh.teatime.utils.LogUtil;
 
 public class TitlebarView extends RelativeLayout {
 
@@ -26,6 +25,7 @@ public class TitlebarView extends RelativeLayout {
     private static final int RB_IB_RESET_PSW = 5;
 
     private TitlebarListener listener;
+    private TitleClickListener titleClickListener;
     private TextView tvTitle;
     private Button btnRight;
 
@@ -116,6 +116,7 @@ public class TitlebarView extends RelativeLayout {
                 break;
         }
         tvTitle.setText(titleName);
+        tvTitle.setOnClickListener(clickListener);
     }
 
     /**
@@ -124,21 +125,23 @@ public class TitlebarView extends RelativeLayout {
     OnClickListener clickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-
-            if (listener == null) {
-                LogUtil.logE("hugh-tag", "TitlebarView has not bind a TitlebarListener");
-                return;
-            }
             switch (v.getId()) {
+                case R.id.tv_title:
+                    if (titleClickListener != null) {
+                        titleClickListener.onTitleClick();
+                    }
+                    break;
                 case R.id.btn_back:
                 case R.id.ib_left_image_btn:
-                    listener.onLeftBtnClick();
-                    break;
-                case R.id.ib_right_image_btn:
-                    listener.onRightBtnClick();
+                    if (listener != null) {
+                        listener.onLeftBtnClick();
+                    }
                     break;
                 case R.id.btn_right:
-                    listener.onRightBtnClick();
+                case R.id.ib_right_image_btn:
+                    if (listener != null) {
+                        listener.onRightBtnClick();
+                    }
                     break;
                 default:
                     break;
@@ -167,6 +170,15 @@ public class TitlebarView extends RelativeLayout {
     }
 
     /**
+     * 设置标题点击监听器
+     *
+     * @param titleClickListener 标题点击事件监听器
+     */
+    public void setOnTitleClickListener(TitleClickListener titleClickListener) {
+        this.titleClickListener = titleClickListener;
+    }
+
+    /**
      * 设置标题名称
      *
      * @param titleName 标题
@@ -176,12 +188,19 @@ public class TitlebarView extends RelativeLayout {
     }
 
     /**
-     * 标题栏监听器
+     * 标题栏左右按钮监听器
      */
     public interface TitlebarListener {
 
         void onLeftBtnClick();
 
         void onRightBtnClick();
+    }
+
+    /**
+     * 标题点击事件监听器
+     */
+    public interface TitleClickListener {
+        void onTitleClick();
     }
 }

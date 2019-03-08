@@ -318,12 +318,17 @@
     <string name="nt_done_num_hint">请输入完成数量</string>
     <string name="nt_choose_start_time">选择开始时间</string>
     <string name="nt_choose_end_time">选择结束时间</string>
-    <string name="nt_remaining_time">剩余时间</string>
-    <string name="nt_tn">%1$s(%2$d/%3$d)</string>
-    <string name="nt_st">开始时间：%1$s</string>
-    <string name="nt_et">结束时间：%1$s</string>
-    <string name="nt_up">+</string>
-    <string name="nt_down">-</string>
+
+    <!-- activity_target_home.xml -->
+    <string name="th_remaining_time">剩余时间</string>
+    <string name="th_tn">%1$s(%2$d/%3$d)</string>
+    <string name="th_st">开始时间：%1$s</string>
+    <string name="th_et">结束时间：%1$s</string>
+    <string name="th_up">+</string>
+    <string name="th_down">-</string>
+
+    <!-- activity_target_overview.xml -->
+    <string name="title_target_overview">目标总览</string>
 
     <!-- *********************************** Fragment ************************************** -->
 

@@ -30,6 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/status_bar_translucent_theme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".models.target.TargetOverviewActivity"></activity>
         <activity android:name=".models.target.NewTargetActivity" />
         <activity android:name=".models.target.TargetHomeActivity" /> <!-- 高德地图app_key配置 -->
         <meta-data
