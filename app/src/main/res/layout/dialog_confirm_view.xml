@@ -44,13 +44,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/btn_click_bg3_selector"
+            android:stateListAnimator="@null"
             android:text="@string/confirm" />
 
         <View
             android:layout_width="@dimen/divider_height"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/colorGray" />
 
         <Button
@@ -59,6 +60,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/btn_click_bg3_selector"
+            android:stateListAnimator="@null"
             android:text="@string/cancel" />
     </LinearLayout>
 

@@ -10,10 +10,6 @@ import java.util.Locale;
  */
 public class StringUtil {
 
-    public static final long DAY = 24 * 60 * 60 * 1000;
-    public static final long HOUR = 60 * 60 * 1000;
-    public static final long MINUTE = 60 * 1000;
-
     /**
      * 判断字符串是否为空
      *
@@ -121,38 +117,5 @@ public class StringUtil {
     public static String formatTimestamp4(long time) {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.CHINA);
         return sdf.format(new Date(time));
-    }
-
-    /**
-     * 计算两个时间戳之间的时间差
-     *
-     * @param timeNew A时间
-     * @param timeOld B时间
-     * @return 时间差
-     */
-    public static String getTimeDiff(long timeNew, long timeOld) {
-        StringBuilder sb = new StringBuilder();
-        long timeDiff = timeNew - timeOld;
-        if (timeDiff <= 0) {
-            return "已结束";
-        }
-        long timeDiff1 = timeDiff % DAY;
-        long timeDiff2 = timeDiff1 % HOUR;
-        long day = (timeDiff - timeDiff % DAY) / DAY;
-        long hour = (timeDiff1 - timeDiff1 % HOUR) / HOUR;
-        long minute = (timeDiff2 - timeDiff2 % MINUTE) / MINUTE;
-        if (day != 0) {
-            sb.append(day);
-            sb.append("天");
-        }
-        if (hour != 0) {
-            sb.append(hour);
-            sb.append("小时");
-        }
-        if (minute != 0) {
-            sb.append(minute);
-            sb.append("分");
-        }
-        return sb.toString();
     }
 }

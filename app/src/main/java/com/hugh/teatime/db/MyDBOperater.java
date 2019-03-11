@@ -1226,7 +1226,7 @@ public class MyDBOperater {
         if (!db.isOpen() || target == null || target.getId() < 0) {
             return;
         }
-        if (target.getType() == 0) {
+        if (target.getType() == TargetBean.TYPE_DAILY) {
             db.execSQL("DELETE FROM daily_targets WHERE _dailytargetid=?", new String[]{String.valueOf(target.getDailyId())});
             db.execSQL("DELETE FROM targets WHERE _dailytargetid=?", new String[]{String.valueOf(target.getDailyId())});
         } else {
@@ -1278,7 +1278,7 @@ public class MyDBOperater {
                     TargetBean targetBean = new TargetBean(id, dailyId, type, date, title, targetname, targetnum, donenum, status, createTime, startTime, endTime);
                     targetBeans.add(targetBean);
                 } else {
-                    TargetBean targetBean = new TargetBean(dailyTargetBean.getDailyId(), 0, date, dailyTargetBean.getTitle(), dailyTargetBean.getTargetName(), dailyTargetBean.getTargetNum(), 0, 0, ToolUtil.getStartTimeOfDay(targetTime), ToolUtil.getStartTimeOfDay(targetTime), ToolUtil.getEndTimeOfDay(targetTime));
+                    TargetBean targetBean = new TargetBean(dailyTargetBean.getDailyId(), TargetBean.TYPE_DAILY, date, dailyTargetBean.getTitle(), dailyTargetBean.getTargetName(), dailyTargetBean.getTargetNum(), 0, TargetBean.STATUS_RUNNING, ToolUtil.getStartTimeOfDay(targetTime), ToolUtil.getStartTimeOfDay(targetTime), ToolUtil.getEndTimeOfDay(targetTime));
                     int id = addTarget(targetBean);
                     targetBean.setId(id);
                     targetBeans.add(targetBean);
@@ -1289,7 +1289,7 @@ public class MyDBOperater {
         // 查询一次性目标
         long startTimeOfDay = ToolUtil.getStartTimeOfDay(targetTime);
         long endTimeOfDay = ToolUtil.getEndTimeOfDay(targetTime);
-        Cursor cursor = db.rawQuery("SELECT * FROM targets WHERE type<>? AND endtime>=? AND starttime<=? ORDER BY createtime DESC", new String[]{String.valueOf(0), String.valueOf(startTimeOfDay), String.valueOf(endTimeOfDay)});
+        Cursor cursor = db.rawQuery("SELECT * FROM targets WHERE type<>? AND endtime>=? AND starttime<=? ORDER BY createtime DESC", new String[]{String.valueOf(TargetBean.TYPE_DAILY), String.valueOf(startTimeOfDay), String.valueOf(endTimeOfDay)});
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex("_targetid"));
             int dailyId = cursor.getInt(cursor.getColumnIndex("_dailytargetid"));

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -40,13 +41,28 @@
         android:background="@color/colorWhite"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_title"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            android:gravity="center"
-            android:textSize="@dimen/txt_size_1"
-            android:textStyle="bold" />
+            android:layout_height="@dimen/item_height">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:maxLines="1"
+                android:textSize="@dimen/txt_size_1"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/btn_click_bg3_selector"
+                android:stateListAnimator="@null"
+                android:text="@string/delete" />
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
@@ -98,22 +114,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/btn_click_bg3_selector"
+                android:stateListAnimator="@null"
                 android:text="@string/confirm" />
-
-            <View
-                android:layout_width="@dimen/divider_height"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/colorGray" />
-
-            <Button
-                android:id="@+id/btn_delete"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/btn_click_bg3_selector"
-                android:text="@string/delete" />
 
             <View
                 android:layout_width="@dimen/divider_height"
@@ -128,6 +130,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/btn_click_bg3_selector"
+                android:stateListAnimator="@null"
                 android:text="@string/cancel" />
         </LinearLayout>
     </LinearLayout>

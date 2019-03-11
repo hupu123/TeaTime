@@ -105,7 +105,7 @@ public class TargetHomeActivity extends BaseActivity {
                     @Override
                     public void delete() {
                         String msg;
-                        if (targets.get(i).getType() == 0) {
+                        if (targets.get(i).getType() == TargetBean.TYPE_DAILY) {
                             msg = getResources().getString(R.string.dialog_is_delete_daily_target);
                         } else {
                             msg = getResources().getString(R.string.dialog_is_delete_target);

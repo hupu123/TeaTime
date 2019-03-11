@@ -27,7 +27,7 @@ import java.util.Date;
 
 public class NewTargetActivity extends BaseActivity {
 
-    private int targetType = 0;
+    private int targetType = TargetBean.TYPE_DAILY;
     private Date targetStartTime = new Date();
     private Date targetEndTime = new Date();
 
@@ -80,11 +80,11 @@ public class NewTargetActivity extends BaseActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 targetType = i;
                 switch (targetType) {
-                    case 0:
+                    case TargetBean.TYPE_DAILY:
                         llStartTime.setVisibility(View.GONE);
                         llEndTime.setVisibility(View.GONE);
                         break;
-                    case 1:
+                    case TargetBean.TYPE_ONETIME:
                         llStartTime.setVisibility(View.VISIBLE);
                         llEndTime.setVisibility(View.VISIBLE);
                         break;
@@ -139,11 +139,11 @@ public class NewTargetActivity extends BaseActivity {
             ToastUtil.showInfo(this, R.string.toast_nt_target_num_null, true);
             return;
         }
-        if (targetType == 0) {
+        if (targetType == TargetBean.TYPE_DAILY) {
             DailyTargetBean dailyTargetBean = new DailyTargetBean(title, targetName, Integer.parseInt(targetNum), System.currentTimeMillis());
             MyDBOperater.getInstance(this).addDailyTarget(dailyTargetBean);
         } else {
-            TargetBean targetBean = new TargetBean(targetType, title, targetName, Integer.parseInt(targetNum), 0, 0, System.currentTimeMillis(), targetStartTime.getTime(), targetEndTime.getTime());
+            TargetBean targetBean = new TargetBean(targetType, title, targetName, Integer.parseInt(targetNum), 0, TargetBean.STATUS_RUNNING, System.currentTimeMillis(), targetStartTime.getTime(), targetEndTime.getTime());
             MyDBOperater.getInstance(this).addTarget(targetBean);
         }
         ToastUtil.showSuccess(this, R.string.save_success, true);

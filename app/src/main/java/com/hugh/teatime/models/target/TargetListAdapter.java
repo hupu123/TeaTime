@@ -22,6 +22,10 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 public class TargetListAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
+    private static final long DAY = 24 * 60 * 60 * 1000;
+    private static final long HOUR = 60 * 60 * 1000;
+    private static final long MINUTE = 60 * 1000;
+
     private Context mContext;
     private ArrayList<TargetBean> datas;
 
@@ -44,10 +48,10 @@ public class TargetListAdapter extends BaseAdapter implements StickyListHeadersA
         }
         int type = datas.get(position).getType();
         switch (type) {
-            case 0:
+            case TargetBean.TYPE_DAILY:
                 holder.tvType.setText("每日目标");
                 break;
-            case 1:
+            case TargetBean.TYPE_ONETIME:
                 holder.tvType.setText("一次性目标");
                 break;
             default:
@@ -106,30 +110,30 @@ public class TargetListAdapter extends BaseAdapter implements StickyListHeadersA
         holder.tvName.setText(String.format(mContext.getResources().getString(R.string.th_tn), datas.get(i).getTargetName(), datas.get(i).getDoneNum(), datas.get(i).getTargetNum()));
         int progress = 100 * datas.get(i).getDoneNum() / datas.get(i).getTargetNum();
         if (progress >= 100) {
-            datas.get(i).setStatus(1);
+            datas.get(i).setStatus(TargetBean.STATUS_COMPLETED);
         } else {
             if (System.currentTimeMillis() >= datas.get(i).getEndTime()) {
-                datas.get(i).setStatus(2);
+                datas.get(i).setStatus(TargetBean.STATUS_UNCOMPLETED);
             } else {
-                datas.get(i).setStatus(0);
+                datas.get(i).setStatus(TargetBean.STATUS_RUNNING);
             }
         }
         holder.pivProgress.setMax(datas.get(i).getTargetNum());
         holder.pivProgress.setProgress(datas.get(i).getDoneNum());
         switch (datas.get(i).getStatus()) {
-            case 0:
+            case TargetBean.STATUS_RUNNING:
                 holder.ivStatus.setImageResource(R.mipmap.icon_running);
                 break;
-            case 1:
+            case TargetBean.STATUS_COMPLETED:
                 holder.ivStatus.setImageResource(R.mipmap.icon_completed);
                 break;
-            case 2:
+            case TargetBean.STATUS_UNCOMPLETED:
                 holder.ivStatus.setImageResource(R.mipmap.icon_uncompleted);
                 break;
             default:
                 break;
         }
-        if (datas.get(i).getType() == 0) {
+        if (datas.get(i).getType() == TargetBean.TYPE_DAILY) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DimensUtil.getInstance(mContext).dp2px(80));
             params.setMargins(DimensUtil.getInstance(mContext).dp2px(10), DimensUtil.getInstance(mContext).dp2px(5), DimensUtil.getInstance(mContext).dp2px(10), DimensUtil.getInstance(mContext).dp2px(5));
             holder.rlContent.setLayoutParams(params);
@@ -142,7 +146,7 @@ public class TargetListAdapter extends BaseAdapter implements StickyListHeadersA
             holder.tvStartTime.setText(String.format(mContext.getResources().getString(R.string.th_st), StringUtil.formatTimestamp1(datas.get(i).getStartTime())));
             holder.tvEndTime.setText(String.format(mContext.getResources().getString(R.string.th_et), StringUtil.formatTimestamp1(datas.get(i).getEndTime())));
         }
-        holder.tvRemainingTime.setText(StringUtil.getTimeDiff(datas.get(i).getEndTime(), System.currentTimeMillis()));
+        holder.tvRemainingTime.setText(getTimeDiff(datas.get(i).getType(), datas.get(i).getEndTime(), System.currentTimeMillis()));
         return view;
     }
 
@@ -160,5 +164,43 @@ public class TargetListAdapter extends BaseAdapter implements StickyListHeadersA
         TextView tvStartTime;
         TextView tvEndTime;
         TextView tvRemainingTime;
+    }
+
+    /**
+     * 计算两个时间戳之间的时间差
+     *
+     * @param type  目标类型
+     * @param timeA A时间
+     * @param timeB B时间
+     * @return 时间差
+     */
+    private static String getTimeDiff(int type, long timeA, long timeB) {
+        StringBuilder sb = new StringBuilder();
+        long timeDiff = timeA - timeB;
+        if (timeDiff <= 0) {
+            return "已结束";
+        }
+        long timeDiff1 = timeDiff % DAY;
+        long timeDiff2 = timeDiff1 % HOUR;
+        long day = (timeDiff - timeDiff % DAY) / DAY;
+        long hour = (timeDiff1 - timeDiff1 % HOUR) / HOUR;
+        long minute = (timeDiff2 - timeDiff2 % MINUTE) / MINUTE;
+        if (day != 0) {
+            if (type == TargetBean.TYPE_DAILY) {
+                return "未开始";
+            } else {
+                sb.append(day);
+                sb.append("天");
+            }
+        }
+        if (hour != 0) {
+            sb.append(hour);
+            sb.append("小时");
+        }
+        if (minute != 0) {
+            sb.append(minute);
+            sb.append("分钟");
+        }
+        return sb.toString();
     }
 }

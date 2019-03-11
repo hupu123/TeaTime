@@ -1,8 +1,13 @@
 package com.hugh.teatime.models.target;
 
-import com.hugh.teatime.utils.StringUtil;
-
 public class TargetBean {
+
+    public static final int TYPE_DAILY = 0;
+    public static final int TYPE_ONETIME = 1;
+    public static final int STATUS_RUNNING = 0;
+    public static final int STATUS_COMPLETED = 1;
+    public static final int STATUS_UNCOMPLETED = 2;
+
     private int id;             // 唯一标识
     private int dailyId;        // 每日目标ID
     private int type;           // 目标类型，0=每日目标，1=一次性目标
