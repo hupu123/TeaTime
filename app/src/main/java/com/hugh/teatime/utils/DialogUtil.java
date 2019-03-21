@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.hugh.teatime.R;
 import com.hugh.teatime.adapter.common.CommonAdapter;
 import com.hugh.teatime.adapter.common.ViewHolder;
-import com.hugh.teatime.db.MyDBOperater;
 import com.hugh.teatime.listener.DialogListener;
 import com.hugh.teatime.listener.TargetDialogListener;
 import com.hugh.teatime.models.target.TargetBean;
@@ -155,6 +154,8 @@ public class DialogUtil {
 
         final TextView tvDone = contentView.findViewById(R.id.tv_done);
         final TextView tvTarget = contentView.findViewById(R.id.tv_target);
+        final TextView tvDoneText = contentView.findViewById(R.id.tv_done_text);
+        final TextView tvTargetText = contentView.findViewById(R.id.tv_target_text);
         final View vDivider = contentView.findViewById(R.id.v_divider);
         TextView tvTitle = contentView.findViewById(R.id.tv_title);
         final SeekBar sbProgress = contentView.findViewById(R.id.sb_progress);
@@ -169,18 +170,24 @@ public class DialogUtil {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 targetTemp.setDoneNum(i);
                 tvDone.setText(String.valueOf(i));
-                if (i == targetTemp.getTargetNum()) {
+                if (i >= targetTemp.getTargetNum()) {
                     tvDone.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t3));
                     tvTarget.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t3));
                     vDivider.setBackgroundColor(ContextCompat.getColor(context, R.color.colorChart_t3));
+                    tvDoneText.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t3));
+                    tvTargetText.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t3));
                 } else if (i == 0) {
                     tvDone.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t5));
                     tvTarget.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t5));
                     vDivider.setBackgroundColor(ContextCompat.getColor(context, R.color.colorChart_t5));
+                    tvDoneText.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t5));
+                    tvTargetText.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t5));
                 } else {
                     tvDone.setTextColor(ContextCompat.getColor(context, R.color.colorTWhite));
                     tvTarget.setTextColor(ContextCompat.getColor(context, R.color.colorTWhite));
                     vDivider.setBackgroundColor(ContextCompat.getColor(context, R.color.colorTWhite));
+                    tvDoneText.setTextColor(ContextCompat.getColor(context, R.color.colorTWhite));
+                    tvTargetText.setTextColor(ContextCompat.getColor(context, R.color.colorTWhite));
                 }
             }
 
@@ -227,24 +234,31 @@ public class DialogUtil {
             }
         };
 
-        if (targetTemp.getDoneNum() == targetTemp.getTargetNum()) {
+        if (targetTemp.getDoneNum() >= targetTemp.getTargetNum()) {
             tvDone.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t3));
             tvTarget.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t3));
             vDivider.setBackgroundColor(ContextCompat.getColor(context, R.color.colorChart_t3));
+            tvDoneText.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t3));
+            tvTargetText.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t3));
         } else if (targetTemp.getDoneNum() == 0) {
             tvDone.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t5));
             tvTarget.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t5));
             vDivider.setBackgroundColor(ContextCompat.getColor(context, R.color.colorChart_t5));
+            tvDoneText.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t5));
+            tvTargetText.setTextColor(ContextCompat.getColor(context, R.color.colorChart_t5));
         } else {
             tvDone.setTextColor(ContextCompat.getColor(context, R.color.colorTWhite));
             tvTarget.setTextColor(ContextCompat.getColor(context, R.color.colorTWhite));
             vDivider.setBackgroundColor(ContextCompat.getColor(context, R.color.colorTWhite));
+            tvDoneText.setTextColor(ContextCompat.getColor(context, R.color.colorTWhite));
+            tvTargetText.setTextColor(ContextCompat.getColor(context, R.color.colorTWhite));
         }
         tvDone.setText(String.valueOf(targetTemp.getDoneNum()));
         tvTarget.setText(String.valueOf(targetTemp.getTargetNum()));
         tvTitle.setText(targetTemp.getTitle());
-        sbProgress.setMax(targetTemp.getTargetNum());
+        sbProgress.setMax(targetTemp.getTargetNum() / 3 * 5);
         sbProgress.setProgress(targetTemp.getDoneNum());
+        sbProgress.setSecondaryProgress(targetTemp.getTargetNum());
         sbProgress.setOnSeekBarChangeListener(seekBarChangeListener);
         btnDown.setOnClickListener(clickListener);
         btnUp.setOnClickListener(clickListener);

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_content_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/page_margin">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <lecho.lib.hellocharts.view.ComboLineColumnChartView
+        android:id="@+id/clccv_chart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.hugh.teatime.view.NoScrollGridView
+        android:id="@+id/nsgv_illustration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="2" />
+
+</LinearLayout>

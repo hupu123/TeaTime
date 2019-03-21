@@ -326,9 +326,11 @@
     <string name="th_et">结束时间：%1$s</string>
     <string name="th_up">+</string>
     <string name="th_down">-</string>
+    <string name="th_done_num">已完成数量</string>
+    <string name="th_target_num">目标数量</string>
 
     <!-- activity_target_overview.xml -->
-    <string name="title_target_overview">目标总览</string>
+    <string name="title_target_overview">目标完成报告</string>
 
     <!-- *********************************** Fragment ************************************** -->
 

@@ -31,4 +31,14 @@ public class ColorPicker {
         }
         return ContextCompat.getColor(context, colorID);
     }
+
+    /**
+     * 通过颜色ID获取颜色
+     *
+     * @param colorID 颜色ID
+     * @return 颜色
+     */
+    public int getColorByColorID(int colorID) {
+        return ContextCompat.getColor(context, colorID);
+    }
 }

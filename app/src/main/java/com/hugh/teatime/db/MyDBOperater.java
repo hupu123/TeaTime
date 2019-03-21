@@ -1349,5 +1349,63 @@ public class MyDBOperater {
         }
         db.execSQL("INSERT INTO daily_targets(title, targetname, targetnum, createtime) VALUES(?,?,?,?)", new String[]{dailyTargetBean.getTitle(), dailyTargetBean.getTargetName(), String.valueOf(dailyTargetBean.getTargetNum()), String.valueOf(dailyTargetBean.getCreateTime())});
     }
+
+    /**
+     * 获取所有每日目标
+     *
+     * @return 每日目标
+     */
+    public ArrayList<DailyTargetBean> getDailyTargets() {
+        if (!db.isOpen()) {
+            return null;
+        }
+        ArrayList<DailyTargetBean> dailyTargets = new ArrayList<>();
+        // 查询目标数据
+        Cursor cursor = db.rawQuery("SELECT * FROM daily_targets ORDER BY createtime DESC", new String[]{});
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("_dailytargetid"));
+            String title = cursor.getString(cursor.getColumnIndex("title"));
+            String targetname = cursor.getString(cursor.getColumnIndex("targetname"));
+            int targetnum = cursor.getInt(cursor.getColumnIndex("targetnum"));
+            long createTime = cursor.getLong(cursor.getColumnIndex("createtime"));
+
+            DailyTargetBean dailyTarget = new DailyTargetBean(id, title, targetname, targetnum, createTime);
+            dailyTargets.add(dailyTarget);
+        }
+        cursor.close();
+
+        return dailyTargets;
+    }
+
+    /**
+     * 根据每日目标ID获取目标
+     *
+     * @param dailyId 每日目标ID
+     * @return 目标
+     */
+    public ArrayList<TargetBean> getTargetsByDailyId(int dailyId) {
+        if (!db.isOpen()) {
+            return null;
+        }
+        ArrayList<TargetBean> targetBeans = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM targets WHERE _dailytargetid=? ORDER BY createtime ASC", new String[]{String.valueOf(dailyId)});
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("_targetid"));
+            int type = cursor.getInt(cursor.getColumnIndex("type"));
+            String date = cursor.getString(cursor.getColumnIndex("date"));
+            String title = cursor.getString(cursor.getColumnIndex("title"));
+            String targetname = cursor.getString(cursor.getColumnIndex("targetname"));
+            int targetnum = cursor.getInt(cursor.getColumnIndex("targetnum"));
+            int donenum = cursor.getInt(cursor.getColumnIndex("donenum"));
+            int status = cursor.getInt(cursor.getColumnIndex("status"));
+            long createTime = cursor.getLong(cursor.getColumnIndex("createtime"));
+            long startTime = cursor.getLong(cursor.getColumnIndex("starttime"));
+            long endTime = cursor.getLong(cursor.getColumnIndex("endtime"));
+            TargetBean targetBean = new TargetBean(id, dailyId, type, date, title, targetname, targetnum, donenum, status, createTime, startTime, endTime);
+            targetBeans.add(targetBean);
+        }
+        cursor.close();
+        return targetBeans;
+    }
     // ------------------------------------------------------ targets table ---------------------------------------------------
 }
