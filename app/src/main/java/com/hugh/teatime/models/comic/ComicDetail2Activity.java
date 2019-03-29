@@ -28,27 +28,27 @@ import java.io.File;
 import java.util.ArrayList;
 
 
-public class ComicDetailActivity extends BaseActivity {
+public class ComicDetail2Activity extends BaseActivity {
 
     private SmartRefreshLayout srlComicContainer;
     private ListView lvComicList;
     private ImageView ivNoData;
 
-    private ArrayList<Comic> comics = new ArrayList<>();// 漫画列表
-    private int comicPosition;// 当前正在浏览漫画在漫画列表中的位置
-    private Comic comic;// 当前正在浏览的漫画
-    private int pageNum;// 当前页码
-    private final int pageSize = 10;// 每页大小
-    private int progress;// 当前漫画阅读进度
-    private CommonAdapter<File> mAdapter;// 列表适配器
-    private ArrayList<File> pageData = new ArrayList<>();// 漫画文件数据集
+    private ArrayList<Comic> comics = new ArrayList<>();    // 漫画列表
+    private int comicPosition;                              // 当前正在浏览漫画在漫画列表中的位置
+    private Comic comic;                                    // 当前正在浏览的漫画
+    private int progress;                                   // 当前漫画阅读进度
+    private CommonAdapter<File> mAdapter;                   // 列表适配器
+    private ArrayList<File> pageData = new ArrayList<>();   // 漫画文件数据集
+
+    private final long POST_DELAY_TIME = 1000;              // 延迟跳转时间（用于跳转到指定阅读进度，不延迟跳转可能导致跳转失败）
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Window window = getWindow();
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_comic_detail);
+        setContentView(R.layout.activity_comic_detail2);
 
         initView();
         initData();
@@ -69,14 +69,14 @@ public class ComicDetailActivity extends BaseActivity {
         srlComicContainer.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                refresh(false);
+                refresh();
                 srlComicContainer.finishRefresh();
             }
         });
         srlComicContainer.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                loadMore(false);
+                loadMore();
                 srlComicContainer.finishLoadMore();
             }
         });
@@ -85,82 +85,70 @@ public class ComicDetailActivity extends BaseActivity {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
                     comic.setProgress(progress);
-                    MyDBOperater.getInstance(ComicDetailActivity.this).updateComic(comic);
+                    MyDBOperater.getInstance(ComicDetail2Activity.this).updateComic(comic);
                 }
             }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                progress = pageNum * pageSize + firstVisibleItem + visibleItemCount;
+                progress = firstVisibleItem + visibleItemCount;
             }
         });
     }
 
     /**
      * 下拉刷新事件
-     *
-     * @param isOpenNewComic 是否打开新漫画，true=是，false=不是
      */
-    private void refresh(boolean isOpenNewComic) {
-        ArrayList<File> dataTemp;
-        if (isOpenNewComic) {
-            dataTemp = getDataByPage(comic.getFileList(), pageNum, pageSize);
+    private void refresh() {
+        if (comicPosition == 0) {
+            ToastUtil.showInfo(ComicDetail2Activity.this, R.string.toast_comic_no_more_data, true);
         } else {
-            dataTemp = getDataByPage(comic.getFileList(), pageNum - 1, pageSize);
-        }
-        if (dataTemp == null || dataTemp.size() == 0) {
-            if (comicPosition == 0) {
-                ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_no_more_data, true);
+            ToastUtil.showInfo(ComicDetail2Activity.this, R.string.toast_comic_on_the_top, true);
+            comicPosition--;
+            comic = comics.get(comicPosition);
+            ArrayList<File> dataTemp = comic.getFileList();
+            if (dataTemp != null && dataTemp.size() > 0) {
+                pageData.clear();
+                pageData.addAll(dataTemp);
+                mAdapter.notifyDataSetChanged();
+                lvComicList.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        lvComicList.setSelection(comic.getProgress());
+                        LogUtil.logHugh("refresh progress=" + comic.getProgress());
+                    }
+                }, POST_DELAY_TIME);
             } else {
-                ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_on_the_top, true);
-                comicPosition--;
-                comic = comics.get(comicPosition);
-                pageNum = (comic.getProgress() - comic.getProgress() % pageSize) / pageSize;
-                refresh(true);
+                ToastUtil.showInfo(ComicDetail2Activity.this, R.string.toast_comic_no_data, true);
             }
-        } else {
-            if (!isOpenNewComic) {
-                pageNum--;
-            }
-            pageData.clear();
-            pageData.addAll(dataTemp);
-            mAdapter.notifyDataSetChanged();
-            lvComicList.setSelection(mAdapter.getCount() - 1);
-            LogUtil.logHugh("refresh pageNum=" + pageNum);
         }
     }
 
     /**
      * 上拉加载更多事件
-     *
-     * @param isOpenNewComic 是否打开新漫画，true=是，false=不是
      */
-    private void loadMore(boolean isOpenNewComic) {
-        ArrayList<File> dataTemp;
-        if (isOpenNewComic) {
-            dataTemp = getDataByPage(comic.getFileList(), pageNum, pageSize);
+    private void loadMore() {
+        if (comicPosition == comics.size() - 1) {
+            ToastUtil.showInfo(ComicDetail2Activity.this, R.string.toast_comic_no_more_data, true);
         } else {
-            dataTemp = getDataByPage(comic.getFileList(), pageNum + 1, pageSize);
-        }
-        if (dataTemp == null || dataTemp.size() == 0) {
-            if (comicPosition == comics.size() - 1) {
-                ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_no_more_data, true);
+            ToastUtil.showInfo(ComicDetail2Activity.this, R.string.toast_comic_on_the_bottom, true);
+            comicPosition++;
+            comic = comics.get(comicPosition);
+            ArrayList<File> dataTemp = comic.getFileList();
+            if (dataTemp != null && dataTemp.size() > 0) {
+                pageData.clear();
+                pageData.addAll(dataTemp);
+                mAdapter.notifyDataSetChanged();
+                lvComicList.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        lvComicList.setSelection(comic.getProgress());
+                        LogUtil.logHugh("loadMore progress=" + comic.getProgress());
+                    }
+                }, POST_DELAY_TIME);
             } else {
-                ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_on_the_bottom, true);
-                comicPosition++;
-                comic = comics.get(comicPosition);
-                pageNum = (comic.getProgress() - comic.getProgress() % pageSize) / pageSize;
-                loadMore(true);
+                ToastUtil.showInfo(ComicDetail2Activity.this, R.string.toast_comic_no_data, true);
             }
-        } else {
-            if (!isOpenNewComic) {
-                pageNum++;
-            }
-            pageData.clear();
-            pageData.addAll(dataTemp);
-            mAdapter.notifyDataSetChanged();
-            lvComicList.setSelection(0);
-            LogUtil.logHugh("loadMore pageNum=" + pageNum);
         }
     }
 
@@ -185,8 +173,7 @@ public class ComicDetailActivity extends BaseActivity {
         srlComicContainer.setVisibility(View.VISIBLE);
         ivNoData.setVisibility(View.GONE);
 
-        pageNum = (comic.getProgress() - comic.getProgress() % pageSize) / pageSize;
-        pageData = getDataByPage(comic.getFileList(), pageNum, pageSize);
+        pageData = comic.getFileList();
         mAdapter = new CommonAdapter<File>(this, R.layout.item_comic_browse, pageData) {
             @Override
             protected void convert(ViewHolder viewHolder, File item, int position) {
@@ -195,39 +182,12 @@ public class ComicDetailActivity extends BaseActivity {
             }
         };
         lvComicList.setAdapter(mAdapter);
-    }
-
-    /**
-     * 通过页码获取数据
-     *
-     * @param allData  所有数据
-     * @param pageNum  页数
-     * @param pageSize 每页条数
-     * @return 单页数据
-     */
-    private ArrayList<File> getDataByPage(ArrayList<File> allData, int pageNum, int pageSize) {
-        ArrayList<File> pageData = new ArrayList<>();
-        if (allData == null || allData.size() == 0 || pageNum < 0 || pageSize < 0) {
-            return pageData;
-        }
-        int total = allData.size();
-        int start;
-        int end;
-        if (pageNum * pageSize < 0) {
-            start = 0;
-        } else {
-            start = pageNum * pageSize;
-        }
-        if ((pageNum + 1) * pageSize > total) {
-            end = total;
-        } else {
-            end = (pageNum + 1) * pageSize;
-        }
-        for (int i = 0; i < total; i++) {
-            if (i >= start && i < end) {
-                pageData.add(allData.get(i));
+        lvComicList.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                lvComicList.setSelection(comic.getProgress());
+                LogUtil.logHugh("initData progress=" + comic.getProgress());
             }
-        }
-        return pageData;
+        }, POST_DELAY_TIME);
     }
 }

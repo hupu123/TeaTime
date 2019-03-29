@@ -1,15 +1,10 @@
 package com.hugh.teatime.view;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
-import android.os.Handler;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
 import com.bumptech.glide.Glide;
-import com.hugh.teatime.utils.ThreadPoolUtil;
 
 import java.io.File;
 
@@ -48,7 +43,6 @@ public class FileImageView extends AppCompatImageView {
      * @param scale 缩放比例
      */
     public void setImageFile(String path, float scale) {
-
         Glide.with(context).load(new File(path)).thumbnail(scale).into(this);
     }
 }

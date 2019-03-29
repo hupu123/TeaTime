@@ -30,6 +30,7 @@
     <string name="toast_not_support_book">书籍为不支持的文件格式或已添加</string>
     <string name="toast_set_new_psw_success">新密码设置成功</string>
     <string name="toast_comic_no_more_data">已经没有了</string>
+    <string name="toast_comic_no_data">无效漫画或已删除</string>
     <string name="toast_comic_on_the_top">当前漫画已到顶，自动切换到上一本</string>
     <string name="toast_comic_on_the_bottom">当前漫画已到底，自动切换到下一本</string>
     <string name="toast_input_prefix">请输入【名称前缀】</string>

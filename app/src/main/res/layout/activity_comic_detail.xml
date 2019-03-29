@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".models.comic.ComicDetailActivity">
+    android:background="@color/colorGray_1"
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/sv_cd"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_comic_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:ignore="UselessParent">
+        android:visibility="visible">
 
-        <LinearLayout
-            android:id="@+id/ll_image_container"
+        <ListView
+            android:id="@+id/lv_comic_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-</RelativeLayout>
+            android:layout_height="match_parent"
+            android:divider="@null" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <ImageView
+        android:id="@+id/iv_no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/content_description"
+        android:src="@mipmap/icon_no_data"
+        android:visibility="gone" />
+
+</LinearLayout>

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorGray_1"
-    android:clipChildren="false"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".models.comic.ComicShelfActivity">
@@ -17,14 +16,78 @@
         app:rightBarType="IB_ADD"
         app:titleName="@string/title_comic_shelf" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_cs_content"
+    <ListView
+        android:id="@+id/lv_comic_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="40dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="40dp"
-        android:clipChildren="false" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@null" />
+
+    <LinearLayout
+        android:id="@+id/ll_edite_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/colorWhite"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_click_bg_selector"
+            android:text="@string/cancel"
+            android:textColor="@color/colorWhite" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_click_bg_selector"
+            android:text="@string/delete"
+            android:textColor="@color/colorWhite" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite" />
+
+        <Button
+            android:id="@+id/btn_reset_progress"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_click_bg_selector"
+            android:text="@string/reset_progress"
+            android:textColor="@color/colorWhite" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/selecte_all" />
+
+            <CheckBox
+                android:id="@+id/cb_select_all"
+                android:layout_width="@dimen/cb_size"
+                android:layout_height="@dimen/cb_size"
+                android:background="@drawable/cb_check_bg"
+                android:button="@null" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

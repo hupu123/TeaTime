@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -45,7 +46,7 @@ public class ComicShelfActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comic_shelf2);
+        setContentView(R.layout.activity_comic_shelf);
 
         initView();
     }
@@ -169,7 +170,19 @@ public class ComicShelfActivity extends BaseActivity {
                     viewHolder.setBackgroundColor(R.id.ll_bg, ContextCompat.getColor(ComicShelfActivity.this, R.color.reading_bg));
                 } else if (item != null && item.getProgress() == item.getPageTotal()) {
                     viewHolder.setBackgroundColor(R.id.ll_bg, ContextCompat.getColor(ComicShelfActivity.this, R.color.readed_bg));
+                } else {
+                    viewHolder.setBackgroundColor(R.id.ll_bg, ContextCompat.getColor(ComicShelfActivity.this, R.color.colorWhite));
                 }
+                LinearLayout llBg = viewHolder.getView(R.id.ll_bg);
+                int itemHeight = getResources().getDimensionPixelSize(R.dimen.item_comic_height);
+                int margin = getResources().getDimensionPixelSize(R.dimen.item_margin_lr_width);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
+                if (position == comics.size() - 1) {
+                    params.setMargins(margin, margin, margin, margin);
+                } else {
+                    params.setMargins(margin, margin, margin, 0);
+                }
+                llBg.setLayoutParams(params);
             }
         };
         lvComicList.setAdapter(mAdapter);
@@ -180,7 +193,7 @@ public class ComicShelfActivity extends BaseActivity {
                     // 更新当前正在阅读漫画位置
                     SPUtil.getInstance(ComicShelfActivity.this).setComicPosition(position);
                     // 跳转漫画阅读页
-                    Intent intent = new Intent(ComicShelfActivity.this, ComicDetailActivity.class);
+                    Intent intent = new Intent(ComicShelfActivity.this, ComicDetail2Activity.class);
                     intent.putExtra(GlobalVar.INTENT_COMIC_DATA_LIST, comics);
                     intent.putExtra(GlobalVar.INTENT_COMIC_POSITION, position);
                     startActivity(intent);
