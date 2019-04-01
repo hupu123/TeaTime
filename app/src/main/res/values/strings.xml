@@ -126,6 +126,7 @@
     <string name="display_unknown_name">未知名称</string>
     <string name="display_unknown_progress">未知进度</string>
     <string name="display_no_data">没有数据</string>
+    <string name="import_comic">导入</string>
 
     <!-- activity_face_detect.xml -->
     <string name="title_face_detect">人脸识别</string>

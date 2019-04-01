@@ -32,7 +32,6 @@ public class FileImageView extends AppCompatImageView {
      * @param path 图片路径
      */
     public void setImageFile(String path) {
-
         Glide.with(context).load(new File(path)).into(this);
     }
 

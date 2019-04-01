@@ -1,6 +1,7 @@
 package com.hugh.teatime.models.comic;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -10,12 +11,15 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.hugh.teatime.R;
 import com.hugh.teatime.models.home.BaseActivity;
 import com.hugh.teatime.adapter.common.CommonAdapter;
 import com.hugh.teatime.adapter.common.ViewHolder;
 import com.hugh.teatime.app.GlobalVar;
 import com.hugh.teatime.db.MyDBOperater;
+import com.hugh.teatime.utils.DimensUtil;
 import com.hugh.teatime.utils.LogUtil;
 import com.hugh.teatime.utils.ToastUtil;
 import com.hugh.teatime.view.FileImageView;
@@ -178,7 +182,26 @@ public class ComicDetail2Activity extends BaseActivity {
             @Override
             protected void convert(ViewHolder viewHolder, File item, int position) {
                 FileImageView fivComic = viewHolder.getView(R.id.fiv_comic);
-                fivComic.setImageFile(item.getPath());
+                SubsamplingScaleImageView ssiv = viewHolder.getView(R.id.ssiv_comic);
+
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeFile(item.getPath(), options);
+                int sWidth = DimensUtil.getInstance(ComicDetail2Activity.this).getScreenWidth();
+                int sHeight = DimensUtil.getInstance(ComicDetail2Activity.this).getScreenHeight();
+                int fWidth = options.outWidth;
+                int fHeight = options.outHeight;
+                fHeight = sWidth * fHeight / fWidth;
+                // 如果图片高度大于4倍屏幕高度，则视为长图，使用大图控件显示
+                if (fHeight > sHeight * 4) {
+                    fivComic.setVisibility(View.GONE);
+                    ssiv.setVisibility(View.VISIBLE);
+                    ssiv.setImage(ImageSource.uri(item.getPath()));
+                } else {
+                    fivComic.setVisibility(View.VISIBLE);
+                    ssiv.setVisibility(View.GONE);
+                    fivComic.setImageFile(item.getPath());
+                }
             }
         };
         lvComicList.setAdapter(mAdapter);

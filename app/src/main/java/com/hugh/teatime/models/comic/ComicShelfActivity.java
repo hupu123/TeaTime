@@ -32,6 +32,7 @@ import com.hugh.teatime.view.TitlebarView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ComicShelfActivity extends BaseActivity {
 
@@ -104,6 +105,7 @@ public class ComicShelfActivity extends BaseActivity {
      */
     private void initView() {
         TitlebarView tbv = findViewById(R.id.tbv);
+        tbv.setRightBtnText(getResources().getString(R.string.import_comic));
         lvComicList = findViewById(R.id.lv_comic_list);
         llEditeBar = findViewById(R.id.ll_edite_bar);
         Button btnCancel = findViewById(R.id.btn_cancel);
@@ -227,10 +229,12 @@ public class ComicShelfActivity extends BaseActivity {
                     }
                     break;
                 case R.id.btn_delete:
-                    for (Comic comic : comics) {
+                    Iterator<Comic> iterator = comics.iterator();
+                    while (iterator.hasNext()) {
+                        Comic comic = iterator.next();
                         if (comic.isChecked()) {
                             MyDBOperater.getInstance(ComicShelfActivity.this).deleteComicByID(comic.getComicId());
-                            comics.remove(comic);
+                            iterator.remove();
                         }
                     }
                     break;
