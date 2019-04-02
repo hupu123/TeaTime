@@ -1,6 +1,7 @@
 package com.hugh.teatime.models.comic;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -9,13 +10,18 @@ import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.hugh.teatime.R;
 import com.hugh.teatime.models.home.BaseActivity;
 import com.hugh.teatime.adapter.common.CommonAdapter;
 import com.hugh.teatime.adapter.common.ViewHolder;
 import com.hugh.teatime.app.GlobalVar;
 import com.hugh.teatime.db.MyDBOperater;
+import com.hugh.teatime.utils.DimensUtil;
 import com.hugh.teatime.utils.LogUtil;
 import com.hugh.teatime.utils.ToastUtil;
 import com.hugh.teatime.view.FileImageView;
@@ -30,18 +36,19 @@ import java.util.ArrayList;
 
 public class ComicDetailActivity extends BaseActivity {
 
+    private RelativeLayout rlComicBrowser;
     private SmartRefreshLayout srlComicContainer;
     private ListView lvComicList;
+    private TextView tvProgress;
     private ImageView ivNoData;
 
-    private ArrayList<Comic> comics = new ArrayList<>();// 漫画列表
-    private int comicPosition;// 当前正在浏览漫画在漫画列表中的位置
-    private Comic comic;// 当前正在浏览的漫画
-    private int pageNum;// 当前页码
-    private final int pageSize = 10;// 每页大小
-    private int progress;// 当前漫画阅读进度
-    private CommonAdapter<File> mAdapter;// 列表适配器
-    private ArrayList<File> pageData = new ArrayList<>();// 漫画文件数据集
+    private ComicsData comicsData;                          // 漫画集
+    private Comic comic;                                    // 当前正在浏览的漫画
+    private int progress;                                   // 当前漫画阅读进度
+    private CommonAdapter<File> mAdapter;                   // 列表适配器
+    private ArrayList<File> pageData = new ArrayList<>();   // 漫画文件数据集
+
+    private final long POST_DELAY_TIME = 500;               // 延迟跳转时间（用于跳转到指定阅读进度，不延迟跳转可能导致跳转失败）
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +65,10 @@ public class ComicDetailActivity extends BaseActivity {
      * 初始化控件
      */
     private void initView() {
+        rlComicBrowser = findViewById(R.id.rl_comic_browser);
         srlComicContainer = findViewById(R.id.srl_comic_container);
         lvComicList = findViewById(R.id.lv_comic_list);
+        tvProgress = findViewById(R.id.tv_progress);
         ivNoData = findViewById(R.id.iv_no_data);
 
         srlComicContainer.setEnableRefresh(true);
@@ -69,14 +78,14 @@ public class ComicDetailActivity extends BaseActivity {
         srlComicContainer.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                refresh(false);
+                refresh();
                 srlComicContainer.finishRefresh();
             }
         });
         srlComicContainer.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                loadMore(false);
+                loadMore();
                 srlComicContainer.finishLoadMore();
             }
         });
@@ -91,77 +100,12 @@ public class ComicDetailActivity extends BaseActivity {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                progress = pageNum * pageSize + firstVisibleItem + visibleItemCount;
+                progress = firstVisibleItem + visibleItemCount;
+                if (comic != null) {
+                    tvProgress.setText(String.format(getResources().getString(R.string.comic_progress), progress, comic.getPageTotal()));
+                }
             }
         });
-    }
-
-    /**
-     * 下拉刷新事件
-     *
-     * @param isOpenNewComic 是否打开新漫画，true=是，false=不是
-     */
-    private void refresh(boolean isOpenNewComic) {
-        ArrayList<File> dataTemp;
-        if (isOpenNewComic) {
-            dataTemp = getDataByPage(comic.getFileList(), pageNum, pageSize);
-        } else {
-            dataTemp = getDataByPage(comic.getFileList(), pageNum - 1, pageSize);
-        }
-        if (dataTemp == null || dataTemp.size() == 0) {
-            if (comicPosition == 0) {
-                ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_no_more_data, true);
-            } else {
-                ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_on_the_top, true);
-                comicPosition--;
-                comic = comics.get(comicPosition);
-                pageNum = (comic.getProgress() - comic.getProgress() % pageSize) / pageSize;
-                refresh(true);
-            }
-        } else {
-            if (!isOpenNewComic) {
-                pageNum--;
-            }
-            pageData.clear();
-            pageData.addAll(dataTemp);
-            mAdapter.notifyDataSetChanged();
-            lvComicList.setSelection(mAdapter.getCount() - 1);
-            LogUtil.logHugh("refresh pageNum=" + pageNum);
-        }
-    }
-
-    /**
-     * 上拉加载更多事件
-     *
-     * @param isOpenNewComic 是否打开新漫画，true=是，false=不是
-     */
-    private void loadMore(boolean isOpenNewComic) {
-        ArrayList<File> dataTemp;
-        if (isOpenNewComic) {
-            dataTemp = getDataByPage(comic.getFileList(), pageNum, pageSize);
-        } else {
-            dataTemp = getDataByPage(comic.getFileList(), pageNum + 1, pageSize);
-        }
-        if (dataTemp == null || dataTemp.size() == 0) {
-            if (comicPosition == comics.size() - 1) {
-                ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_no_more_data, true);
-            } else {
-                ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_on_the_bottom, true);
-                comicPosition++;
-                comic = comics.get(comicPosition);
-                pageNum = (comic.getProgress() - comic.getProgress() % pageSize) / pageSize;
-                loadMore(true);
-            }
-        } else {
-            if (!isOpenNewComic) {
-                pageNum++;
-            }
-            pageData.clear();
-            pageData.addAll(dataTemp);
-            mAdapter.notifyDataSetChanged();
-            lvComicList.setSelection(0);
-            LogUtil.logHugh("loadMore pageNum=" + pageNum);
-        }
     }
 
     /**
@@ -169,65 +113,112 @@ public class ComicDetailActivity extends BaseActivity {
      */
     private void initData() {
         Intent intent = getIntent();
-        comics = (ArrayList<Comic>) intent.getSerializableExtra(GlobalVar.INTENT_COMIC_DATA_LIST);
-        comicPosition = intent.getIntExtra(GlobalVar.INTENT_COMIC_POSITION, 0);
-        if (comics == null || comics.size() == 0 || comicPosition < 0) {
-            srlComicContainer.setVisibility(View.GONE);
+        comicsData = (ComicsData) intent.getSerializableExtra(GlobalVar.INTENT_COMICS_DATA);
+        if (comicsData == null || comicsData.getComics() == null || comicsData.getComics().size() == 0 || comicsData.getComicPosition() < 0) {
+            rlComicBrowser.setVisibility(View.GONE);
             ivNoData.setVisibility(View.VISIBLE);
             return;
         }
-        comic = comics.get(comicPosition);
+        comic = comicsData.getCurrentComic();
         if (comic == null || comic.getPageTotal() == 0 || comic.getFileList() == null) {
-            srlComicContainer.setVisibility(View.GONE);
+            rlComicBrowser.setVisibility(View.GONE);
             ivNoData.setVisibility(View.VISIBLE);
             return;
         }
-        srlComicContainer.setVisibility(View.VISIBLE);
+        rlComicBrowser.setVisibility(View.VISIBLE);
         ivNoData.setVisibility(View.GONE);
 
-        pageNum = (comic.getProgress() - comic.getProgress() % pageSize) / pageSize;
-        pageData = getDataByPage(comic.getFileList(), pageNum, pageSize);
+        tvProgress.setText(String.format(getResources().getString(R.string.comic_progress), comic.getProgress(), comic.getPageTotal()));
+        pageData = comic.getFileList();
         mAdapter = new CommonAdapter<File>(this, R.layout.item_comic_browse, pageData) {
             @Override
             protected void convert(ViewHolder viewHolder, File item, int position) {
                 FileImageView fivComic = viewHolder.getView(R.id.fiv_comic);
-                fivComic.setImageFile(item.getPath());
+                SubsamplingScaleImageView ssiv = viewHolder.getView(R.id.ssiv_comic);
+
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeFile(item.getPath(), options);
+                int sWidth = DimensUtil.getInstance(ComicDetailActivity.this).getScreenWidth();
+                int sHeight = DimensUtil.getInstance(ComicDetailActivity.this).getScreenHeight();
+                int fWidth = options.outWidth;
+                int fHeight = options.outHeight;
+                fHeight = sWidth * fHeight / fWidth;
+                // 如果图片高度大于4倍屏幕高度，则视为长图，使用大图控件显示
+                if (fHeight > sHeight * 4) {
+                    fivComic.setVisibility(View.GONE);
+                    ssiv.setVisibility(View.VISIBLE);
+                    ssiv.setImage(ImageSource.uri(item.getPath()));
+                } else {
+                    fivComic.setVisibility(View.VISIBLE);
+                    ssiv.setVisibility(View.GONE);
+                    fivComic.setImageFile(item.getPath());
+                }
             }
         };
         lvComicList.setAdapter(mAdapter);
+        lvComicList.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                lvComicList.setSelection(comic.getProgress());
+                LogUtil.logHugh("initData progress=" + comic.getProgress());
+            }
+        }, POST_DELAY_TIME);
     }
 
     /**
-     * 通过页码获取数据
-     *
-     * @param allData  所有数据
-     * @param pageNum  页数
-     * @param pageSize 每页条数
-     * @return 单页数据
+     * 下拉刷新事件
      */
-    private ArrayList<File> getDataByPage(ArrayList<File> allData, int pageNum, int pageSize) {
-        ArrayList<File> pageData = new ArrayList<>();
-        if (allData == null || allData.size() == 0 || pageNum < 0 || pageSize < 0) {
-            return pageData;
-        }
-        int total = allData.size();
-        int start;
-        int end;
-        if (pageNum * pageSize < 0) {
-            start = 0;
+    private void refresh() {
+        if (comicsData.getComicPosition() == 0) {
+            ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_no_more_data, true);
         } else {
-            start = pageNum * pageSize;
-        }
-        if ((pageNum + 1) * pageSize > total) {
-            end = total;
-        } else {
-            end = (pageNum + 1) * pageSize;
-        }
-        for (int i = 0; i < total; i++) {
-            if (i >= start && i < end) {
-                pageData.add(allData.get(i));
+            ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_on_the_top, true);
+            comicsData.setComicPosition(comicsData.getComicPosition() - 1);
+            comic = comicsData.getCurrentComic();
+            ArrayList<File> dataTemp = comic.getFileList();
+            if (dataTemp != null && dataTemp.size() > 0) {
+                pageData.clear();
+                pageData.addAll(dataTemp);
+                mAdapter.notifyDataSetChanged();
+                lvComicList.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        lvComicList.setSelection(comic.getProgress());
+                        LogUtil.logHugh("refresh progress=" + comic.getProgress());
+                    }
+                }, POST_DELAY_TIME);
+            } else {
+                ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_no_data, true);
             }
         }
-        return pageData;
+    }
+
+    /**
+     * 上拉加载更多事件
+     */
+    private void loadMore() {
+        if (comicsData.getComicPosition() == comicsData.getComics().size() - 1) {
+            ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_no_more_data, true);
+        } else {
+            ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_on_the_bottom, true);
+            comicsData.setComicPosition(comicsData.getComicPosition() + 1);
+            comic = comicsData.getCurrentComic();
+            ArrayList<File> dataTemp = comic.getFileList();
+            if (dataTemp != null && dataTemp.size() > 0) {
+                pageData.clear();
+                pageData.addAll(dataTemp);
+                mAdapter.notifyDataSetChanged();
+                lvComicList.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        lvComicList.setSelection(comic.getProgress());
+                        LogUtil.logHugh("loadMore progress=" + comic.getProgress());
+                    }
+                }, POST_DELAY_TIME);
+            } else {
+                ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_no_data, true);
+            }
+        }
     }
 }

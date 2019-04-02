@@ -127,6 +127,9 @@
     <string name="display_unknown_progress">未知进度</string>
     <string name="display_no_data">没有数据</string>
     <string name="import_comic">导入</string>
+    <string name="comic_progress">%1$d/%2$d</string>
+    <string name="comic_time_24h_style">HH:mm</string>
+    <string name="comic_time_12h_style">hh:mm</string>
 
     <!-- activity_face_detect.xml -->
     <string name="title_face_detect">人脸识别</string>
