@@ -17,6 +17,7 @@ import com.hugh.teatime.models.image.Image;
 import com.hugh.teatime.models.robot.Message;
 import com.hugh.teatime.models.robot.News;
 import com.hugh.teatime.models.target.DailyTargetBean;
+import com.hugh.teatime.models.target.OverviewBean;
 import com.hugh.teatime.models.target.TargetBean;
 import com.hugh.teatime.utils.LogUtil;
 import com.hugh.teatime.utils.StringUtil;
@@ -1406,6 +1407,38 @@ public class MyDBOperater {
         }
         cursor.close();
         return targetBeans;
+    }
+
+    public OverviewBean getOverviewInfoByDailyId(int dailyId) {
+        OverviewBean overviewBean = new OverviewBean();
+        if (!db.isOpen()) {
+            return overviewBean;
+        }
+        Cursor cursor = db.rawQuery("SELECT sum(targetnum),sum(donenum),max(donenum),min(donenum),avg(donenum),count(*) FROM targets WHERE _dailytargetid=?", new String[]{String.valueOf(dailyId)});
+        if (cursor.moveToFirst()) {
+            int targetTotal = cursor.getInt(0);
+            int doneTotal = cursor.getInt(1);
+            int oweTotal = targetTotal - doneTotal;
+            int max = cursor.getInt(2);
+            int min = cursor.getInt(3);
+            int avg = cursor.getInt(4);
+            int days = cursor.getInt(5);
+            overviewBean.setTargetTotal(targetTotal);
+            overviewBean.setDoneTotal(doneTotal);
+            overviewBean.setOweTotal(oweTotal);
+            overviewBean.setMaxNum(max);
+            overviewBean.setMinNum(min);
+            overviewBean.setAvgNum(avg);
+            overviewBean.setDaysTotal(days);
+        }
+        cursor.close();
+        Cursor cursor1 = db.rawQuery("SELECT count(*) FROM targets WHERE _dailytargetid=? AND donenum>=targetnum", new String[]{String.valueOf(dailyId)});
+        if (cursor1.moveToFirst()){
+            int daysPass = cursor1.getInt(0);
+            overviewBean.setDaysPass(daysPass);
+        }
+        cursor1.close();
+        return overviewBean;
     }
     // ------------------------------------------------------ targets table ---------------------------------------------------
 }

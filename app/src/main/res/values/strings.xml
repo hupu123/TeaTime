@@ -336,6 +336,13 @@
 
     <!-- activity_target_overview.xml -->
     <string name="title_target_overview">目标完成报告</string>
+    <string name="target_total">目标总数：%1$d</string>
+    <string name="done_total">完成总数：%1$d</string>
+    <string name="owe_total">未完成总数：%1$d</string>
+    <string name="avg_num">平均完成：%1$d</string>
+    <string name="max_num">最大完成：%1$d</string>
+    <string name="min_num">最小完成：%1$d</string>
+    <string name="overview_remark">共统计%1$d条数据，其中达标%2$d条，未达标%3$d条，达标率%4$s</string>
 
     <!-- *********************************** Fragment ************************************** -->
 
