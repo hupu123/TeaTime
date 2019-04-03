@@ -42,7 +42,8 @@ public class ComicDetailActivity extends BaseActivity {
     private TextView tvProgress;
     private ImageView ivNoData;
 
-    private ComicsData comicsData;                          // 漫画集
+    private ArrayList<Comic> comics;                        // 漫画集
+    private int comicPosition;                              // 当前漫画位置
     private Comic comic;                                    // 当前正在浏览的漫画
     private int progress;                                   // 当前漫画阅读进度
     private CommonAdapter<File> mAdapter;                   // 列表适配器
@@ -113,13 +114,14 @@ public class ComicDetailActivity extends BaseActivity {
      */
     private void initData() {
         Intent intent = getIntent();
-        comicsData = (ComicsData) intent.getSerializableExtra(GlobalVar.INTENT_COMICS_DATA);
-        if (comicsData == null || comicsData.getComics() == null || comicsData.getComics().size() == 0 || comicsData.getComicPosition() < 0) {
+        comics = MyDBOperater.getInstance(this).getComics();
+        comicPosition = (int) intent.getSerializableExtra(GlobalVar.INTENT_COMIC_POSITION);
+        if (comics == null || comics.size() == 0 || comicPosition < 0) {
             rlComicBrowser.setVisibility(View.GONE);
             ivNoData.setVisibility(View.VISIBLE);
             return;
         }
-        comic = comicsData.getCurrentComic();
+        comic = comics.get(comicPosition);
         if (comic == null || comic.getPageTotal() == 0 || comic.getFileList() == null) {
             rlComicBrowser.setVisibility(View.GONE);
             ivNoData.setVisibility(View.VISIBLE);
@@ -170,12 +172,12 @@ public class ComicDetailActivity extends BaseActivity {
      * 下拉刷新事件
      */
     private void refresh() {
-        if (comicsData.getComicPosition() == 0) {
+        if (comicPosition == 0) {
             ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_no_more_data, true);
         } else {
             ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_on_the_top, true);
-            comicsData.setComicPosition(comicsData.getComicPosition() - 1);
-            comic = comicsData.getCurrentComic();
+            comicPosition--;
+            comic = comics.get(comicPosition);
             ArrayList<File> dataTemp = comic.getFileList();
             if (dataTemp != null && dataTemp.size() > 0) {
                 pageData.clear();
@@ -198,12 +200,12 @@ public class ComicDetailActivity extends BaseActivity {
      * 上拉加载更多事件
      */
     private void loadMore() {
-        if (comicsData.getComicPosition() == comicsData.getComics().size() - 1) {
+        if (comicPosition == comics.size() - 1) {
             ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_no_more_data, true);
         } else {
             ToastUtil.showInfo(ComicDetailActivity.this, R.string.toast_comic_on_the_bottom, true);
-            comicsData.setComicPosition(comicsData.getComicPosition() + 1);
-            comic = comicsData.getCurrentComic();
+            comicPosition++;
+            comic = comics.get(comicPosition);
             ArrayList<File> dataTemp = comic.getFileList();
             if (dataTemp != null && dataTemp.size() > 0) {
                 pageData.clear();

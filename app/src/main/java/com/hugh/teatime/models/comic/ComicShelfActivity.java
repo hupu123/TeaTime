@@ -196,8 +196,7 @@ public class ComicShelfActivity extends BaseActivity {
                     SPUtil.getInstance(ComicShelfActivity.this).setComicPosition(position);
                     // 跳转漫画阅读页
                     Intent intent = new Intent(ComicShelfActivity.this, ComicDetailActivity.class);
-                    ComicsData comicsData = new ComicsData(position, comics);
-                    intent.putExtra(GlobalVar.INTENT_COMICS_DATA, comicsData);
+                    intent.putExtra(GlobalVar.INTENT_COMIC_POSITION, position);
                     startActivity(intent);
                 }
             }

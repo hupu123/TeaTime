@@ -11,7 +11,7 @@ public class GlobalVar {
      * intent传递数据相关常亮
      */
     // 漫画数据
-    public static final String INTENT_COMICS_DATA = "intent_comics_data";
+    public static final String INTENT_COMIC_POSITION = "intent_comic_position";
     // 加油记录数据
     public static final String INTENT_GASOLINE_RECORD = "intent_gasoline_record";
     // 加油记录数据修改
